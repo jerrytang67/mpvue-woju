@@ -26,7 +26,7 @@
     <view class="contentBody" >
       <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent"/>
       <div style="display:flex;flex-direction:row;justify-content:space-between;padding:20rpx 40rpx;">
-        <van-button plain type="danger" @click="s83">团长招募</van-button>
+        <van-button plain type="danger">团长招募</van-button>
         <van-button plain type="danger">成为供应商</van-button>
           <!-- <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_49_530.png"  mode="aspectFit" />
           <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_53_086.png" mode="aspectFit" /> -->
@@ -60,16 +60,14 @@ export default {
   onReady() {
     var that = this;
     var query = that.$root.$mp.query;
-    console.log(that.$root.$mp.query);
-
+    console.log("the query is :");
+    console.log(query);
     if (query.pid) {
-      console.log(query.pid);
       that.$api.getPartner({ pid: query.pid }).then(res => {
-        that.SET_SELECT_PARTNER(res);
+        that.SET_SELECT_PARTNER(res); //store set the current partner
       });
       that.$api.loadPartnerItems(query.pid).then(res => {
-        console.log(res);
-        that.SET_BUYITEMLIST(res);
+        that.SET_BUYITEMLIST(res); //store set current buyitem list
       });
     }
   },
@@ -129,10 +127,6 @@ export default {
       "SET_SELECT_PARTNER"
     ]),
     ...mapActions(["add_to_cart"]),
-    s83() {
-      console.log("go83");
-      wx.navigateTo({ url: "/pages/index/main?pid=83" });
-    },
     add(item) {
       item.Count += 1;
       this.add_to_cart(item);
