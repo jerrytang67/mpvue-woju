@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "附近其他团长",
+  "usingComponents": {
+    "van-button": "/static/dist/button/index",
+    "van-toast": "/static/dist/toast/index",
+    "van-row": "/static/dist/row/index",
+    "van-col": "/static/dist/col/index",
+    "van-card": "/static/dist/card/index",
+    "van-tag": "/static/dist/tag/index"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "usingComponents": {
+    "van-button": "/static/dist/button/index",
+    "van-toast": "/static/dist/toast/index",
+    "van-row": "/static/dist/row/index",
+    "van-col": "/static/dist/col/index",
+    "van-card": "/static/dist/card/index",
+    "van-tag": "/static/dist/tag/index",
+    "van-goods-action": "/static/dist/goods-action/index",
+    "van-goods-action-icon": "/static/dist/goods-action-icon/index",
+    "van-goods-action-button": "/static/dist/goods-action-button/index",
+    "wxparser": "plugin://wxparserPlugin/wxparser"
+
+  }
+}
