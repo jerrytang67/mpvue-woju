@@ -16,14 +16,14 @@
             :thumb="p.headimgurl"
             @click="select(p)"
             tag="团长">
-        <view slot="tags">取货地址{{p.LocationAddress}}</view>
-        <view slot="footer">
-          <van-tag type="primary">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>
-        </view>
-              </van-card>
+              <view slot="tags">取货地址{{p.LocationAddress}}</view>
+              <view slot="footer">
+                <van-tag type="primary">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>
+              </view>
+        </van-card>
       </div>
     </view>
-      <van-toast id="van-toast" />
+    <van-toast id="van-toast" />
   </div>
   
 </template>
@@ -103,7 +103,7 @@ export default {
     select(p) {
       var that = this;
       this.select_partner(p).then(() => {
-        Toast.success("选择成功");
+        // Toast.success("选择成功");
         that.$api.loadPartnerItems(p.Id).then(res => {
           that.SET_BUYITEMLIST(res);
         });

@@ -194,13 +194,16 @@ export default {
       return new Promise((resolve, reject) => {
         wx.login({
           success: logRes => {
-            if (!that.openid)
-              that.$api.code2session(logRes.code).then(res => {
-                if (res.openid) {
-                  this.SET_OPENID(res.openid);
-                }
-              });
-            else console.log("STORE:openid is " + that.openid);
+            // if (!that.openid)
+            that.$api.code2session(logRes.code).then(res => {
+              if (res.openid) {
+                this.SET_OPENID(res.openid);
+              }
+              if (res.token) {
+                wx.setStorageSync("token", res.token);
+              }
+            });
+            // else console.log("STORE:openid is " + that.openid);
             wx.getUserInfo({
               success: res => {
                 // this.userInfo = res.userInfo;

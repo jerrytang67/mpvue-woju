@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "莴聚",
   "usingComponents": {
     "van-button": "/static/dist/button/index",
     "van-submit-bar": "/static/dist/submit-bar/index",
