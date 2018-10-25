@@ -1,54 +1,117 @@
 <template>
   <div class="container">
-      <image :src="userInfo.userInfo.avatarUrl" style="width:30vw;height:30vw;border-radius:50%;margin-bottom:5rpx;" />
+    <image :src="userInfo.userInfo.avatarUrl" style="width:30vw;height:30vw;border-radius:50%;margin-bottom:5rpx;" />
     <view class="contentBody">
-      <div  style="padding:20rpx 25rpx;">
-      <van-panel :title="userInfo.userInfo.nickName" :desc="position.address">
-        <view>
-          <van-row>
-            <van-col :span="6">
-              <van-icon name="clock" color="#09BB07" size="40px" />
-            </van-col>
-            <van-col :span="6">
-              <van-icon name="gold-coin"  color="#09BB07" size="40px"/>
-            </van-col>
-            <van-col :span="6">
-              <van-icon name="upgrade"  color="#09BB07" size="40px"/>
-            </van-col>
-            <van-col :span="6">
-              <van-icon name="success"  color="#09BB07" size="40px"/>
-
-            </van-col>
-          </van-row>
-        </view>
-      </van-panel>
-      123
-      <van-cell-group>
-        <van-cell icon="location" is-link arrow-direction="down" value="打开地图" url="/pages/map/main"></van-cell>
-
-      </van-cell-group>
+      <div style="padding:20rpx 5vw;">
+        <demo-block title="我的信息">
+          <van-panel>
+            <view slot="header" style="padding:1rem 2rem;">
+                <view>{{userInfo.userInfo.nickName}}</view>
+                <view style="font-size:.7rem;">{{position.address}}</view>
+            </view>
+            <view>
+              <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
+                <van-tabbar-item icon="gold-coin" info="2">待付款</van-tabbar-item>
+                <van-tabbar-item icon="chat" >已付款</van-tabbar-item>
+                <van-tabbar-item icon="records" info="5">可取货</van-tabbar-item>
+                <van-tabbar-item icon="shop" dot>已完成</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
+          <!-- <van-cell-group>
+            <van-cell icon="location" is-link arrow-direction="down" value="打开地图" url="/pages/map/main"></van-cell>
+          </van-cell-group> -->
+        <!-- <demo-block title="展示图标">
+          <van-panel title="标题" use-footer-slot>
+            <view slot="footer">
+              <van-button size="small" @click="upFile">上传图片测试</van-button>
+              <image :src="'http://img.wjhaomama.com/'+imgSrc" mode="aspectFill"  v-if="imgSrc" />
+            </view>
+          </van-panel>
+        </demo-block> -->
+        <demo-block title="其它设置">
+          <van-switch-cell
+            title="接收通知"
+            :checked="noticeChk"
+            @change="toggleSetting('notice')"
+          />
+        </demo-block>
+        <demo-block title="我的店铺管理">
+          <van-panel  v-for="shop in myShop" :key="shop" use-footer-slot >
+            <view slot="header" style="display:flex; align-items:center;padding:20rpx; flex-direction:row;" >
+              <image :src="shop.LogoImageUrl+'!w100h100'" style="width:80rpx;height:80rpx;border-radius:8rpx;" />
+              <span style="margin-left:1rem;">
+                {{shop.ShopName}}
+              </span>
+            </view>
+            <view slot="footer">
+              <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
+                <van-tabbar-item icon="gold-coin" info="2">商品列表</van-tabbar-item>
+                <van-tabbar-item icon="chat" dot >查看订单</van-tabbar-item>
+                <van-tabbar-item icon="shop" info="4">团长申请</van-tabbar-item>
+                <van-tabbar-item icon="shop" dot>评价管理</van-tabbar-item>
+                <van-tabbar-item icon="shop" dot>评价管理</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
       </div>
     </view>
       <van-toast id="van-toast" />
   </div>
-  
 </template>
-
 <script>
 // Use Vuex
 import { mapState, mapMutations, mapActions } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
+
+import upload from "@/utils/upload";
+
 export default {
+  data: {
+    imgSrc: "",
+    noticeChk: true,
+    active: 0
+  },
   onReady() {},
-  mounted() {},
+  mounted() {
+    this.$api.getMyShop().then(res => {
+      this.SET_MY_SHOP(res);
+    });
+  },
   computed: {
-    ...mapState(["userInfo", "position"])
+    ...mapState(["userInfo", "position", "myShop"])
   },
   methods: {
-    ...mapMutations([])
+    ...mapMutations(["SET_MY_SHOP"]),
+    onChange(event) {
+      console.log(event.detail);
+    },
+    upFile() {
+      var that = this;
+      upload
+        .upload()
+        .then(res => {
+          console.log(res);
+          // that.setData({
+          //   imgSrc: res
+          // });
+          that.imgSrc = res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    toggleSetting(name) {
+      this.noticeChk = !this.noticeChk;
+    }
   }
 };
 </script>
 
 <style scoped>
+.van-tabbar-item--active {
+  color: #09bb07 !important;
+}
 </style>

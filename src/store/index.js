@@ -18,11 +18,14 @@ export default new Vuex.Store({
     cartItems: [],
     total: 0,
     totalPrice: 0,
-    totalVipPrice: 0
+    totalVipPrice: 0,
+
+    //店主用
+    myShop: [],
   },
   mutations: {
-    TEST: (state, v) => {
-      state.test = v
+    SET_MY_SHOP: (state, v) => {
+      state.myShop = v
     },
     USER_INFO: (state, v) => {
       console.log("SET USERINFO TO", v)
@@ -52,8 +55,8 @@ export default new Vuex.Store({
     },
     SET_OPENID: (state, v) => {
       console.log("SET_OPENID To", v)
-      state.openid = v;
       wx.setStorageSync("openid", v);
+      state.openid = v;
     },
     SET_POSITION: (state, v) => {
       console.log("SET_POSITION To", v)

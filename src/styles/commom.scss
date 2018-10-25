@@ -1,0 +1,55 @@
+/* this rule will be remove */
+
+* {
+  transition: width 2s;
+  -moz-transition: width 2s;
+  -webkit-transition: width 2s;
+  -o-transition: width 2s;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: #09bb07;
+  margin-bottom:100rpx;
+}
+
+.contentBody {
+  background: #fafafa;
+  border-radius: 15px 15px 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+view.center {
+  display: flex;
+  justify-content: center;
+}
+
+.headBar {
+  height: 150rpx;
+  width: 100%;
+  color: #fff;
+
+  p {
+    padding-bottom: 10rpx;
+  }
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.p-lg-5 {
+  margin: auto;
+}

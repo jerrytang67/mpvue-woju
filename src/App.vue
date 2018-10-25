@@ -11,53 +11,8 @@ export default {
 };
 </script>
 
-<style>
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  background: #09bb07;
-}
-/* this rule will be remove */
-* {
-  transition: width 2s;
-  -moz-transition: width 2s;
-  -webkit-transition: width 2s;
-  -o-transition: width 2s;
-}
-view.center {
-  display: flex;
-  justify-content: center;
-}
+<style lang="scss">
+// @import "styles/custom.scss";
+@import "styles/commom.scss";
 
-.h_center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.headBar {
-  height: 150rpx;
-  width: 100%;
-  color: #fff;
-}
-.headBar p {
-  padding-bottom: 10rpx;
-}
-
-.contentBody {
-  background: #fafafa;
-  border-radius: 15px 15px 0 0;
-  width: 100%;
-}
-.pull-left {
-  float: left;
-}
-.pull-right {
-  float: right;
-}
 </style>

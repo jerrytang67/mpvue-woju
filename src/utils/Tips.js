@@ -25,6 +25,15 @@ export default class Tips {
       wx.hideLoading();
     }
   }
+
+  //出错
+  static error(msg, duration = 2000) {
+    wx.showToast({
+      title: `${msg}`,
+      image: `/static/images/error-msg.png`,
+      duration: duration
+    })
+  }
 }
 
 /**

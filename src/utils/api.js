@@ -1,7 +1,7 @@
 import utils from './utils' // 此处，引入存放对promise处理的文件
 import Tip from './Tips'
-//const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
-const ip = 'https://www.lovewujiang.com/api' // 后台的ip地址
+const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
+//const ip = 'https://www.lovewujiang.com/api' // 后台的ip地址
 
 const getRequest = utils.httpsPromisify(wx.request)
 
@@ -29,32 +29,34 @@ const FIND_DISTANCE = 3000; //团长范围
 
 export default {
 
-  code2session: code => request('get', `/V1/code2session?appid=${APPID}&code=${code}&storeId=${STOREID}`, {}),
+  code2session: code => request('get', `/WoJu/code2session?appid=${APPID}&code=${code}&storeId=${STOREID}`, {}),
 
   getItemDetail: ({
     id
-  }) => request('get', `/V1/GetBuyItem?id=${id}`),
+  }) => request('get', `/WoJu/GetBuyItem?id=${id}`),
 
   getPartner: ({
     pid
-  }) => request('get', `/partner/getPartner?pid=${pid}`),
+  }) => request('get', `/WoJu/getPartner?pid=${pid}`),
 
 
   loadPartnerList: ({
     Lat,
     Lng
-  }) => request('get', `/partner/get?myLat=${Lat}&myLng=${Lng}&dis=${FIND_DISTANCE}`),
+  }) => request('get', `/WoJu/get?myLat=${Lat}&myLng=${Lng}&dis=${FIND_DISTANCE}`),
 
-  loadPartnerItems: pid => request('get', '/partner/getBuyItems?pid=' + pid, {}),
+  loadPartnerItems: pid => request('get', `/WoJu/getBuyItems?pid=${pid}`),
 
-  getPay: itemId => request('get', `/V1/getpay?partner_Id=${wx.getStorageSync("SET_SELECT_PARTNER").Id}&itemid=${itemId }&openid=${wx.getStorageSync("openid")} `),
+  getPay: itemId => request('get', `/WoJu/getpay?partner_Id=${wx.getStorageSync("SET_SELECT_PARTNER").Id}&itemid=${itemId }&openid=${wx.getStorageSync("openid")} `),
 
   placeSuggestion: ({
     query,
     region
-  }) => request('get', `/v1/PlaceSuggestion?ak=${MAPKEY}&query=${query}&region=${region}&type=gcj02`),
+  }) => request('get', `/WoJu/PlaceSuggestion?ak=${MAPKEY}&query=${query}&region=${region}&type=gcj02`),
 
-  getPois: params => request('get', `/v1/GetPios?ak=${MAPKEY}&lat=${params.lat}&lng${params.lng}&type=${params.type}`),
+  getPois: params => request('get', `/WoJu/GetPios?ak=${MAPKEY}&lat=${params.lat}&lng=${params.lng}&type=${params.type}`),
+
+  getMyShop: ()=> request('get',`/WoJu/GetMyShop`),
 
   GetDistance: (lat1, lng1, lat2, lng2) => {
     var radLat1 = Rad(lat1);

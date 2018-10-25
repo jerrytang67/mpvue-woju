@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import api from './utils/api'
+
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store

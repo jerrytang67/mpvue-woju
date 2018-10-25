@@ -9,7 +9,11 @@
     "van-tag": "/static/dist/tag/index",
     "van-cell": "/static/dist/cell/index",
     "van-icon": "/static/dist/icon/index",
-    "van-panel": "/static/dist/panel/index"
+    "van-panel": "/static/dist/panel/index",
+    "van-switch-cell": "/static/dist/switch-cell/index",
+    "van-tabbar": "/static/dist/tabbar/index",
+    "van-tabbar-item": "/static/dist/tabbar-item/index",
+    "demo-block": "/static/demo-block/index"
 
   }
 }

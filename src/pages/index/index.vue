@@ -8,7 +8,7 @@
         </van-col>
         <van-col :span="14">
           <p style="font-size:.7rem;"><text>团长:{{my_partner.nickname}}</text></p>
-          <p style="font-weight:bold;"><text>{{my_partner.LocationLabel}}</text></p>
+          <p style="font-weight:500;"><text>{{my_partner.LocationLabel}}</text></p>
           <p style="font-size:.7rem;"><text>{{my_partner.LocationAddress}}</text></p>
         </van-col>
         <van-col :span="4">
@@ -25,18 +25,19 @@
     </view>
     <view class="contentBody" >
       <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent"/>
-      <div style="display:flex;flex-direction:row;justify-content:space-between;padding:20rpx 40rpx;">
+      <view class="p-lg-5" style="padding:40rpx;">
         <van-button plain type="danger">团长招募</van-button>
         <van-button plain type="danger">成为供应商</van-button>
           <!-- <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_49_530.png"  mode="aspectFit" />
           <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_53_086.png" mode="aspectFit" /> -->
-        </div>
+        </view>
       <div class="card-list">
-        <van-card v-for="x in buyItems" :key="x" :tag="x.BuyItem.Type" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'"  @click="goItem(x)">
+        <van-card v-for="x in buyItems" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'"  @click="goItem(x)">
           <!-- <view slot="footer">
              <van-stepper :value="x.Count" @plus="add(x)"  @minus="remove(x)"/> 
           </view>  -->
           <view slot="tags" class="price"  >
+            <van-tag type="danger">自营</van-tag>
             <text class="vip">￥{{x.BuyItem.VipPrice}}</text><text class="old">￥{{x.BuyItem.Price}}</text>
           </view>
         </van-card>
@@ -88,18 +89,12 @@ export default {
     if (that.my_partner)
       return {
         title: that.my_partner.nickname + " 的小铺",
-        path: "/pages/index/main?pid=" + that.my_partner.Id,
-        success: res => {
-          Toast.success("分享成功");
-        }
+        path: "/pages/index/main?pid=" + that.my_partner.Id
       };
     else
       return {
         title: "莴聚",
-        path: "/pages/index/main",
-        success: res => {
-          Toast.success("分享成功");
-        }
+        path: "/pages/index/main"
       };
   },
   data() {
@@ -235,7 +230,10 @@ export default {
   margin: 15rpx 20rpx;
 }
 .card-list .price {
-  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15rpx;
 }
 .card-list .price .vip {
   color: #f00;

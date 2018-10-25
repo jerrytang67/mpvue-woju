@@ -8,9 +8,15 @@ function httpsPromisify(fn) {
     return new Promise((resolve, reject) => {
       obj.success = function (res) {
         Tips.loaded();
-        resolve(res.data)
+        if (res.data.success) {
+          resolve(res.data.data)
+        } else {
+          Tips.error(res.data.msg);
+          reject(res.data.msg);
+        }
       }
       obj.fail = function (res) {
+        console.log(res)
         Tips.loaded();
         reject(res)
       }
