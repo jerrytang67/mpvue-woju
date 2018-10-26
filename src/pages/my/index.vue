@@ -69,6 +69,9 @@ import Toast from "../../../static/dist/toast/toast";
 import upload from "@/utils/upload";
 
 export default {
+  onLoad() {
+    wx.setNavigationBarTitle({ title: "我的" });
+  },
   data: {
     imgSrc: "",
     noticeChk: true,

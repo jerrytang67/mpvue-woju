@@ -23,7 +23,6 @@
     </div>
       <van-toast id="van-toast" />
   </div>
-  
 </template>
 
 <script>
@@ -31,6 +30,9 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
 export default {
+  onLoad() {
+    wx.setNavigationBarTitle({ title: "购物车" });
+  },
   onReady() {},
   mounted() {},
   computed: {

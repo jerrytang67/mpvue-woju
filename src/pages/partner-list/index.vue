@@ -37,6 +37,8 @@ import { setTimeout } from "timers";
 
 export default {
   onLoad(options) {
+    wx.setNavigationBarTitle({ title: "附近其他团长" });
+
     console.log(options);
   },
   onReady() {},
@@ -108,7 +110,7 @@ export default {
           that.SET_BUYITEMLIST(res);
         });
         setTimeout(() => {
-           wx.switchTab({ url: "/pages/index/main" });
+          wx.switchTab({ url: "/pages/index/main" });
         }, 1000);
       });
       // wx.navigateTo({ url: "/pages/index/main" });

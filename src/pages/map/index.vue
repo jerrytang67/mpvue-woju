@@ -41,6 +41,9 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
 export default {
+  onLoad(){
+    wx.setNavigationBarTitle({ title: "选择位置" });
+  },
   onReady() {},
   mounted() {
     var that = this;

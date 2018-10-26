@@ -80,7 +80,9 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "../../utils/index";
 import Toast from "../../../static/dist/toast/toast";
 export default {
-  onLoad(options) {},
+  onLoad(options) {
+    wx.setNavigationBarTitle({ title: "商品详情" });
+  },
   onReady() {},
   mounted() {
     var that = this;
