@@ -1,21 +1,14 @@
 <template>
-  <div>
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
+  <div class="container">
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "@/utils/index";
-// import card from '@/components/card'
+import Toast from "../../../static/dist/toast/toast";
 
 export default {
-  // components: {
-  //   card
-  // },
   onLoad() {
     wx.setNavigationBarTitle({ title: "查看启动日志" });
   },

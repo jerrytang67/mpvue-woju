@@ -28,7 +28,10 @@ module.exports = [{
   path: 'pages/item/itemDetail',
   config: {
     navigationBarTitleText: '',
-    enablePullDownRefresh: true
+    enablePullDownRefresh: true,
+    usingComponents: {
+      "wxparser": "plugin://wxparserPlugin/wxparser"
+    }
   },
 }, {
   path: 'pages/index/address',
@@ -36,6 +39,14 @@ module.exports = [{
     navigationBarTitleText: '',
     usingComponents: {
       "van-search": "/static/dist/search/index",
+    }
+  },
+}, {
+  path: 'pages/item/addItem',
+  config: {
+    navigationBarTitleText: '新建商品',
+    usingComponents: {
+      "van-field": "/static/dist/field/index"
     }
   },
 }, {

@@ -11,8 +11,8 @@
             </view>
             <view>
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="gold-coin" info="2">待付款</van-tabbar-item>
-                <van-tabbar-item icon="chat" >已付款</van-tabbar-item>
+                <van-tabbar-item icon="gold-coin" :info="waitForPayCount?waitForPayCount:''">待付款</van-tabbar-item>
+                <van-tabbar-item icon="chat" :info="paidOrderCount? paidOrderCount:''">已付款</van-tabbar-item>
                 <van-tabbar-item icon="records" info="5">可取货</van-tabbar-item>
                 <van-tabbar-item icon="shop" dot>已完成</van-tabbar-item>
               </van-tabbar>
@@ -38,7 +38,7 @@
           />
         </demo-block>
         <demo-block title="我的店铺管理">
-          <van-panel  v-for="shop in myShop" :key="shop" use-footer-slot >
+          <van-panel  v-for="shop in myShops" :key="shop" use-footer-slot >
             <view slot="header" style="display:flex; align-items:center;padding:20rpx; flex-direction:row;" >
               <image :src="shop.LogoImageUrl+'!w100h100'" style="width:80rpx;height:80rpx;border-radius:8rpx;" />
               <span style="margin-left:1rem;">
@@ -51,7 +51,7 @@
                 <van-tabbar-item icon="chat" dot >查看订单</van-tabbar-item>
                 <van-tabbar-item icon="shop" info="4">团长申请</van-tabbar-item>
                 <van-tabbar-item icon="shop" dot>评价管理</van-tabbar-item>
-                <van-tabbar-item icon="shop" dot>评价管理</van-tabbar-item>
+                <van-tabbar-item icon="shop" dot @click="goAddItem(shop.Id)">新建商品</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -63,7 +63,7 @@
 </template>
 <script>
 // Use Vuex
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
 
 import upload from "@/utils/upload";
@@ -79,17 +79,30 @@ export default {
   },
   onReady() {},
   mounted() {
-    this.$api.getMyShop().then(res => {
-      this.SET_MY_SHOP(res);
+    this.get_setting();
+  },
+  //下拉
+  onPullDownRefresh: function() {
+    console.log("onPullDownRefresh");
+    this.get_setting().then(() => {
+      setTimeout(() => {
+        wx.stopPullDownRefresh();
+      }, 500);
     });
   },
   computed: {
-    ...mapState(["userInfo", "position", "myShop"])
+    ...mapState(["userInfo", "position", "myShops", "myOrders"]),
+    ...mapGetters(["waitForPayCount", "paidOrderCount"])
   },
   methods: {
-    ...mapMutations(["SET_MY_SHOP"]),
+    ...mapMutations([]),
+    ...mapActions(["get_setting"]),
     onChange(event) {
       console.log(event.detail);
+    },
+    tabbar_change() {},
+    goAddItem(shopId) {
+      wx.navigateTo({ url: `/pages/item/addItem?shopId=${shopId}` });
     },
     upFile() {
       var that = this;
@@ -97,9 +110,6 @@ export default {
         .upload()
         .then(res => {
           console.log(res);
-          // that.setData({
-          //   imgSrc: res
-          // });
           that.imgSrc = res;
         })
         .catch(err => {

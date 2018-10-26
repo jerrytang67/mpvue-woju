@@ -1,7 +1,7 @@
 {
   "pages": [],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#09BB07",
     "navigationBarTitleText": "莴聚",
     "navigationBarTextStyle": "white"
@@ -35,16 +35,20 @@
     }
   },
   "usingComponents": {
+
     "van-button": "/static/dist/button/index",
     "van-toast": "/static/dist/toast/index",
+    "van-tag": "/static/dist/tag/index",
+    "van-icon": "/static/dist/icon/index",
+
     "van-row": "/static/dist/row/index",
     "van-col": "/static/dist/col/index",
-    "van-card": "/static/dist/card/index",
-    "van-tag": "/static/dist/tag/index",
     "van-cell": "/static/dist/cell/index",
-    "van-icon": "/static/dist/icon/index",
-    "van-panel": "/static/dist/panel/index",
     "van-switch-cell": "/static/dist/switch-cell/index",
+    "van-panel": "/static/dist/panel/index",
+
+    "van-card": "/static/dist/card/index",
+
     "van-tabbar": "/static/dist/tabbar/index",
     "van-tabbar-item": "/static/dist/tabbar-item/index",
     "van-goods-action": "/static/dist/goods-action/index",

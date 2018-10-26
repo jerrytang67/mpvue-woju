@@ -40,20 +40,22 @@
     </view>
     <!-- endblock -->
     <view class="block">
-      <view class="block_title">拼单说明</view>
+      <view class="block_title">跟团说明</view>
       <view class="block_content">
         <view class="doc">
-          此商品在拼单期间可接收订单，如若超过拼单时间则不能下单；拼单结束后未付款订单系统将会自动取消，所以，亲下单以后请尽快付款。我们会以实际订单为准为您发货，如超过订单时间而又没有拼购到规定数量的，我们将会第一时间为您退款，请您放心购买!
+          此商品在拼团期间可接收订单，如若超过拼团时间则不能下单；未付款订单系统一小时内将自动取消，所以，亲下单以后请尽快付款。
+          我们会以实际订单为准为您发货。请您放心购买!
+          <!-- ，如超过订单时间而又没有拼购到规定数量的，我们将会第一时间为您退款，请您放心购买! -->
         </view>
       </view>
     </view>
     <!-- endblock -->
-    <view class="spacing"></view>
+    <!-- <view class="spacing"></view>
     <view class="block">
       <view class="block_title">商品信息</view>
       <view class="block_content">
       </view>
-    </view>
+    </view> -->
     <!-- endblock -->
     <view class="spacing"></view>
     <view class="block">
@@ -66,6 +68,7 @@
     </view>
 
     <van-goods-action>
+      <van-goods-action-icon icon="home" text="返回" @click="back"/>
       <van-goods-action-icon icon="chat" text="客服"/>
       <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  />
       <van-goods-action-button @click="addCart" text="加入购物车" type="warning" />
@@ -86,6 +89,7 @@ export default {
   onReady() {},
   mounted() {
     var that = this;
+    this.currentItem = {};
     that.SET_ITEM({});
     var id = this.$root.$mp.query.id;
     this.$api.getItemDetail({ id }).then(res => {
@@ -104,6 +108,9 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM"]),
     ...mapActions(["add_to_cart"]),
+    back(){
+      wx.navigateBack();
+    },
     getItem() {
       var current = this.buyItems.filter(
         z => z.BuyItem.Id == this.$root.$mp.query["id"]
