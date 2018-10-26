@@ -1,4 +1,6 @@
-# woju
+# 莴聚
+
+## 这是一个电商团长的项目
 
 > by jerrytang
 
@@ -8,14 +10,10 @@
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+#Open 微信开发工具
+#创建测试小程序,设置目录为生成的dist目录
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
