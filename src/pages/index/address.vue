@@ -8,7 +8,7 @@
           v-for="l in location"
           :key="l" 
           is-link border="true"
-          :url="'/pages/partner-list/main?lng='+l.location.lng+'&lat='+l.location.lat+'&address='+ l.city + l.district + l.name">
+          :url="'/pages/index/choosePartner?lng='+l.location.lng+'&lat='+l.location.lat+'&address='+ l.city + l.district + l.name">
             <view slot="title">
               <span class="van-cell-text">{{l.city}}{{l.district}} {{l.name}}</span>
               <!-- <van-tag type="danger">标签</van-tag> -->

@@ -110,14 +110,14 @@ export default {
           that.SET_BUYITEMLIST(res);
         });
         setTimeout(() => {
-          wx.switchTab({ url: "/pages/index/main" });
+          wx.switchTab({ url: "/pages/index/index" });
         }, 1000);
       });
       // wx.navigateTo({ url: "/pages/index/main" });
       // wx.navigateBack()
     },
     goMap() {
-      wx.navigateTo({ url: "/pages/map/main" });
+      wx.navigateTo({ url: "/pages/index/address" });
     }
   }
 };

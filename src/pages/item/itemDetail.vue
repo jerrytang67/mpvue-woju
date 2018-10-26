@@ -151,8 +151,8 @@ export default {
     },
     onClickButton() {},
     onClickIcon() {
-      console.log("go to cart");
-      wx.switchTab({ url: "/pages/cart/main" });
+      // console.log("go to cart");
+      wx.switchTab({ url: "/pages/index/cart" });
     }
   }
 };

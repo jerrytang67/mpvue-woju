@@ -131,7 +131,7 @@ export default {
       this.add_to_cart(item);
     },
     goItem(x) {
-      wx.navigateTo({ url: "/pages/item/main?id=" + x.BuyItem.Id });
+      wx.navigateTo({ url: "/pages/item/itemDetail?id=" + x.BuyItem.Id });
     },
     getSetting() {
       wx.getSetting({
@@ -166,7 +166,7 @@ export default {
         //用户按了允许授权按钮
         this.getUserInfo()
           .then(res => {
-            wx.navigateTo({ url: "/pages/partner-list/main" });
+            wx.navigateTo({ url: "/pages/index/choosePartner" });
           })
           .catch(error => {
             Toast.fail(error);
