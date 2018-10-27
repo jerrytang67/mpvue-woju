@@ -15,7 +15,10 @@ const state = {
   currentItem: {},
   userInfo: {},
   partner_list: [],
+
+  //选中的团长
   my_partner: wx.getStorageSync("SET_SELECT_PARTNER"),
+
   buyItems: wx.getStorageSync("SET_BUYITEMLIST"),
   position: wx.getStorageSync("SET_POSITION"),
   cartItems: [],
@@ -23,6 +26,8 @@ const state = {
   totalPrice: 0,
   totalVipPrice: 0,
 
+  //自己的团长信息
+  partner: {},
   myOrders: [],
   //店主用
   myShops: []

@@ -13,8 +13,8 @@
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
                 <van-tabbar-item icon="gold-coin" :info="waitForPayCount?waitForPayCount:''">待付款</van-tabbar-item>
                 <van-tabbar-item icon="chat" :info="paidOrderCount? paidOrderCount:''">已付款</van-tabbar-item>
-                <van-tabbar-item icon="records" info="5">可取货</van-tabbar-item>
-                <van-tabbar-item icon="shop" dot>已完成</van-tabbar-item>
+                <van-tabbar-item icon="records" :info="canTakeOrderCount?canTakeOrderCount:''">可取货</van-tabbar-item>
+                <van-tabbar-item icon="shop">已完成</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -37,6 +37,24 @@
             @change="toggleSetting('notice')"
           />
         </demo-block>
+
+        <demo-block title="我是团长" v-if="partner" >
+          <van-panel  use-footer-slot class="partner">
+            <view slot="header" class="header">
+              <div>姓名:{{partner.Realname}}</div>
+              <div>电话:{{partner.Phone}}</div>
+              <div>可提: {{partner.AvblBalance}} 不可提 {{partner.UnavblBalance}} 已提:{{partner.TotalWithdrawals}}</div>
+            </view>
+            <view style="padding:0 20rpx;" slot="footer">
+              <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
+                <van-tabbar-item icon="location" >打开地图</van-tabbar-item>
+                <van-tabbar-item icon="info-o">编辑信息</van-tabbar-item>
+                <van-tabbar-item icon="points-mall">上架商品</van-tabbar-item>
+                <van-tabbar-item icon="cart">我的订单</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
         <demo-block title="我的店铺管理">
           <van-panel  v-for="shop in myShops" :key="shop" use-footer-slot >
             <view slot="header" style="display:flex; align-items:center;padding:20rpx; flex-direction:row;" >
@@ -47,11 +65,11 @@
             </view>
             <view slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="gold-coin" info="2">商品列表</van-tabbar-item>
-                <van-tabbar-item icon="chat" dot >查看订单</van-tabbar-item>
-                <van-tabbar-item icon="shop" info="4">团长申请</van-tabbar-item>
-                <van-tabbar-item icon="shop" dot>评价管理</van-tabbar-item>
-                <van-tabbar-item icon="shop" dot @click="goAddItem(shop.Id)">新建商品</van-tabbar-item>
+                <van-tabbar-item icon="gold-coin" @click="$navigate.To('/pages/shop/buyItems?shopId='+shop.Id)">商品列表</van-tabbar-item>
+                <van-tabbar-item icon="chat" @click="$navigate.To('/pages/shop/orders?shopId='+shop.Id)">查看订单</van-tabbar-item>
+                <van-tabbar-item icon="shop">团长申请</van-tabbar-item>
+                <van-tabbar-item icon="shop">评价管理</van-tabbar-item>
+                <van-tabbar-item icon="shop"  @click="$navigate.To('/pages/shop/addItem?shopId='+shop.Id)">新建商品</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -91,8 +109,8 @@ export default {
     });
   },
   computed: {
-    ...mapState(["userInfo", "position", "myShops", "myOrders"]),
-    ...mapGetters(["waitForPayCount", "paidOrderCount"])
+    ...mapState(["userInfo", "position", "myShops", "myOrders", "partner"]),
+    ...mapGetters(["waitForPayCount", "paidOrderCount", "canTakeOrderCount"])
   },
   methods: {
     ...mapMutations([]),
@@ -102,7 +120,7 @@ export default {
     },
     tabbar_change() {},
     goAddItem(shopId) {
-      wx.navigateTo({ url: `/pages/item/addItem?shopId=${shopId}` });
+      wx.navigateTo({ url: `/pages/shop/addItem?shopId=${shopId}` });
     },
     upFile() {
       var that = this;
@@ -123,8 +141,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .van-tabbar-item--active {
   color: #09bb07 !important;
+}
+.partner {
+  .header {
+    font-size: 32rpx;
+    padding: 32rpx 16rpx;
+  }
 }
 </style>

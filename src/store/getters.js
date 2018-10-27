@@ -8,6 +8,11 @@ const getters = {
   paidOrder: state => state.myOrders.filter(x => x.IsSuccessPay),
   paidOrderCount: (state, getters) => getters.paidOrder.length,
 
+  //可取货
+  canTakeOrder :state =>state.myOrders.filter(x=>x.ProductState =='可取货'),
+  canTakeOrderCount: (state, getters) => getters.canTakeOrder.length,
+
+
 
 }
 export default getters;

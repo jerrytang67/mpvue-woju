@@ -28,7 +28,7 @@ export default {
   code2session: code => request('get', `/WoJu/code2session?appid=${APPID}&code=${code}&storeId=${STOREID}`),
 
   get_setting: () => request("get", `/WoJu/GetSetting`),
-
+  post_buyitem: data => request("post", `/WoJu/PostBuyItem`, data),
   getItemDetail: ({
     id
   }) => request('get', `/WoJu/GetBuyItem?id=${id}`),

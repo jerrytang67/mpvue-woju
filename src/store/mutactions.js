@@ -18,10 +18,16 @@ export const mutations = {
   PARTNER: (state, v) => {
     state.partner_list = v
   },
+  //选中的团长
   SET_SELECT_PARTNER: (state, v) => {
     console.log("SET my_partner To", v)
     wx.setStorageSync("SET_SELECT_PARTNER", v);
     state.my_partner = v;
+  },
+  //自己是不是团长
+  SET_PARTNER: (state, v) => {
+    console.log("我的团长信息", v);
+    state.partner = v;
   },
   SET_BUYITEMLIST: (state, v) => {
     if (v && v.length > 0) {
