@@ -99,5 +99,13 @@ module.exports = [{
       navigationBarTitleText: '店铺商品列表',
       usingComponents: Object.assign({}, usingComponents, {})
     }
+  },
+  {
+    path: 'pages/shop/orders',
+    config: {
+      navigationBarTitleText: '店铺订单',
+      enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {})
+    }
   }
 ]

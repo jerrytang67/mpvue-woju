@@ -35,7 +35,13 @@ export const actions = {
       commit("ADD_TO_CART", v)
       resolve;
     });
-  }
+  },
+
+  getOrders: ({
+    commit
+  }, v) => api.getOrders(v).then(res => {
+    commit("SET_ORDERS", res);
+  })
 }
 
 export default actions;

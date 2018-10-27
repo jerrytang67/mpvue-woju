@@ -55,6 +55,11 @@ export default {
 
   getMyShop: () => request('get', `/WoJu/GetMyShop`),
 
+  getOrders: ({
+    shopId,
+    partnerId
+  }) => request("get", `/WoJu/GetOrders?shopId=${shopId}&&partnerId=${partnerId}`),
+
   GetDistance: (lat1, lng1, lat2, lng2) => {
     var radLat1 = Rad(lat1);
     var radLat2 = Rad(lat2);

@@ -30,7 +30,8 @@ const state = {
   partner: {},
   myOrders: [],
   //店主用
-  myShops: []
+  myShops: [],
+  orders: []
 }
 
 export default new Vuex.Store({

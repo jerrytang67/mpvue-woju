@@ -48,6 +48,11 @@ export const mutations = {
     state.position = Object.assign({}, state.position, v);
     wx.setStorageSync("SET_POSITION", state.position);
   },
+
+  SET_ORDERS: (state, v) => {
+    console.log("SETORDERS", v);
+    state.orders = v;
+  },
   ADD_TO_CART: (state, v) => {
     //v.Count += 1;
     // state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
