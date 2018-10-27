@@ -41,6 +41,15 @@ export const actions = {
     commit
   }, v) => api.getOrders(v).then(res => {
     commit("SET_ORDERS", res);
+  }),
+
+  getShopBuyItems: ({
+    commit
+  }, v) => api.getShopBuyItems(v).then(res => {
+    commit("SET_SHOP_BUYITEMS", {
+      shopId: v,
+      payload: res
+    });
   })
 }
 

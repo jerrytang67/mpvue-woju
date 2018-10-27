@@ -1,13 +1,18 @@
 <template>
     <div class="container">
-      <div class="bodyContent" >
+      <div class="contentBody" >
         <div style="padding:20rpx;">
-                {{openid}}
-        {{orders}}
-      <div v-for="x in orders" :key="x">
-          {{x.body}}
-      </div>
-        
+          <van-card v-for="x in orders" lazy-load="true" :key="x" 
+           :title="x.body" :num="x.count" :price="x.price/100" >
+              <view slot="footer">
+                  <van-button size="small" >接单</van-button>
+                  <van-button size="small" >发货</van-button>
+              </view>
+              <view slot="tags">
+                总价:
+                <span style="color:#f00;">{{x.totalprice/100}}</span>
+              </view>
+            </van-card>
         </div>
 
       </div>
@@ -28,9 +33,7 @@ export default {
   mounted() {
     this.getorder();
   },
-  data: {
-    moto: "asfdasdf"
-  },
+  data: {},
   computed: {
     ...mapState(["orders", "openid"])
   },

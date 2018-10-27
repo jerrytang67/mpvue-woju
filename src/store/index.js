@@ -31,7 +31,8 @@ const state = {
   myOrders: [],
   //店主用
   myShops: [],
-  orders: []
+  orders: [],
+  shopBuyItems: []
 }
 
 export default new Vuex.Store({

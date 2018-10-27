@@ -53,6 +53,15 @@ export const mutations = {
     console.log("SETORDERS", v);
     state.orders = v;
   },
+
+  SET_SHOP_BUYITEMS: (state, {
+    shopId,
+    payload
+  }) => {
+    console.log(shopId, payload);
+    state.shopBuyItems = payload;
+    console.log(state.shopBuyItems);
+  },
   ADD_TO_CART: (state, v) => {
     //v.Count += 1;
     // state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]

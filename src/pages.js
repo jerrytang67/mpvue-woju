@@ -35,7 +35,8 @@ module.exports = [{
     config: {
       navigationBarTitleText: '',
       usingComponents: Object.assign({}, usingComponents, {
-        "van-submit-bar": "/static/dist/submit-bar/index"
+        "van-submit-bar": "/static/dist/submit-bar/index",
+        "van-stepper": "/static/dist/stepper/index"
       })
     }
   },
@@ -97,6 +98,7 @@ module.exports = [{
     path: 'pages/shop/buyItems',
     config: {
       navigationBarTitleText: '店铺商品列表',
+      enablePullDownRefresh: true,
       usingComponents: Object.assign({}, usingComponents, {})
     }
   },

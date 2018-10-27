@@ -7,8 +7,8 @@ const APPID = "wxd9d182e54258695e"; //小程序 appid
 const MAPKEY = "f8vW5GLQR7CaKA52XsxGXpR0"; //百度地图ak
 const FIND_DISTANCE = 3000; //团长范围 单位:米
 
-const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
-//const ip = 'https://www.lovewujiang.com/api' // 后台的ip地址
+//const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
+const ip = 'https://www.lovewujiang.com/api' // 后台的ip地址
 
 const getRequest = utils.httpsPromisify(wx.request)
 const request = (method, url, data = {}) => { // method为请求方法，url为接口路径，data为传参
@@ -59,6 +59,11 @@ export default {
     shopId,
     partnerId
   }) => request("get", `/WoJu/GetOrders?shopId=${shopId}&&partnerId=${partnerId}`),
+
+  getShopBuyItems: ({
+    shopId,
+    partnerId
+  }) => request("get", `/WoJu/GetShopBuyItems?shopId=${shopId}`),
 
   GetDistance: (lat1, lng1, lat2, lng2) => {
     var radLat1 = Rad(lat1);
