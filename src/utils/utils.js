@@ -28,6 +28,4 @@ function httpsPromisify(fn) {
 export default {
   httpsPromisify
 }
-// module.exports = {
-//   httpsPromisify: httpsPromisify
-// }
+

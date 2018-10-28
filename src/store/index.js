@@ -17,10 +17,10 @@ const state = {
   partner_list: [],
 
   //选中的团长
-  my_partner: wx.getStorageSync("SET_SELECT_PARTNER"),
+  my_partner: wx.getStorageSync("my_partner") || {},
 
-  buyItems: wx.getStorageSync("SET_BUYITEMLIST"),
-  position: wx.getStorageSync("SET_POSITION"),
+  buyItems: wx.getStorageSync("SET_BUYITEMLIST") || [],
+  position: wx.getStorageSync("SET_POSITION") || {},
   cartItems: [],
   total: 0,
   totalPrice: 0,

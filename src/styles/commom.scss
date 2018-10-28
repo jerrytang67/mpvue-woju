@@ -15,7 +15,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   background: #09bb07;
-  margin-bottom:100rpx;
+  margin-bottom: 100rpx;
 }
 
 .contentBody {
@@ -50,6 +50,8 @@ view.center {
   float: right;
 }
 
-.p-lg-5 {
-  margin: auto;
+.flex-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

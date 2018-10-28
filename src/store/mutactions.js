@@ -21,7 +21,7 @@ export const mutations = {
   //选中的团长
   SET_SELECT_PARTNER: (state, v) => {
     console.log("SET my_partner To", v)
-    wx.setStorageSync("SET_SELECT_PARTNER", v);
+    wx.setStorageSync("my_partner", v);
     state.my_partner = v;
   },
   //自己是不是团长

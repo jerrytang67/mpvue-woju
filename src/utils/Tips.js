@@ -27,10 +27,11 @@ export default class Tips {
   }
 
   //出错
-  static error(msg, duration = 2000) {
+  static error(msg, duration = 5000) {
     wx.showToast({
       title: `${msg}`,
-      image: `/static/images/error-msg.png`,
+      // image: `/static/images/error-msg.png`,
+      icon:"none",
       duration: duration
     })
   }

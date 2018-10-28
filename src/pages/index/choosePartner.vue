@@ -11,6 +11,7 @@
     <view class="contentBody" >
       <div class="card-list" style="padding:20rpx 30rpx" >
           <van-card v-for="p in partner_list" :key="p"
+            v-if="partner_list.length>0"
             :title="p.nickname" 
             :desc="'社群:'+p.LocationLabel"
             :thumb="p.headimgurl"
@@ -21,6 +22,9 @@
                 <van-tag type="primary">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>
               </view>
         </van-card>
+        <view v-if="partner_list.length==0">
+          您当前位置三公里内没有团长,可以手动更换位置
+        </view>
       </div>
     </view>
     <van-toast id="van-toast" />

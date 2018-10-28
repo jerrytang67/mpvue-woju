@@ -18,12 +18,34 @@
                     <van-field  label="商品名称" :value="item.Name" required clearable @change="onChange"  data-name="Name" />
                     <van-field label="原价" :value="item.Price" type="digit"  required clearable @change="onChange" data-name="Price"/>
                     <van-field  label="成交价" :value="item.VipPrice" type="digit"  required @change="onChange" data-name="VipPrice"/>
-                    <van-field  label="库存" :value="item.Count" type="number"  required 
-                    @change="onChange" data-name="Count"/>
+                    <van-field  label="库存" :value="item.Count" type="number"  required @change="onChange" data-name="Count"/>
                     <van-switch-cell title="是否限购" :checked="item.LimitBuyCount>0" @change="toggle('LimitBuyCount')" />
                     <van-field  label="限购数量" :disabled="item.LimitBuyCount==0" :value="item.LimitBuyCount" type="number" 
                     @change="onChange" data-name="LimitBuyCount"/>
                 </van-cell-group>
+            </demo-block>
+
+            <demo-block title="开始时间">
+                    <van-cell >
+                      <view slot="title">
+                        <picker mode="date" :value="item.DateTimeStart" :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeStart" >
+                          <view class="picker flex-between">
+                            <span>开始时间</span> <span>{{item.DateTimeStart}}</span>
+                          </view>
+                        </picker>
+                      </view>
+                    </van-cell>
+            </demo-block>
+            <demo-block title="结束时间">
+                    <van-cell>
+                      <view slot="title">
+                        <picker mode="date" :value="item.DateTimeEnd"  :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeEnd" >
+                          <view class="picker flex-between">
+                            <span>结束时间</span> <span>{{item.DateTimeEnd}}</span>
+                          </view>
+                        </picker>
+                      </view>
+                    </van-cell>
             </demo-block>
 
             <demo-block title="购前需知">
@@ -74,12 +96,14 @@
 </template>
 
 <script>
+import moment from "moment";
+
 import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "@/utils/index";
 
 import Toast from "../../../static/dist/toast/toast";
 import Dialog from "../../../static/dist/dialog/dialog";
-
+import Tip from "@/utils/Tips";
 import upload from "@/utils/upload";
 export default {
   onLoad(options) {},
@@ -91,10 +115,14 @@ export default {
     console.log("beforeDestroy");
   },
   data: {
+    dateStart: moment(new Date()).format("YYYY-MM-DD"),
+    dateEnd: moment(new Date())
+      .add({ months: 12 })
+      .format("YYYY-MM-DD"),
     result: ["2"],
     showType: [
-      { name: "莴聚小程序", value: 2 },
-      { name: "吴江优选", value: 1 }
+      { name: "莴聚小程序", value: "2" },
+      { name: "吴江优选", value: "1" }
     ],
     shopId: null,
     item: {
@@ -105,21 +133,38 @@ export default {
       Count: null,
       LimitBuyCount: 0,
       State: 1,
-      ShopId: null
+      ShopId: null,
+      DateTimeStart: "2018-10-9",
+      DateTimeEnd: "",
+      ShowType: 0
     },
     width: "120rpx",
     height: "120rpx"
   },
   methods: {
+    //发布
     post() {
       console.log(this.item);
-      this.$api.post_buyitem(this.item).then(res => {
-        Dialog.alert({
-          title: "success",
-          message: JSON.stringify(res)
-        }).then(() => {
-          // on close
+      if (!this.item.DateTimeEnd) {
+        Tip.error("结束时间不能为空");
+        return;
+      }
+      //位操作.这里加起来
+      if (this.result)
+        this.result.forEach(element => {
+          this.item.ShowType = parseInt(element) + parseInt(this.item.ShowType);
         });
+      else this.item.ShowType = 0;
+
+      this.$api.post_buyitem(this.item).then(res => {
+        Tip.error("发布成功");
+        wx.navigateBack();
+        // Dialog.alert({
+        //   title: "success",
+        //   message: "发布成功"
+        // }).then(() => {
+        //   // on close
+        // });
       });
     },
     onChkTap(e) {
@@ -135,11 +180,12 @@ export default {
     },
     onChkChange(e) {
       console.log("onChkChange");
-      console.log(e);
+      console.log(e.mp.detail);
       this.result = e.mp.detail;
     },
     onChange(e) {
-      let value = e.mp.detail;
+      console.log(e);
+      let value = e.mp.detail.value || e.mp.detail;
       let key = e.mp.currentTarget.dataset.name;
       this.item[key] = value;
     },

@@ -51,7 +51,7 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 
 import partner from "@/components/partner";
-import area from "@/utils/area";
+// import area from "@/utils/area";
 import Toast from "../../../static/dist/toast/toast";
 
 export default {
@@ -64,6 +64,7 @@ export default {
     console.log("the query is :");
     console.log(query);
     if (query.pid) {
+      
       that.$api.getPartner({ pid: query.pid }).then(res => {
         that.SET_SELECT_PARTNER(res); //store set the current partner
       });
@@ -85,11 +86,12 @@ export default {
     //this.getSetting();
   },
   onShareAppMessage: res => {
-    var that = this;
-    if (that.my_partner)
+    let select_partner = wx.getStorageSync("my_partner");
+    console.log(select_partner);
+    if (select_partner)
       return {
-        title: that.my_partner.nickname + " 的小铺",
-        path: "/pages/index/main?pid=" + that.my_partner.Id
+        title: select_partner.nickname + " 的小铺",
+        path: "/pages/index/index?pid=" + select_partner.Id
       };
     else
       return {
@@ -99,7 +101,7 @@ export default {
   },
   data() {
     return {
-      areaList: area
+      // areaList: area
     };
   },
   computed: {
