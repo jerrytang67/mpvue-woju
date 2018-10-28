@@ -1,10 +1,10 @@
 export const mutations = {
-  SET_MY_SHOP: (state, v) => {
-    state.myShops = v;
-  },
-  SET_MY_ORDER: (state, v) => {
-    state.myOrders = v;
-  },
+
+  SET_MY_SHOP: (state, v) => state.myShops = v,
+
+  SET_MY_BUYITEM_LIST: (state, v) => state.myBuyItems = v,
+
+  SET_MY_ORDER: (state, v) => state.myOrders = v,
 
   USER_INFO: (state, v) => {
     console.log("SET USERINFO TO", v)

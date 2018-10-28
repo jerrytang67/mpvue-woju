@@ -29,8 +29,12 @@ const state = {
   //自己的团长信息
   partner: {},
   myOrders: [],
+
   //店主用
   myShops: [],
+  myBuyItems: [],
+
+  //订单
   orders: [],
   shopBuyItems: []
 }

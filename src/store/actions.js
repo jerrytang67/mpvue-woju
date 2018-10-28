@@ -50,6 +50,13 @@ export const actions = {
       shopId: v,
       payload: res
     });
+  }),
+
+  getPartnerSetting: ({
+    commit
+  }, v) => api.getPartnerSetting(v).then(res => {
+    commit("SET_MY_BUYITEM_LIST", res.myBuyItems);
+    commit("SET_MY_SHOP", res.myShops);
   })
 }
 

@@ -10,6 +10,7 @@ const usingComponents = {
   "van-col": "/static/dist/col/index",
   "van-cell": "/static/dist/cell/index",
   "van-switch-cell": "/static/dist/switch-cell/index",
+  "van-switch": "/static/dist/switch/index",
   "van-panel": "/static/dist/panel/index",
 
   "van-card": "/static/dist/card/index",
@@ -108,6 +109,27 @@ module.exports = [{
       navigationBarTitleText: '店铺订单',
       enablePullDownRefresh: true,
       usingComponents: Object.assign({}, usingComponents, {})
+    }
+  },
+  {
+    path: 'pages/partner/map',
+    config: {
+      navigationBarTitleText: '地图',
+      // enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {})
+    }
+  },
+  {
+    path: 'pages/partner/myBuyItems',
+    config: {
+      navigationBarTitleText: '管理我的商品',
+      enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-tab": "/static/dist/tab/index",
+        "van-tabs": "/static/dist/tabs/index",
+        "van-badge": "/static/dist/badge/index",
+        "van-badge-group": "/static/dist/badge-group/index"
+      })
     }
   }
 ]
