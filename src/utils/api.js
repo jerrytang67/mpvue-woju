@@ -1,5 +1,6 @@
 import utils from './utils' // 此处，引入存放对promise处理的文件
 import Tip from './Tips'
+import Tips from './Tips';
 
 //自定义设置
 const STOREID = 6;
@@ -44,7 +45,12 @@ export default {
 
   loadPartnerItems: pid => request('get', `/WoJu/getBuyItems?pid=${pid}`),
 
-  getPay: itemId => request('get', `/WoJu/getpay?partner_Id=${wx.getStorageSync("SET_SELECT_PARTNER").Id}&itemid=${itemId }&openid=${wx.getStorageSync("openid")} `),
+  getPay: (itemId, partnerId) => {
+    if (partnerId && itemId)
+      return request('get', `/WoJu/getpay?partner_Id=${partnerId}&itemid=${itemId }`)
+    else
+      Tips.error("错误:pid或itemId为空");
+  },
 
   placeSuggestion: ({
     query,
@@ -63,7 +69,13 @@ export default {
   getShopBuyItems: ({
     shopId,
     partnerId
-  }) => request("get", `/WoJu/GetShopBuyItems?shopId=${shopId}`),
+  }) => request("get", `/WoJu/GetShopBuyItems?shopId=${shopId}&partnerId=${partnerId}`),
+
+  //团长!上架,下架,关闭团长商品 type: add delete disable
+  setItems: (itemId, type) => request("get", `/WoJu/SetPartnerBuyItems?itemId=${itemId}&type=${type}`),
+
+  //商家
+  SetBuyItem: (itemId, type) => request("get", `/WoJu/SetBuyItems?itemId=${itemId}&type=${type}`),
 
   GetDistance: (lat1, lng1, lat2, lng2) => {
     var radLat1 = Rad(lat1);

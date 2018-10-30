@@ -1,5 +1,6 @@
 //const Upyun = require('./upyun-wxapp-sdk')
 import Upyun from './upyun-wxapp-sdk'
+import moment from "moment"
 import Tips from './Tips'
 import {
   resolve
@@ -11,7 +12,6 @@ const upyun = new Upyun.Upyun({
   getSignatureUrl: 'https://www.lovewujiang.com/api/v1/get_signature'
 });
 
-
 export function upload() {
   return new Promise((resolve, reject) => {
     wx.chooseImage({
@@ -20,7 +20,11 @@ export function upload() {
       sourceType: ['album', 'camera'],
       success: (res) => {
         const imageSrc = res.tempFilePaths[0]
-        const path = `wxapp/${wx.getStorageSync('openid')}/${imageSrc.split('//')[1]}`;
+        const fileExt = imageSrc.replace(/.+\./, "");
+        const fileName = moment(new Date).format("YYYY/MM/HHmmss") + "." + fileExt
+        // const path = `wxapp/${wx.getStorageSync('openid')}/${imageSrc.split('//')[1]}`;
+        const path = `wxapp/${wx.getStorageSync('openid')}/${fileName}`;
+
         upyun.upload({
           localPath: imageSrc,
           remotePath: path,

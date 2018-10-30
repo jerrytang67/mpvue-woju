@@ -1,7 +1,23 @@
+import Dialog from "../../static/dist/dialog/dialog";
+
+
 export default class Tips {
   constructor() {
     this.isLoading = false;
   }
+
+
+  static confirm(title = "确定吗?", message = "") {
+    console.log(title,message);
+    return new Promise((resolve, reject) => {
+      Dialog.confirm({
+          title: title,
+          message: message
+        }).then(() => resolve())
+        .catch(() => reject());
+    })
+  }
+
   /**
    * 弹出加载提示
    */
@@ -31,7 +47,7 @@ export default class Tips {
     wx.showToast({
       title: `${msg}`,
       // image: `/static/images/error-msg.png`,
-      icon:"none",
+      icon: "none",
       duration: duration
     })
   }

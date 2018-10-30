@@ -11,10 +11,10 @@
             </view>
             <view>
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="gold-coin" :info="waitForPayCount?waitForPayCount:''">待付款</van-tabbar-item>
-                <van-tabbar-item icon="chat" :info="paidOrderCount? paidOrderCount:''">已付款</van-tabbar-item>
-                <van-tabbar-item icon="records" :info="canTakeOrderCount?canTakeOrderCount:''">可取货</van-tabbar-item>
-                <van-tabbar-item icon="shop">已完成</van-tabbar-item>
+                <van-tabbar-item icon="gold-coin"  @click="$navigate.Tab({url:`/pages/order/orders`,index:0})" :info="waitForPayCount?waitForPayCount:''">待付款</van-tabbar-item>
+                <van-tabbar-item icon="chat"  @click="$navigate.Tab({url:`/pages/order/orders`,index:1})"  :info="paidOrderCount? paidOrderCount:''">已付款</van-tabbar-item>
+                <van-tabbar-item icon="records"  @click="$navigate.Tab({url:`/pages/order/orders`,index:2})"  :info="canTakeOrderCount?canTakeOrderCount:''">可取货</van-tabbar-item>
+                <van-tabbar-item icon="shop"  @click="$navigate.Tab({url:`/pages/order/orders`,index:3})" >已完成</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -50,7 +50,7 @@
                 <van-tabbar-item icon="location" @click="$navigate.To('/pages/partner/map')">打开地图</van-tabbar-item>
                 <van-tabbar-item icon="info-o">编辑信息</van-tabbar-item>
                 <van-tabbar-item icon="points-mall"  @click="$navigate.To('/pages/partner/myBuyItems')">上架商品</van-tabbar-item>
-                <van-tabbar-item icon="cart">我的订单</van-tabbar-item>
+                <van-tabbar-item icon="cart" @click="$navigate.To('/pages/partner/orders')">我的订单</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -65,11 +65,11 @@
             </view>
             <view slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="gold-coin" @click="$navigate.To('/pages/shop/buyItems?shopId='+shop.Id)">商品列表</van-tabbar-item>
-                <van-tabbar-item icon="chat" @click="$navigate.To('/pages/shop/orders?shopId='+shop.Id)">查看订单</van-tabbar-item>
+                <van-tabbar-item icon="gold-coin" @click="$navigate.To(`/pages/shop/buyItems?shopId=${shop.Id}&shopName=${shop.ShopName}`)">商品列表</van-tabbar-item>
+                <van-tabbar-item icon="chat" @click="$navigate.To(`/pages/shop/orders?shopId=${shop.Id}&shopName=${shop.ShopName}`)">查看订单</van-tabbar-item>
                 <van-tabbar-item icon="shop">团长申请</van-tabbar-item>
                 <van-tabbar-item icon="shop">评价管理</van-tabbar-item>
-                <van-tabbar-item icon="shop"  @click="$navigate.To('/pages/shop/addItem?shopId='+shop.Id)">新建商品</van-tabbar-item>
+                <van-tabbar-item icon="shop"  @click="$navigate.To(`/pages/shop/addItem?shopId=${shop.Id}&shopName=${shop.ShopName}`)">新建商品</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
@@ -119,9 +119,6 @@ export default {
       console.log(event.detail);
     },
     tabbar_change() {},
-    goAddItem(shopId) {
-      wx.navigateTo({ url: `/pages/shop/addItem?shopId=${shopId}` });
-    },
     upFile() {
       var that = this;
       upload

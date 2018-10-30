@@ -2,7 +2,12 @@ export const mutations = {
 
   SET_MY_SHOP: (state, v) => state.myShops = v,
 
-  SET_MY_BUYITEM_LIST: (state, v) => state.myBuyItems = v,
+  SET_PARTNERSHOPS: (state, v) => state.partnerShops = v,
+
+  SET_MY_BUYITEM_LIST: (state, v) => {
+    console.log("SET_MY_BUYITEM_LIST")
+    state.myBuyItems = v
+  },
 
   SET_MY_ORDER: (state, v) => state.myOrders = v,
 
@@ -58,7 +63,6 @@ export const mutations = {
     shopId,
     payload
   }) => {
-    console.log(shopId, payload);
     state.shopBuyItems = payload;
     console.log(state.shopBuyItems);
   },

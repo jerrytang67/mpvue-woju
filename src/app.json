@@ -13,10 +13,10 @@
       "iconPath": "/static/images/home2.png",
       "selectedIconPath": "/static/images/home.png"
     }, {
-      "pagePath": "pages/index/cart",
-      "text": "购物车",
-      "iconPath": "/static/images/cart2.png",
-      "selectedIconPath": "/static/images/cart.png"
+      "pagePath": "pages/order/orders",
+      "text": "订单",
+      "iconPath": "/static/images/order2.png",
+      "selectedIconPath": "/static/images/order.png"
 
     }, {
       "pagePath": "pages/index/my",
@@ -33,8 +33,5 @@
       "version": "0.2.1",
       "provider": "wx9d4d4ffa781ff3ac"
     }
-  },
-  "usingComponents": {
-
   }
 }

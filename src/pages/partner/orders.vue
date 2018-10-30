@@ -2,8 +2,11 @@
     <div class="container">
       <div style="padding:0 25rpx;width:100%;background:#fff;">
         <van-tabs :active="selectIndex" >
+          <van-tab title="未付款">
+            <order v-for="x in orderNotPay" :key="x" :data="x" type="partner"></order>
+          </van-tab>
           <van-tab title="已付款">
-            <order v-for="x in orders" :key="x" :data="x" type="shop"></order>
+            <order v-for="x in orderIsPay" :key="x" :data="x" type="partner"></order>
           </van-tab>
           <van-tab title="已发货">
           </van-tab>
@@ -16,36 +19,34 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 import order from "@/components/order";
 import Toast from "../../../static/dist/toast/toast";
 
 export default {
   onLoad(options) {
-    console.log(options);
-    if (!options.shopId) wx.navigateBack();
-    wx.setNavigationBarTitle({ title: options.shopName + " 订单列表" });
+    wx.setNavigationBarTitle({ title: "团长 的订单列表" });
   },
   onReady() {},
   components: {
     order
   },
   mounted() {
+    if (!this.partner.Id) wx.navigateBack();
     this.getorder();
   },
   data: {
     selectIndex: 0
   },
   computed: {
-    ...mapState(["orders", "openid"])
+    ...mapState(["orders", "openid", "partner"]),
+    ...mapGetters(["orderNotPay","orderIsPay"])
   },
   methods: {
-    ...mapMutations(["SET_ORDERS"]),
     ...mapActions(["getOrders"]),
     getorder() {
       var that = this;
-
-      that.getOrders({ shopId: this.$root.$mp.query.shopId });
+      that.getOrders({ partnerId: this.partner.Id });
     }
   },
 

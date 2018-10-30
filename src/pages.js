@@ -20,6 +20,8 @@ const usingComponents = {
   "van-goods-action": "/static/dist/goods-action/index",
   "van-goods-action-icon": "/static/dist/goods-action-icon/index",
   "van-goods-action-button": "/static/dist/goods-action-button/index",
+  "van-dialog": "/static/dist/dialog/index",
+
   "demo-block": "/static/demo-block/index"
 }
 
@@ -84,7 +86,8 @@ module.exports = [{
         "van-field": "/static/dist/field/index",
         "van-checkbox": "/static/dist/checkbox/index",
         "van-checkbox-group": "/static/dist/checkbox-group/index",
-        "van-dialog": "/static/dist/dialog/index",
+        "van-radio": "/static/dist/radio/index",
+        "van-radio-group": "/static/dist/radio-group/index"
       })
     }
   },
@@ -108,7 +111,10 @@ module.exports = [{
     config: {
       navigationBarTitleText: '店铺订单',
       enablePullDownRefresh: true,
-      usingComponents: Object.assign({}, usingComponents, {})
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-tab": "/static/dist/tab/index",
+        "van-tabs": "/static/dist/tabs/index"
+      })
     }
   },
   {
@@ -129,6 +135,29 @@ module.exports = [{
         "van-tabs": "/static/dist/tabs/index",
         "van-badge": "/static/dist/badge/index",
         "van-badge-group": "/static/dist/badge-group/index"
+      })
+    }
+  },
+  {
+    path: 'pages/order/orders',
+    config: {
+      navigationBarTitleText: '',
+      enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-tab": "/static/dist/tab/index",
+        "van-tabs": "/static/dist/tabs/index"
+      })
+    }
+  }
+  ,
+  {
+    path: 'pages/partner/orders',
+    config: {
+      navigationBarTitleText: '',
+      enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-tab": "/static/dist/tab/index",
+        "van-tabs": "/static/dist/tabs/index"
       })
     }
   }

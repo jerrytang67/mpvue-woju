@@ -36,7 +36,10 @@ const state = {
 
   //订单
   orders: [],
-  shopBuyItems: []
+  shopBuyItems: [],
+
+  //团长加入的商店
+  partnerShops: []
 }
 
 export default new Vuex.Store({

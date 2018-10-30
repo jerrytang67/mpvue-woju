@@ -26,8 +26,8 @@
     <view class="contentBody" >
       <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent"/>
       <view class="p-lg-5" style="padding:40rpx;">
-        <van-button plain type="danger">团长招募</van-button>
-        <van-button plain type="danger">成为供应商</van-button>
+        <!-- <van-button plain type="danger">团长招募</van-button>
+        <van-button plain type="danger">成为供应商</van-button> -->
           <!-- <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_49_530.png"  mode="aspectFit" />
           <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_53_086.png" mode="aspectFit" /> -->
         </view>
@@ -37,7 +37,7 @@
              <van-stepper :value="x.Count" @plus="add(x)"  @minus="remove(x)"/> 
           </view>  -->
           <view slot="tags" class="price"  >
-            <van-tag type="danger">自营</van-tag>
+            <!-- <van-tag type="danger">自营</van-tag> -->
             <text class="vip">￥{{x.BuyItem.VipPrice}}</text><text class="old">￥{{x.BuyItem.Price}}</text>
           </view>
         </van-card>
@@ -64,13 +64,24 @@ export default {
     console.log("the query is :");
     console.log(query);
     if (query.pid) {
-      
       that.$api.getPartner({ pid: query.pid }).then(res => {
         that.SET_SELECT_PARTNER(res); //store set the current partner
       });
-      that.$api.loadPartnerItems(query.pid).then(res => {
+      that.$api.loadPartnerItems(that.$root.$mp.query.pid).then(res => {
         that.SET_BUYITEMLIST(res); //store set current buyitem list
       });
+    }
+  },
+  onPullDownRefresh: function() {
+    if (wx.getStorageSync("my_partner"))
+      this.$api
+        .loadPartnerItems(wx.getStorageSync("my_partner").Id)
+        .then(res => {
+          this.SET_BUYITEMLIST(res); //store set current buyitem list
+          wx.stopPullDownRefresh();
+        });
+    else {
+      wx.stopPullDownRefresh();
     }
   },
   components: {

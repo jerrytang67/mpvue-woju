@@ -82,6 +82,26 @@
             <demo-block title="状态">
               <van-switch-cell title="是否启用" :checked="item.State>0" @change="toggle('State')" />
             </demo-block>
+
+            <demo-block title="取货方式">
+              <van-radio-group :value="item.PickUpType" bind:change="onRadioChange">
+                <van-cell-group>
+                  <van-cell title="购买者到商家自提" clickable data-name="1" @click="onRadioClick">
+                    <van-radio name="1" />
+                  </van-cell>
+                  <van-cell title="购买者到团长处自提" clickable data-name="2" @click="onRadioClick">
+                    <van-radio name="2" />
+                  </van-cell>
+                  <van-cell title="商家配送到购买者" clickable data-name="4" @click="onRadioClick">
+                    <van-radio name="4" />
+                  </van-cell>
+                  <van-cell title="团长到商家处提货并送货" clickable data-name="8" @click="onRadioClick">
+                    <van-radio name="8" />
+                  </van-cell>
+
+                </van-cell-group>
+              </van-radio-group>
+            </demo-block>
           </div>
           <div style="height:15vh;"> </div>
       </div>
@@ -105,8 +125,27 @@ import Toast from "../../../static/dist/toast/toast";
 import Dialog from "../../../static/dist/dialog/dialog";
 import Tip from "@/utils/Tips";
 import upload from "@/utils/upload";
+
+const DEFAULTITEM = {
+  Name: "",
+  LogoList: [],
+  Price: null,
+  VipPrice: null,
+  Count: null,
+  LimitBuyCount: 0,
+  State: 1,
+  ShopId: null,
+  DateTimeStart: "2018-10-9",
+  DateTimeEnd: "",
+  ShowType: 0,
+  PickUpType: "1"
+};
+
 export default {
-  onLoad(options) {},
+  onLoad(options) {
+    if (!options.shopId) wx.navigateBack();
+    wx.setNavigationBarTitle({ title: options.shopName + " 新建商品" });
+  },
   onReady() {
     this.shopId = this.$root.$mp.query.shopId;
     this.item.ShopId = this.shopId;
@@ -119,13 +158,15 @@ export default {
     dateEnd: moment(new Date())
       .add({ months: 12 })
       .format("YYYY-MM-DD"),
+    result2: "1",
     result: ["2"],
     showType: [
       { name: "莴聚小程序", value: "2" },
       { name: "吴江优选", value: "1" }
     ],
+
     shopId: null,
-    item: {
+    DEFAULTITEM: {
       Name: "",
       LogoList: [],
       Price: null,
@@ -136,14 +177,33 @@ export default {
       ShopId: null,
       DateTimeStart: "2018-10-9",
       DateTimeEnd: "",
-      ShowType: 0
+      ShowType: 0,
+      PickUpType: "1"
     },
+
+    item: Object.assign({}, DEFAULTITEM, {}),
     width: "120rpx",
     height: "120rpx"
   },
   methods: {
+    onRadioChange(event) {
+      console.log(event);
+      this.item.PickUpType =
+        event.mp.currentTarget.dataset.name || this.item.PickUpType;
+    },
+    onRadioClick(event) {
+      console.log(event);
+      this.item.PickUpType =
+        event.mp.currentTarget.dataset.name || this.item.PickUpType;
+    },
     //发布
     post() {
+      // this.item.PickUpType = parseInt(this.item.PickUpType);
+      if (!this.$root.$mp.query.shopId) {
+        Tip.error("没有选中商家");
+        return;
+      }
+      this.item.ShopId = this.$root.$mp.query.shopId;
       console.log(this.item);
       if (!this.item.DateTimeEnd) {
         Tip.error("结束时间不能为空");
@@ -157,8 +217,11 @@ export default {
       else this.item.ShowType = 0;
 
       this.$api.post_buyitem(this.item).then(res => {
+        this.item = DEFAULTITEM;
         Tip.error("发布成功");
-        wx.navigateBack();
+        setTimeout(() => {
+          wx.navigateBack();
+        }, 500);
         // Dialog.alert({
         //   title: "success",
         //   message: "发布成功"

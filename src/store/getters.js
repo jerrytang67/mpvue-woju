@@ -9,10 +9,11 @@ const getters = {
   paidOrderCount: (state, getters) => getters.paidOrder.length,
 
   //可取货
-  canTakeOrder :state =>state.myOrders.filter(x=>x.ProductState =='可取货'),
+  canTakeOrder: state => state.myOrders.filter(x => x.ProductState == '可取货'),
   canTakeOrderCount: (state, getters) => getters.canTakeOrder.length,
 
 
-
+  orderNotPay: state => state.orders.filter(x => !x.IsSuccessPay),
+  orderIsPay: state => state.orders.filter(x => x.IsSuccessPay)
 }
 export default getters;

@@ -56,8 +56,34 @@ export const actions = {
     commit
   }, v) => api.getPartnerSetting(v).then(res => {
     commit("SET_MY_BUYITEM_LIST", res.myBuyItems);
-    commit("SET_MY_SHOP", res.myShops);
-  })
+    commit("SET_PARTNERSHOPS", res.myShops);
+  }),
+
+  //从团长商品长删除一列
+  deleteMyItem: ({
+    commit,
+    state
+  }, itemId) => {
+    const items = state.myBuyItems.filter(z => z.BuyItem.Id != itemId);
+    commit("SET_MY_BUYITEM_LIST", items);
+  },
+  //商家删除商品
+  deleteBuyItem: ({
+    commit,
+    state
+  }, itemId) => {
+    console.log("商家删除商品", itemId);
+    api.SetBuyItem(itemId, "delete").then(res => {
+      if (res) {
+        const item = state.shopBuyItems.filter(z => z.Id != itemId);
+        commit("SET_SHOP_BUYITEMS", {
+          payload: item
+        });
+      }
+
+    })
+
+  }
 }
 
 export default actions;

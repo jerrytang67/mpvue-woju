@@ -18,7 +18,10 @@
           <timer :startTime.sync="startTime" :endTime.sync="endTime"></timer>
         </view> -->
       </view>
-      <!-- <view class="baoyou">满件包邮</view> -->
+      <view class="baoyou">
+        <van-tag round type="primary">{{currentItem.PickUpType}}</van-tag>
+        
+      </view>
     </view>
     <view class="order_num">
       <view class="doc" >库存:
@@ -70,8 +73,8 @@
     <van-goods-action>
       <van-goods-action-icon icon="home" text="返回" @click="back"/>
       <van-goods-action-icon icon="chat" text="客服"/>
-      <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  />
-      <van-goods-action-button @click="addCart" text="加入购物车" type="warning" />
+      <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
+      <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
       <van-goods-action-button text="立即购买" @click="getpay()"  />
     </van-goods-action>
     <van-toast id="van-toast" />
@@ -84,18 +87,24 @@ import { formatTime } from "../../utils/index";
 import Toast from "../../../static/dist/toast/toast";
 export default {
   onLoad(options) {
+    if (!this.$root.$mp.query["id"]) wx.navigateBack();
     wx.setNavigationBarTitle({ title: "商品详情" });
+  },
+  onPullDownRefresh: function() {
+    // let that = this;
+    // this.currentItem = {};
+    // that.SET_ITEM({});
+    // let id = this.$root.$mp.query.id;
+    // this.$api.getItemDetail({ id }).then(res => {
+    //   console.log(res);
+    //   that.SET_ITEM(res);
+    // });
+    this.load();
+    wx.stopPullDownRefresh();
   },
   onReady() {},
   mounted() {
-    var that = this;
-    this.currentItem = {};
-    that.SET_ITEM({});
-    var id = this.$root.$mp.query.id;
-    this.$api.getItemDetail({ id }).then(res => {
-      console.log(res);
-      that.SET_ITEM(res);
-    });
+    this.load();
   },
   computed: {
     ...mapState(["userInfo", "cartItems", "buyItems", "total", "currentItem"]),
@@ -108,7 +117,19 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM"]),
     ...mapActions(["add_to_cart"]),
-    back(){
+
+    load() {
+      let that = this;
+      this.currentItem = {};
+      that.SET_ITEM({});
+      let id = this.$root.$mp.query.id;
+      this.$api.getItemDetail({ id }).then(res => {
+        console.log(res);
+        that.SET_ITEM(res);
+      });
+    },
+
+    back() {
       wx.navigateBack();
     },
     getItem() {
@@ -131,22 +152,24 @@ export default {
       }
     },
     getpay() {
-      this.$api.getPay(this.getItem().BuyItem.Id).then(obj => {
-        wx.requestPayment({
-          //相关支付参数
-          timeStamp: obj.timeStamp,
-          nonceStr: obj.nonceStr,
-          package: "prepay_id=" + obj.prepay_id,
-          signType: obj.signType,
-          paySign: obj.paySign,
-          success: function(res) {
-            Toast.success("支付成功");
-          },
-          fail: function(res) {
-            Toast.fail("支付失败");
-          }
+      this.$api
+        .getPay(this.getItem().BuyItem_Id, this.getItem().Partner_Id)
+        .then(obj => {
+          wx.requestPayment({
+            //相关支付参数
+            timeStamp: obj.timeStamp,
+            nonceStr: obj.nonceStr,
+            package: "prepay_id=" + obj.prepay_id,
+            signType: obj.signType,
+            paySign: obj.paySign,
+            success: function(res) {
+              Toast.success("支付成功");
+            },
+            fail: function(res) {
+              Toast.fail("支付失败");
+            }
+          });
         });
-      });
     },
     previewImage(e) {
       console.log(e);
