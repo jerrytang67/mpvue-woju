@@ -2,7 +2,7 @@
   <div class="container">
      <!-- @click="clickHandle('test click', $event)"> -->
     <view class="headBar" >
-      <van-row v-if="my_partner" > 
+      <van-row v-if="my_partner.Id" > 
         <van-col :span="6">
           <img class="userinfo-avatar"  v-if="my_partner.headimgurl" :src="my_partner.headimgurl" background-size="cover"/>
         </van-col>
@@ -19,7 +19,7 @@
             </view>
         </van-col>
       </van-row>
-      <view class="center"  v-if="!my_partner">
+      <view class="center"  v-if="!my_partner.Id">
         <van-button style="margin:0 auto;" type="danger" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">请先选择团长</van-button>
       </view>
     </view>
@@ -90,7 +90,6 @@ export default {
   created() {
     // 调用应用实例的方法获取全局数据
     this.getSetting();
-    this.getUserInfo();
   },
   mounted() {
     // 一进来看看用户是否授权过
@@ -202,20 +201,8 @@ export default {
       return new Promise((resolve, reject) => {
         wx.login({
           success: logRes => {
-            // if (!that.openid)
-            that.$api.code2session(logRes.code).then(res => {
-              if (res.openid) {
-                this.SET_OPENID(res.openid);
-              }
-              if (res.token) {
-                wx.setStorageSync("token", res.token);
-              }
-            });
-            // else console.log("STORE:openid is " + that.openid);
             wx.getUserInfo({
               success: res => {
-                // this.userInfo = res.userInfo;
-                //console.log(res);
                 this.USER_INFO(res);
                 return resolve();
               }

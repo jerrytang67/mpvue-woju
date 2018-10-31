@@ -1,12 +1,40 @@
 <script>
+import { mapMutations } from "vuex";
 export default {
   created() {
-    // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync("logs") || [];
-    logs.unshift(Date.now());
-    wx.setStorageSync("logs", logs);
-
-    console.log("app created and cache logs by setStorageSync");
+    this.getUserInfo().then(res => {
+      console.log("vue start");
+    });
+  },
+  methods: {
+    ...mapMutations(["USER_INFO","SET_OPENID"]),
+    getUserInfo() {
+      var that = this;
+      return new Promise((resolve, reject) => {
+        wx.login({
+          success: logRes => {
+            that.$api.code2session(logRes.code).then(res => {
+              if (res.openid) {
+                this.SET_OPENID(res.openid);
+              }
+              if (res.token) {
+                wx.setStorageSync("token", res.token);
+              }
+            });
+            wx.getUserInfo({
+              success: res => {
+                this.USER_INFO(res);
+                return resolve();
+              }
+            });
+          },
+          fail: error => {
+            return reject(error);
+          }
+        });
+      });
+      // 调用登录接口
+    }
   }
 };
 </script>
@@ -14,5 +42,4 @@ export default {
 <style lang="scss">
 // @import "styles/custom.scss";
 @import "styles/commom.scss";
-
 </style>

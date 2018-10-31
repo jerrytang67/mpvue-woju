@@ -19,15 +19,16 @@
           <div style="display:flex;flex-direction:row;justify-content:start;">
             <scroll-view scroll-y style="height: calc(100vh - 44px); width:25vw;" >
               <van-badge-group :active="selectShopIndex" @change="onBadgeChange">
-                <van-badge v-for="x in partnerShops" :key="x" :title="x.ShopName" info="3" />
+                <van-badge title="莴聚公告"></van-badge>
+                <van-badge v-for="x in partnerShops" :key="x" :title="x.ShopName"/>
               </van-badge-group>
             </scroll-view>
             <view style="width:75vw;">
               <div>
-                <div v-if="!currentShop">
+                <div v-if="selectShopIndex<=0">
                       这里放总的介绍页内容
                 </div>
-                <div style="padding:25rpx;font-size:32rpx" v-if="currentShop">
+                <div style="padding:25rpx;font-size:32rpx" v-if="selectShopIndex>0">
                   <image style="width:50px;height:50px;border-radius:50%;" :src="currentShop.LogoImageUrl+'!w100h100'" />
                   <p>{{currentShop.ShopName}}</p>
                   <p>地址:{{currentShop.ShopAddress}}</p>
@@ -54,16 +55,6 @@
         <!-- tab4end -->
       </van-tabs>
     </div>
-          <!-- <van-card v-for="x in orders" lazy-load="true" :key="x":title="x.body" :num="x.count" :price="x.price/100" >
-              <view slot="footer">
-                  <van-button size="small" >接单</van-button>
-                  <van-button size="small" >发货</van-button>
-              </view>
-              <view slot="tags">
-                总价:
-                <span style="color:#f00;">{{x.totalprice/100}}</span>
-              </view>
-            </van-card> -->
     <van-toast id="van-toast" />
   </div>
 </template>
@@ -84,7 +75,7 @@ export default {
     ...mapState(["openid", "myBuyItems", "partnerShops", "position"])
   },
   data: {
-    selectShopIndex: -1,
+    selectShopIndex: 0,
     currentShop: null,
     items: [],
     positionHasGot: false
@@ -124,8 +115,11 @@ export default {
     //商家便签切换
     onBadgeChange(e) {
       console.log(e);
-      if (e.mp.detail >= 0) {
-        this.currentShop = this.partnerShops[e.mp.detail];
+      if (e.mp.detail < 0) return;
+      this.selectShopIndex = e.mp.detail;
+      const index = selectShopIndex - 1;
+      if (index >= 0) {
+        this.currentShop = this.partnerShops[index];
         let shopId = this.currentShop.Id;
         console.log(this.currentShop);
         this.$api.getShopBuyItems({ shopId }).then(res => {
