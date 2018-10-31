@@ -72,7 +72,7 @@
 
     <van-goods-action>
       <van-goods-action-icon icon="home" text="返回" @click="back"/>
-      <van-goods-action-icon icon="chat" text="客服"/>
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact"/>
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
       <van-goods-action-button text="立即购买" @click="getpay()"  />

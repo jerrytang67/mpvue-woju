@@ -1,5 +1,6 @@
 <template>
-  <van-card :num="data.count" :price="data.price/100" :title="data.body" class="card"
+<div style="margin:15rpx">
+  <van-card :num="data.count" :price="data.price/100" :title="'#'+data.Id+' '+data.body" class="card"
   :thumb="data.LogoImgUrl+'!w100h100'">
     <view slot="tags" class="tags">
       <div>
@@ -22,6 +23,7 @@
       </block>
     </view>
   </van-card>
+</div>
 </template>
 
 <script>

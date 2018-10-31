@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div style="padding:0 25rpx;width:100%;background:#fff;">
+    <div style="width:100%;background:#fff;">
       <van-tabs :active="selectIndex" @change="onTabChange" >
         <van-tab title="待付款">
             <order v-for="x in waitForPay" :key="x" :data="x" type="user"></order>

@@ -106,7 +106,7 @@
           <div style="height:15vh;"> </div>
       </div>
     <van-goods-action style="z-index:9999;">
-        <van-goods-action-icon icon="chat" text="客服"/>
+        <van-goods-action-icon icon="chat" text="客服"  open-type="contact"/>
         <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
         <!-- <van-goods-action-button @click="save()" text="暂存退出" type="warning" /> -->
         <van-goods-action-button text="发布" @click="post()"  />
