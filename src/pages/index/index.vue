@@ -26,8 +26,8 @@
     <view class="contentBody" >
       <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent"/>
       <view class="p-lg-5" style="padding:40rpx;">
-        <!-- <van-button plain type="danger">团长招募</van-button>
-        <van-button plain type="danger">成为供应商</van-button> -->
+        <van-button plain type="danger" @click="$navigate.To('/pages/index/realNameSys?type=0')">团长招募</van-button>
+        <van-button plain type="danger"  @click="$navigate.To('/pages/index/realNameSys?type=1')">成为供应商</van-button>
           <!-- <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_49_530.png"  mode="aspectFit" />
           <image src="http://img.wjhaomama.com/6/img/2018-10/12_01_53_086.png" mode="aspectFit" /> -->
         </view>

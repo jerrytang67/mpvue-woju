@@ -44,16 +44,17 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/styles/theme.scss";
 .tags {
-  margin-top: 32rpx;
+  margin-top: $font-lg;
   display: flex;
   flex-direction: column;
   .price {
-    color: #f00;
-    font-size: 32rpx;
+    color: $danger;
+    font-size: $font-lg;
   }
 }
 .van-card__title {
-  font-size: 32rpx;
+  font-size: $font-lg;
 }
 </style>

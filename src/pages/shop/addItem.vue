@@ -3,80 +3,71 @@
       <div class="contentBody">
           <div  style="padding:20rpx 5vw;">
             <demo-block title="滚动图片">
-                <view class="pic-upload">
-                    <div v-if="item.LogoList &&item.LogoList.length<4" class="upload-btn" @click="uploadImg()"  :style="{'width':width || '120rpx','height':height || '120rpx'}">
-                        <span class="upload-add">+</span>
-                    </div>
-                    <block v-if="item.LogoList" v-for="(src,index) in item.LogoList" :key="src" >
-                        <img @click="previewImage(index)" :src="src+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
-                    </block>
-                </view>
+                <picUpload :data="item.LogoList" :limit="4"></picUpload>
             </demo-block>
 
             <demo-block title="商品详情">
-                <van-cell-group>
-                    <van-field  label="商品名称" :value="item.Name" required clearable @change="onChange"  data-name="Name" />
-                    <van-field label="原价" :value="item.Price" type="digit"  required clearable @change="onChange" data-name="Price"/>
-                    <van-field  label="成交价" :value="item.VipPrice" type="digit"  required @change="onChange" data-name="VipPrice"/>
-                    <van-field  label="库存" :value="item.Count" type="number"  required @change="onChange" data-name="Count"/>
-                    <van-switch-cell title="是否限购" :checked="item.LimitBuyCount>0" @change="toggle('LimitBuyCount')" />
-                    <van-field  label="限购数量" :disabled="item.LimitBuyCount==0" :value="item.LimitBuyCount" type="number" 
-                    @change="onChange" data-name="LimitBuyCount"/>
-                </van-cell-group>
+              <van-cell-group>
+                  <van-field  label="商品名称" :value="item.Name" required clearable @change="onChange"  data-name="Name" />
+                  <van-field label="原价" :value="item.Price" type="digit"  required clearable @change="onChange" data-name="Price"/>
+                  <van-field  label="成交价" :value="item.VipPrice" type="digit"  required @change="onChange" data-name="VipPrice"/>
+                  <van-field  label="库存" :value="item.Count" type="number"  required @change="onChange" data-name="Count"/>
+                  <van-switch-cell title="是否限购" :checked="item.LimitBuyCount>0" @change="toggle('LimitBuyCount')" />
+                  <van-field  label="限购数量" :disabled="item.LimitBuyCount==0" :value="item.LimitBuyCount" type="number" 
+                  @change="onChange" data-name="LimitBuyCount"/>
+              </van-cell-group>
             </demo-block>
 
             <demo-block title="开始时间">
-                    <van-cell >
-                      <view slot="title">
-                        <picker mode="date" :value="item.DateTimeStart" :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeStart" >
-                          <view class="picker flex-between">
-                            <span>开始时间</span> <span>{{item.DateTimeStart}}</span>
-                          </view>
-                        </picker>
-                      </view>
-                    </van-cell>
+              <van-cell >
+                <view slot="title">
+                  <picker mode="date" :value="item.DateTimeStart" :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeStart" >
+                    <view class="picker flex-between">
+                      <span>开始时间</span> <span>{{item.DateTimeStart}}</span>
+                    </view>
+                  </picker>
+                </view>
+              </van-cell>
             </demo-block>
             <demo-block title="结束时间">
-                    <van-cell>
-                      <view slot="title">
-                        <picker mode="date" :value="item.DateTimeEnd"  :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeEnd" >
-                          <view class="picker flex-between">
-                            <span>结束时间</span> <span>{{item.DateTimeEnd}}</span>
-                          </view>
-                        </picker>
-                      </view>
-                    </van-cell>
+              <van-cell>
+                <view slot="title">
+                  <picker mode="date" :value="item.DateTimeEnd" :start="dateStart" :end="dateEnd" @change="onChange" data-name="DateTimeEnd" >
+                    <view class="picker flex-between">
+                      <span>结束时间</span> <span>{{item.DateTimeEnd}}</span>
+                    </view>
+                  </picker>
+                </view>
+              </van-cell>
             </demo-block>
 
             <demo-block title="购前需知">
               <van-cell-group>
-                <van-field :value="item.NoticeText" label="购前需知"    type="textarea" required autosize @change="onChange"  data-name="NoticeText" 
-  />
+                <van-field :value="item.NoticeText" label="购前需知" type="textarea" required autosize @change="onChange" data-name="NoticeText" />
               </van-cell-group>
             </demo-block>
 
             <demo-block title="商品介绍">
               <van-cell-group>
-                <van-field :value="item.Desc" label="商品介绍"    type="textarea"  required autosize @change="onChange"  data-name="Desc" 
-  />
+                <van-field :value="item.Desc" label="商品介绍" type="textarea" required autosize @change="onChange" data-name="Desc" />
               </van-cell-group>
             </demo-block>
 
             <demo-block title="展示平台">
-                <van-checkbox-group :value="result" @change="onChkChange" data-id="group">
-                   <van-cell-group >
-                    <van-cell
-                      v-for="xx in showType"
-                      :key="xx"
-                      :title="xx.name"
-                      clickable
-                      :data-name="xx.value"
-                      @click.stop="onChkToggle"
-                    >
-                    <van-checkbox :class="'checkboxes-'+xx.value" :name="xx.value" @click.stop="onChkTap" />
-                </van-cell>
-                </van-cell-group >
-                </van-checkbox-group>
+              <van-checkbox-group :value="result" @change="onChkChange" data-id="group">
+                  <van-cell-group >
+                  <van-cell
+                    v-for="xx in showType"
+                    :key="xx"
+                    :title="xx.name"
+                    clickable
+                    :data-name="xx.value"
+                    @click.stop="onChkToggle"
+                  >
+                  <van-checkbox :class="'checkboxes-'+xx.value" :name="xx.value" @click.stop="onChkTap" />
+              </van-cell>
+              </van-cell-group >
+              </van-checkbox-group>
             </demo-block>
 
             <demo-block title="状态">
@@ -112,6 +103,7 @@
         <van-goods-action-button text="发布" @click="post()"  />
     </van-goods-action>
     <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 
@@ -120,11 +112,10 @@ import moment from "moment";
 
 import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "@/utils/index";
-
+import picUpload from "@/components/picUpload";
 import Toast from "../../../static/dist/toast/toast";
 import Dialog from "../../../static/dist/dialog/dialog";
 import Tip from "@/utils/Tips";
-import upload from "@/utils/upload";
 
 const DEFAULTITEM = {
   Name: "",
@@ -142,6 +133,9 @@ const DEFAULTITEM = {
 };
 
 export default {
+  components: {
+    picUpload
+  },
   onLoad(options) {
     if (!options.shopId) wx.navigateBack();
     wx.setNavigationBarTitle({ title: options.shopName + " 新建商品" });
@@ -255,29 +249,7 @@ export default {
     save() {
       console.log("set key:save_item_" + this.shopId);
       wx.setStorageSync("save_item_" + this.shopId, this.item);
-      wx.removeStorageSync("_tmpUpLoadImages");
       wx.navigateBack();
-    },
-    previewImage(e) {
-      var that = this;
-      wx.previewImage({
-        current: that.item.LogoList[e],
-        urls: that.item.LogoList // 需要预览的图片http链接列表
-      });
-    },
-    uploadImg() {
-      var that = this;
-      upload
-        .upload()
-        .then(res => {
-          console.log("upfile ok");
-          that.item.LogoList.push("http://img.wjhaomama.com/" + res);
-          wx.setStorageSync("_tmpUpLoadImages", that.item.LogoList);
-          console.log(wx.getStorageSync("_tmpUpLoadImages"));
-        })
-        .catch(err => {
-          console.log(err);
-        });
     },
     toggle(key) {
       switch (key) {
@@ -295,28 +267,4 @@ export default {
 </script>
 
 <style lang="scss">
-.pic-upload {
-  padding: 10rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  .upload-btn {
-    border: 1px dashed #ddd;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20rpx;
-  }
-  .upload-add {
-    font-size: 80rpx;
-    font-weight: 500;
-    color: #c9c9c9;
-  }
-}
-
-.img {
-  margin: 10rpx 30rpx 10rpx 0;
-}
 </style>

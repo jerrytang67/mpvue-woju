@@ -83,6 +83,20 @@ export const actions = {
 
     })
 
+  },
+  getRealNameInfo: ({
+    commit
+  }, v) => {
+    console.log("action getRealNameInfo");
+    return new Promise((resolve, reject) => {
+      api.getRealNameInfo().then(res => {
+        if (res) {
+          commit("SET_REALNAMEINFO", res);
+          return resolve(res);
+        }
+        return reject();
+      })
+    })
   }
 }
 

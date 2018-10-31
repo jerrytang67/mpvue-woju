@@ -148,8 +148,7 @@ module.exports = [{
         "van-tabs": "/static/dist/tabs/index"
       })
     }
-  }
-  ,
+  },
   {
     path: 'pages/partner/orders',
     config: {
@@ -158,6 +157,19 @@ module.exports = [{
       usingComponents: Object.assign({}, usingComponents, {
         "van-tab": "/static/dist/tab/index",
         "van-tabs": "/static/dist/tabs/index"
+      })
+    }
+  },
+  {
+    path: 'pages/index/realNameSys',
+    config: {
+      navigationBarTitleText: '',
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-field": "/static/dist/field/index",
+        "van-checkbox": "/static/dist/checkbox/index",
+        "van-checkbox-group": "/static/dist/checkbox-group/index",
+        "van-radio": "/static/dist/radio/index",
+        "van-radio-group": "/static/dist/radio-group/index"
       })
     }
   }

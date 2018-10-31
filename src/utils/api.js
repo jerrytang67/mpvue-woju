@@ -27,6 +27,7 @@ const request = (method, url, data = {}) => { // method为请求方法，url为�
 
 export default {
   code2session: code => request('get', `/WoJu/code2session?appid=${APPID}&code=${code}&storeId=${STOREID}`),
+  getPhone: data => request('post', `/WoJu/getPhone`, data),
 
   get_setting: () => request("get", `/WoJu/GetSetting`),
   post_buyitem: data => request("post", `/WoJu/PostBuyItem`, data),
@@ -77,6 +78,9 @@ export default {
   //商家
   SetBuyItem: (itemId, type) => request("get", `/WoJu/SetBuyItems?itemId=${itemId}&type=${type}`),
 
+  //实名认证
+  postRealNameInfo: data => request("post", `/WoJu/postRealNameInfo`, data),
+  getRealNameInfo: () => request("get", `/WoJu/getRealNameInfo`),
   GetDistance: (lat1, lng1, lat2, lng2) => {
     var radLat1 = Rad(lat1);
     var radLat2 = Rad(lat2);

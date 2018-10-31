@@ -66,6 +66,7 @@ export const mutations = {
     state.shopBuyItems = payload;
     console.log(state.shopBuyItems);
   },
+  SET_REALNAMEINFO: (state, v) => state.realNameInfo = v,
   ADD_TO_CART: (state, v) => {
     //v.Count += 1;
     // state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]

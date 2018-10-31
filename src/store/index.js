@@ -26,6 +26,8 @@ const state = {
   totalPrice: 0,
   totalVipPrice: 0,
 
+  //实名制
+  realNameInfo: {},
   //自己的团长信息
   partner: {},
   myOrders: [],

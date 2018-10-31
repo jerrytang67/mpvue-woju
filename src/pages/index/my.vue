@@ -36,14 +36,23 @@
             :checked="noticeChk"
             @change="toggleSetting('notice')"
           />
+          <van-switch-cell
+            title="隐藏金额"
+            :checked="showMoneyChk"
+            @change="toggleSetting('showMoney')"
+          />
         </demo-block>
 
-        <demo-block title="我是团长" v-if="partner" >
+        <demo-block title="我的团长信息" v-if="partner" >
           <van-panel  use-footer-slot class="partner">
             <view slot="header" class="header">
-              <div>姓名:{{partner.Realname}}</div>
-              <div>电话:{{partner.Phone}}</div>
-              <div>可提: {{partner.AvblBalance}} 不可提 {{partner.UnavblBalance}} 已提:{{partner.TotalWithdrawals}}</div>
+              <div>团长姓名:{{partner.Realname}}</div>
+              <div>团长电话:{{partner.Phone}}</div>
+              <div class="flex-between" v-if="showMoneyChk">
+                <div>可提现: <span class="price">￥{{partner.AvblBalance}}</span></div>
+                <div>不可提:<span class="price">￥{{partner.UnavblBalance}}</span></div>
+                <div>已提:<span class="price">￥{{partner.TotalWithdrawals}}</span></div>
+              </div>
             </view>
             <view style="padding:0 20rpx;" slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
@@ -93,7 +102,8 @@ export default {
   data: {
     imgSrc: "",
     noticeChk: true,
-    active: 0
+    active: 0,
+    showMoneyChk: false
   },
   onReady() {},
   mounted() {
@@ -132,20 +142,27 @@ export default {
         });
     },
     toggleSetting(name) {
-      this.noticeChk = !this.noticeChk;
+      if (name == "notice") this.noticeChk = !this.noticeChk;
+      if (name == "showMoney") this.showMoneyChk = !this.showMoneyChk;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/theme.scss";
 .van-tabbar-item--active {
   color: #09bb07 !important;
 }
 .partner {
   .header {
-    font-size: 32rpx;
-    padding: 32rpx 16rpx;
+    font-size: 24rpx;
+    padding: 32rpx 40rpx;
+    line-height: 48rpx;
+    .price {
+      color: $danger;
+      font-size: 32rpx;
+    }
   }
 }
 </style>

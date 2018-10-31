@@ -117,7 +117,7 @@ export default {
       console.log(e);
       if (e.mp.detail < 0) return;
       this.selectShopIndex = e.mp.detail;
-      const index = selectShopIndex - 1;
+      const index = this.selectShopIndex - 1;
       if (index >= 0) {
         this.currentShop = this.partnerShops[index];
         let shopId = this.currentShop.Id;
