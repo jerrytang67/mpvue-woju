@@ -89,7 +89,6 @@
                   <van-cell title="团长到商家处提货并送货" clickable data-name="8" @click="onRadioClick">
                     <van-radio name="8" />
                   </van-cell>
-
                 </van-cell-group>
               </van-radio-group>
             </demo-block>
@@ -109,7 +108,6 @@
 
 <script>
 import moment from "moment";
-
 import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "@/utils/index";
 import picUpload from "@/components/picUpload";
@@ -131,7 +129,6 @@ const DEFAULTITEM = {
   ShowType: 0,
   PickUpType: "1"
 };
-
 export default {
   components: {
     picUpload
@@ -158,23 +155,7 @@ export default {
       { name: "莴聚小程序", value: "2" },
       { name: "吴江优选", value: "1" }
     ],
-
     shopId: null,
-    DEFAULTITEM: {
-      Name: "",
-      LogoList: [],
-      Price: null,
-      VipPrice: null,
-      Count: null,
-      LimitBuyCount: 0,
-      State: 1,
-      ShopId: null,
-      DateTimeStart: "2018-10-9",
-      DateTimeEnd: "",
-      ShowType: 0,
-      PickUpType: "1"
-    },
-
     item: Object.assign({}, DEFAULTITEM, {}),
     width: "120rpx",
     height: "120rpx"
