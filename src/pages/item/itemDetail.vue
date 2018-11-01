@@ -20,7 +20,8 @@
       </view>
       <view class="baoyou">
         <van-tag round type="primary">{{currentItem.PickUpType}}</van-tag>
-        
+        <van-tag round type="primary" v-if="currentItem.LimitBuyCount==0">不限购</van-tag>
+        <van-tag round type="primary" v-else>每人限购{{currentItem.LimitBuyCount}}件</van-tag>
       </view>
     </view>
     <view class="order_num">
@@ -69,13 +70,16 @@
     <view class="htmlContent">
         <wxparser :rich-text="currentItem.Desc" />
     </view>
+    <view class="spacing"></view>
+    <view class="spacing"></view>
+    <view class="spacing"></view>
 
     <van-goods-action>
       <van-goods-action-icon icon="home" text="返回" @click="back"/>
       <van-goods-action-icon icon="chat" text="客服" open-type="contact"/>
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
-      <van-goods-action-button text="立即购买" @click="getpay()"  />
+      <van-goods-action-button type="primary" text="立即购买" @click="getpay()"  />
     </van-goods-action>
     <van-toast id="van-toast" />
   </div>
@@ -87,18 +91,10 @@ import { formatTime } from "../../utils/index";
 import Toast from "../../../static/dist/toast/toast";
 export default {
   onLoad(options) {
-    if (!this.$root.$mp.query["id"]) wx.navigateBack();
+    if (!options.id) wx.navigateBack();
     wx.setNavigationBarTitle({ title: "商品详情" });
   },
   onPullDownRefresh: function() {
-    // let that = this;
-    // this.currentItem = {};
-    // that.SET_ITEM({});
-    // let id = this.$root.$mp.query.id;
-    // this.$api.getItemDetail({ id }).then(res => {
-    //   console.log(res);
-    //   that.SET_ITEM(res);
-    // });
     this.load();
     wx.stopPullDownRefresh();
   },
@@ -107,17 +103,11 @@ export default {
     this.load();
   },
   computed: {
-    ...mapState(["userInfo", "cartItems", "buyItems", "total", "currentItem"]),
-    item() {
-      var s = this.getItem();
-      console.log(s);
-      return s;
-    }
+    ...mapState(["userInfo", "cartItems", "buyItems", "total", "currentItem"])
   },
   methods: {
     ...mapMutations(["SET_ITEM"]),
     ...mapActions(["add_to_cart"]),
-
     load() {
       let that = this;
       this.currentItem = {};
@@ -128,48 +118,31 @@ export default {
         that.SET_ITEM(res);
       });
     },
-
-    back() {
-      wx.navigateBack();
-    },
     getItem() {
       var current = this.buyItems.filter(
         z => z.BuyItem.Id == this.$root.$mp.query["id"]
       )[0];
       return current;
     },
+    back() {
+      wx.navigateBack();
+    },
     addCart() {
-      // console.log(this.getItem());
-      var item = this.getItem();
+      let item = this.getItem();
+      console.log(item);
       if (item.BuyItem) {
-        console.log(new Date(item.BuyItem.DateTimeEnd), new Date());
         if (new Date(item.BuyItem.DateTimeEnd) < new Date()) {
           Toast.fail("已结束");
           return;
         }
         item.Count += 1;
-        this.add_to_cart(this.getItem());
+        this.add_to_cart(item).then(res => {
+          wx.navigateTo({ url: "/pages/index/pay" });
+        });
       }
     },
     getpay() {
-      this.$api
-        .getPay(this.getItem().BuyItem_Id, this.getItem().Partner_Id)
-        .then(obj => {
-          wx.requestPayment({
-            //相关支付参数
-            timeStamp: obj.timeStamp,
-            nonceStr: obj.nonceStr,
-            package: "prepay_id=" + obj.prepay_id,
-            signType: obj.signType,
-            paySign: obj.paySign,
-            success: function(res) {
-              Toast.success("支付成功");
-            },
-            fail: function(res) {
-              Toast.fail("支付失败");
-            }
-          });
-        });
+      this.addCart();
     },
     previewImage(e) {
       console.log(e);
@@ -244,17 +217,17 @@ image.wxParser-img {
       padding-bottom: 5rpx;
       font-size: 40rpx;
     }
-    .baoyou {
-      color: #808080;
-      font-size: 28rpx;
-      margin-top: 20rpx;
-    }
+
     .order_time {
       position: absolute;
       right: 170rpx;
       top: 0rpx;
     }
   }
+}
+
+van-tag._van-tag {
+  margin: 5rpx 24rpx 5rpx 0;
 }
 
 .order_num {

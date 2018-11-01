@@ -30,10 +30,9 @@ export const actions = {
   add_to_cart: ({
     commit
   }, v) => {
-    // console.log("ADD_TO_CART", v)
     return new Promise((resolve, reject) => {
       commit("ADD_TO_CART", v)
-      resolve;
+      return resolve();
     });
   },
 

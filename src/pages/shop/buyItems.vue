@@ -2,14 +2,17 @@
     <div class="container">
       <div class="contentBody" >
         <div style="padding:20rpx;">
-          <van-card v-for="x in shopBuyItems" class="card"
+          <van-card v-for="x in shopBuyItems" class="card" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)"
       lazy-load="true" :key="x" :tag="x.Type" :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice" >
           <view slot="footer" class="footer">
-            <van-button size="small" type="primary">编辑</van-button>
-            <van-button size="small" type="danger" @click="onDelete(x)">删除</van-button>
+            <van-button size="small" type="primary" @click.stop="$navigate.To('/pages/shop/addItem?itemId='+x.Id)" >编辑</van-button>
+            <van-button size="small" type="danger" @click.stop="onDelete(x)">删除</van-button>
           </view>
-          <view slot="tags">
+          <view slot="tags" style="margin-top:24rpx;">
+            <van-tag round type="primary">{{x.PickUpType}}</van-tag>
 
+            <van-tag round type="primary" v-if="x.LimitBuyCount==0">不限购</van-tag>
+            <van-tag round type="primary" v-else>限购{{x.LimitBuyCount}}件</van-tag>
           </view>
         </van-card>
         </div>
@@ -46,7 +49,7 @@ export default {
     ...mapState(["shopBuyItems", "openid"])
   },
   methods: {
-    ...mapActions(["getShopBuyItems","deleteBuyItem"]),
+    ...mapActions(["getShopBuyItems", "deleteBuyItem"]),
     getItems() {
       var that = this;
       that.getShopBuyItems({ shopId: this.$root.$mp.query.shopId });
@@ -57,7 +60,7 @@ export default {
       console.log(item);
       Tips.confirm("删除后将不能恢复")
         .then(res => {
-          this.deleteBuyItem(item.Id)
+          this.deleteBuyItem(item.Id);
           // this.shopBuyItems = this.shopBuyItems.filter(z => z.Id != item.Id);
         })
         .catch(() => {
@@ -74,5 +77,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>

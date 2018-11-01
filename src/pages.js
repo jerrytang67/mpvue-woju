@@ -44,6 +44,16 @@ module.exports = [{
     }
   },
   {
+    path: 'pages/index/pay',
+    config: {
+      navigationBarTitleText: '支付',
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-submit-bar": "/static/dist/submit-bar/index",
+        "van-stepper": "/static/dist/stepper/index"
+      })
+    }
+  },
+  {
     path: 'pages/index/my',
     config: {
       navigationBarTitleText: '',
@@ -165,6 +175,7 @@ module.exports = [{
     config: {
       navigationBarTitleText: '',
       usingComponents: Object.assign({}, usingComponents, {
+        "van-steps": "/static/dist/steps/index",
         "van-field": "/static/dist/field/index",
         "van-checkbox": "/static/dist/checkbox/index",
         "van-checkbox-group": "/static/dist/checkbox-group/index",

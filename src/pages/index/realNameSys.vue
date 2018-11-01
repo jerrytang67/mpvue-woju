@@ -2,6 +2,7 @@
   <div class="container">
     <div class="contentBody">
       <div style="padding:24rpx 32rpx;">
+        <van-steps :steps="steps" active="0"/>
         <demo-block title="实名认证基本信息">
           <van-cell-group>
             <van-field label="姓名" :value="item.RealName" required @change="onChange"  data-name="RealName" />
@@ -29,7 +30,7 @@
     </div>
     <van-goods-action style="z-index:9999;">
         <van-goods-action-icon icon="chat" text="客服"  open-type="contact"/>
-        <van-goods-action-button text="提交" @click="post()"  />
+        <van-goods-action-button text="下一步" type="primary" @click="post()"  />
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
@@ -60,7 +61,7 @@ export default {
     if (!options.type < 0) wx.navigateBack();
     this.type = options.type;
     wx.setNavigationBarTitle({
-      title: (this.type === 0 ? "团长" : "商家") + " 实名认证"
+      title: (this.type == 0 ? "团长" : "商家") + " 实名认证"
     });
     this.getRealNameInfo().then(res => {
       this.item = res;
@@ -70,6 +71,20 @@ export default {
     console.log("onReady");
   },
   data: {
+    steps: [
+      {
+        text: "步骤一",
+        desc: "实名信息"
+      },
+      {
+        text: "步骤二",
+        desc: "团长信息"
+      },
+      {
+        text: "完成",
+        desc: "等待审核通过"
+      }
+    ],
     type: 0,
     selectType: 0,
     Type: ["个人", "企业"],
@@ -91,12 +106,15 @@ export default {
         IDCardHandUrl: this.item.IDCardHandUrl
       };
       if (this.type == 1) {
-        if (!this.item.BusinessLicenseUrl) Toast.fail("营业执照没有上传");
+        if (!this.item.BusinessLicenseUrl) {
+          Toast.fail("营业执照没有上传");
+          return;
+        }
         data.BusinessLicenseUrl = this.item.BusinessLicenseUrl;
       }
       this.$api.postRealNameInfo(data).then(res => {
         if (res.Id) {
-          Toast.success("提交成功,请等待管理员审核");
+          Toast.success("提交成功,请审核结果");
           setTimeout(() => {
             wx.navigateBack();
           }, 1500);

@@ -53,7 +53,7 @@
               </van-cell-group>
             </demo-block>
 
-            <demo-block title="展示平台">
+            <!-- <demo-block title="展示平台">
               <van-checkbox-group :value="result" @change="onChkChange" data-id="group">
                   <van-cell-group >
                   <van-cell
@@ -68,7 +68,7 @@
               </van-cell>
               </van-cell-group >
               </van-checkbox-group>
-            </demo-block>
+            </demo-block> -->
 
             <demo-block title="状态">
               <van-switch-cell title="是否启用" :checked="item.State>0" @change="toggle('State')" />
@@ -77,17 +77,17 @@
             <demo-block title="取货方式">
               <van-radio-group :value="item.PickUpType" bind:change="onRadioChange">
                 <van-cell-group>
-                  <van-cell title="购买者到商家自提" clickable data-name="1" @click="onRadioClick">
-                    <van-radio name="1" />
+                  <van-cell title="到店自提" clickable data-name="到店自提" @click="onRadioClick">
+                    <van-radio name="到店自提" />
                   </van-cell>
-                  <van-cell title="购买者到团长处自提" clickable data-name="2" @click="onRadioClick">
-                    <van-radio name="2" />
+                  <van-cell title="团长处自提" clickable data-name="团长处自提" @click="onRadioClick">
+                    <van-radio name="团长处自提" />
                   </van-cell>
-                  <van-cell title="商家配送到购买者" clickable data-name="4" @click="onRadioClick">
-                    <van-radio name="4" />
+                  <van-cell title="商家送货" clickable data-name="商家送货" @click="onRadioClick">
+                    <van-radio name="商家送货" />
                   </van-cell>
-                  <van-cell title="团长到商家处提货并送货" clickable data-name="8" @click="onRadioClick">
-                    <van-radio name="8" />
+                  <van-cell title="团长提货送货" clickable data-name="团长提货送货" @click="onRadioClick">
+                    <van-radio name="团长提货送货" />
                   </van-cell>
                 </van-cell-group>
               </van-radio-group>
@@ -124,27 +124,48 @@ const DEFAULTITEM = {
   LimitBuyCount: 0,
   State: 1,
   ShopId: null,
-  DateTimeStart: "2018-10-9",
+  DateTimeStart: moment(new Date()).format("YYYY-MM-DD"),
   DateTimeEnd: "",
   ShowType: 0,
-  PickUpType: "1"
+  PickUpType: "到店自提"
 };
 export default {
   components: {
     picUpload
   },
   onLoad(options) {
-    if (!options.shopId) wx.navigateBack();
-    wx.setNavigationBarTitle({ title: options.shopName + " 新建商品" });
+    //编辑模式
+    if (options.itemId) {
+      this.itemId = options.itemId;
+      this.$api.getItemDetail({ id: this.itemId }).then(res => {
+        this.item = res;
+        this.item.dateStart = moment(new Date(res.DateTimeStart)).format(
+          "YYYY-MM-DD"
+        );
+        this.item.dateEnd = moment(new Date(res.DateTimeEnd)).format(
+          "YYYY-MM-DD"
+        );
+        this.item.PickUpType = res.PickUpType.toString();
+        wx.setNavigationBarTitle({ title: "编辑 " + res.Name });
+      });
+    } else {
+      if (!options.shopId) wx.navigateBack();
+      else {
+        this.shopId = options.shopId;
+        this.item.ShopId = this.shopId;
+        wx.setNavigationBarTitle({ title: options.shopName + " 新建商品" });
+      }
+    }
   },
   onReady() {
-    this.shopId = this.$root.$mp.query.shopId;
-    this.item.ShopId = this.shopId;
+    // this.shopId = this.$root.$mp.query.shopId;
+    // this.item.ShopId = this.shopId;
   },
   beforeDestroy() {
     console.log("beforeDestroy");
   },
   data: {
+    itemId: 0,
     dateStart: moment(new Date()).format("YYYY-MM-DD"),
     dateEnd: moment(new Date())
       .add({ months: 12 })
@@ -174,12 +195,13 @@ export default {
     //发布
     post() {
       // this.item.PickUpType = parseInt(this.item.PickUpType);
-      if (!this.$root.$mp.query.shopId) {
-        Tip.error("没有选中商家");
-        return;
+      if (!this.itemId) {
+        if (!this.shopId) {
+          Tip.error("没有选中商家");
+          return;
+        }
+        this.item.ShopId = this.shopId;
       }
-      this.item.ShopId = this.$root.$mp.query.shopId;
-      console.log(this.item);
       if (!this.item.DateTimeEnd) {
         Tip.error("结束时间不能为空");
         return;

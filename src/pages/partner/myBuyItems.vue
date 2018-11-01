@@ -3,10 +3,10 @@
     <div style="background:#fff;width:100vw;">
       <van-tabs active="0" @change="onTabChange">
         <van-tab title="我的商品">
-            <van-card v-for="(x,index) in myBuyItems"  :index="index"
+            <van-card v-for="(x,index) in myBuyItems"  :index="index"  @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)"
         lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice" >
             <view slot="footer">
-              <van-button size="small" type="danger" @click="deleteItem(index)">删除</van-button>
+              <van-button size="small" type="danger" @click.stop="deleteItem(index)">删除</van-button>
             </view>
             <view slot="tags">
                 <van-switch size="45rpx" :checked="x.State" @change="onChange(x)" />
@@ -34,10 +34,10 @@
                   <p>地址:{{currentShop.ShopAddress}}</p>
                   <p>电话:{{currentShop.ShopKeFuTel}}</p>
                 </div>
-                <van-card  v-for="x in items" 
+                <van-card  v-for="x in items"   @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)"
             lazy-load="true" :key="x"  :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice" >
                 <view slot="footer">
-                  <van-button size="small" type="danger" @click="addItem(x.Id)">上架</van-button>
+                  <van-button size="small" type="danger" @click.stop="addItem(x.Id)">上架</van-button>
                 </view>
                 <view slot="tags">
                 </view>

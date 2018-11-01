@@ -70,11 +70,15 @@ export const mutations = {
   ADD_TO_CART: (state, v) => {
     //v.Count += 1;
     // state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
-    state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
-    state.total = state.cartItems.reduce((c, n) => c + n.Count, 0)
-    state.totalPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.Price * n.Count), 0)
-    state.totalVipPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.VipPrice * n.Count), 0)
-    console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice)
+    // state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
+    if (v)
+      state.cartItems = [v];
+    else
+      state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)];
+    state.total = state.cartItems.reduce((c, n) => c + n.Count, 0);
+    state.totalPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.Price * n.Count), 0);
+    state.totalVipPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.VipPrice * n.Count), 0);
+    console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
   }
 }
 export default

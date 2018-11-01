@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     deleteImg(index) {
-      con
       if (this.limit == 1) this.data = "";
       else this.data.splice(index, 1);
     },
