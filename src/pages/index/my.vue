@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <image :src="userInfo.userInfo.avatarUrl" style="width:30vw;height:30vw;border-radius:50%;margin-bottom:5rpx;" />
+    <image v-if="userInfo.userInfo" :src="userInfo.userInfo.avatarUrl" style="width:30vw;height:30vw;border-radius:50%;margin-bottom:5rpx;" />
     <view class="contentBody">
       <div style="padding:20rpx 5vw;">
         <demo-block title="我的信息">
           <van-panel>
             <view slot="header" style="padding:1rem 2rem;">
-                <view>{{userInfo.userInfo.nickName}}</view>
+                <view v-if="userInfo.userInfo">{{userInfo.userInfo.nickName}}</view>
                 <view style="font-size:.7rem;">{{position.address}}</view>
             </view>
             <view>
@@ -105,7 +105,9 @@ export default {
     active: 0,
     showMoneyChk: false
   },
-  onReady() {},
+  onReady() {
+    if (!this.userInfo.userInfo) wx.navigateTo({ url: "/pages/index/login" });
+  },
   mounted() {
     this.get_setting();
   },

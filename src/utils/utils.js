@@ -11,6 +11,12 @@ function httpsPromisify(fn) {
         if (res.data.success) {
           resolve(res.data.data)
         } else {
+          if (res.data.needAuth) {
+            wx.navigateTo({
+              url: '/pages/index/login'
+            });
+            return;
+          }
           Tips.error(res.data.msg);
           reject(res.data.msg);
         }
@@ -28,4 +34,3 @@ function httpsPromisify(fn) {
 export default {
   httpsPromisify
 }
-

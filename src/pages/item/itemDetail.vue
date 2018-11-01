@@ -70,9 +70,7 @@
     <view class="htmlContent">
         <wxparser :rich-text="currentItem.Desc" />
     </view>
-    <view class="spacing"></view>
-    <view class="spacing"></view>
-    <view class="spacing"></view>
+    <div style="height:5vh;"> </div>
 
     <van-goods-action>
       <van-goods-action-icon icon="home" text="返回" @click="back"/>

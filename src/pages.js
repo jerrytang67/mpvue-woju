@@ -183,5 +183,11 @@ module.exports = [{
         "van-radio-group": "/static/dist/radio-group/index"
       })
     }
+  },
+  {
+    path: 'pages/index/login',
+    config: {
+      usingComponents: Object.assign({}, usingComponents,{})
+    }
   }
 ]

@@ -54,13 +54,10 @@ import Toast from "../../../static/dist/toast/toast";
 
 export default {
   onLoad(option) {
-    console.log(option);
   },
   onReady() {
     var that = this;
     var query = that.$root.$mp.query;
-    console.log("the query is :");
-    console.log(query);
     if (query.pid) {
       that.$api.getPartner({ pid: query.pid }).then(res => {
         that.SET_SELECT_PARTNER(res); //store set the current partner

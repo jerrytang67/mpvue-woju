@@ -3,7 +3,6 @@ import { mapMutations } from "vuex";
 export default {
   created() {
     this.getUserInfo().then(res => {
-      console.log("vue start");
     });
   },
   methods: {
