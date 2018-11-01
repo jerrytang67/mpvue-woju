@@ -41,6 +41,9 @@ export const mutations = {
       });
       state.buyItems = v;
       wx.setStorageSync("SET_BUYITEMLIST", v);
+    } else {
+      state.buyItems = [];
+      wx.setStorageSync("SET_BUYITEMLIST", []);
     }
   },
   SET_OPENID: (state, v) => {

@@ -3,6 +3,8 @@
   <van-card :num="data.count" :price="data.price/100" :title="'#'+data.Id+' '+data.body" class="card"
   :thumb="data.LogoImgUrl?data.LogoImgUrl+'!w100h100':'/static/images/no-image.png'">
     <view slot="tags" class="tags">
+      <div>地址:{{data.Address}}</div>
+      <div>电话:{{data.TelPhone}}</div>
       <div>
       提货方式:
       <van-tag round type="primary">{{data.PickUpType}}</van-tag>
@@ -10,6 +12,8 @@
       <div>
         合计:<span class="price">￥{{data.totalprice/100}}</span>
       </div>
+
+
       </view>
     <view slot="footer" class="footer">
       <block v-if="type==='user'">
@@ -46,7 +50,6 @@ export default {
 <style lang="scss">
 @import "@/styles/theme.scss";
 .tags {
-  margin-top: $font-lg;
   display: flex;
   flex-direction: column;
   .price {

@@ -3,8 +3,11 @@
     <div style="background:#fff;width:100vw;">
       <van-tabs active="0" @change="onTabChange">
         <van-tab title="我的商品">
-            <van-card v-for="(x,index) in myBuyItems"  :index="index"  @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)"
-        lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice" >
+            <van-card v-for="(x,index) in myBuyItems"  :index="index" 
+        lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice" >
+            <view slot="thumb">
+              <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)"/>
+            </view>
             <view slot="footer">
               <van-button size="small" type="danger" @click.stop="deleteItem(index)">删除</van-button>
             </view>

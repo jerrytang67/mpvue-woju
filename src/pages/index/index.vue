@@ -66,6 +66,7 @@ export default {
         that.SET_SELECT_PARTNER(res); //store set the current partner
       });
       that.$api.loadPartnerItems(that.$root.$mp.query.pid).then(res => {
+        if(res)
         that.SET_BUYITEMLIST(res); //store set current buyitem list
       });
     }

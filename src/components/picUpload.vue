@@ -5,7 +5,7 @@
         <span class="upload-add">+</span> 
     </div>
     <div class="box" v-if="data">
-        <img v-if="data" @click.stop="previewImage(0)" :src="data+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
+        <img @click.stop="previewImage(0)" :src="data+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
         <image src="/static/images/close.png" background-size="cover" class="box__close" @click.stop="deleteImg(0)" />
     </div>
 </block>
@@ -26,9 +26,11 @@ import upload from "@/utils/upload";
 
 export default {
   props: ["data", "limit"],
-  data: {
-    width: "100px",
-    height: "100px"
+  data: function() {
+    return {
+      width: "120rpx",
+      height: "120rpx"
+    };
   },
   methods: {
     deleteImg(index) {
@@ -53,15 +55,17 @@ export default {
         .upload()
         .then(res => {
           console.log("upfile ok");
-          if (that.limit == 1) that.data = "http://img.wjhaomama.com/" + res;
-          else that.data.push("http://img.wjhaomama.com/" + res);
-          // wx.setStorageSync("_tmpUpLoadImages", that.data);
-          // console.log(wx.getStorageSync("_tmpUpLoadImages"));
+          if (that.limit == 1) {
+            that.data = "http://img.wjhaomama.com/" + res;
+          } else {
+            that.data.push("http://img.wjhaomama.com/" + res);
+          }
+          that.$emit("onUpdate", that.data);
         })
         .catch(err => {
           wx.showToast({
-              title: err
-            });
+            title: err
+          });
         });
     }
   }

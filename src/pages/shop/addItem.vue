@@ -3,7 +3,7 @@
       <div class="contentBody">
           <div  style="padding:20rpx 5vw;">
             <demo-block title="滚动图片">
-                <picUpload :data="item.LogoList" limit="4"></picUpload>
+                <picUpload :data="item.LogoList" limit="4"  @onUpdate="onPicUpdate"></picUpload>
             </demo-block>
 
             <demo-block title="商品详情">
@@ -182,6 +182,10 @@ export default {
     height: "120rpx"
   },
   methods: {
+    onPicUpdate(e) {
+      console.log("onPicUpdate", e);
+      this.item.LogoList = e;
+    },
     onRadioChange(event) {
       console.log(event);
       this.item.PickUpType =

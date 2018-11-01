@@ -15,16 +15,16 @@
           </van-cell-group>
         </demo-block>
         <demo-block title="营业执照" v-if="type==1">
-            <picUpload :data="item.BusinessLicenseUrl" :limit="1"></picUpload>
+            <picUpload :data="item.BusinessLicenseUrl" :limit="1" @onUpdate="onUpdate1"></picUpload>
         </demo-block>
         <demo-block title="身份证-正面">
-            <picUpload :data="item.IDCardFrontUrl" :limit="1"></picUpload>
+            <picUpload :data="item.IDCardFrontUrl" :limit="1"  @onUpdate="onUpdate2"></picUpload>
         </demo-block>
         <demo-block title="身份证-背面">
-            <picUpload :data="item.IDCardBackUrl" :limit="1"></picUpload>
+            <picUpload :data="item.IDCardBackUrl" :limit="1"  @onUpdate="onUpdate3"></picUpload>
         </demo-block>
         <demo-block title="手持身份证-正面 照片">
-            <picUpload :data="item.IDCardHandUrl" :limit="1"></picUpload>
+            <picUpload :data="item.IDCardHandUrl" :limit="1"  @onUpdate="onUpdate4"></picUpload>
         </demo-block>
       </div>
     </div>
@@ -41,10 +41,10 @@ const REALNAMEINFO = {
   RealName: "",
   Telphone: "",
   TelphoneBackup: "",
-  IDCardFrontUrl: [],
-  IDCardBackUrl: [],
-  IDCardHandUrl: [],
-  BusinessLicenseUrl: []
+  IDCardFrontUrl: "",
+  IDCardBackUrl: "",
+  IDCardHandUrl: "",
+  BusinessLicenseUrl: ""
 };
 import { mapState, mapMutations, mapActions } from "vuex";
 import picUpload from "@/components/picUpload";
@@ -64,7 +64,10 @@ export default {
       title: (this.type == 0 ? "团长" : "商家") + " 实名认证"
     });
     this.getRealNameInfo().then(res => {
-      this.item = res;
+      if (res) {
+        console.log("load from http");
+        this.item = res;
+      }
     });
   },
   onReady() {
@@ -96,6 +99,19 @@ export default {
   },
   methods: {
     ...mapActions(["getRealNameInfo"]),
+    onUpdate1(e) {
+      console.log(e)
+      this.item.BusinessLicenseUrl = e;
+    },
+    onUpdate2(e) {
+      this.item.IDCardFrontUrl = e;
+    },
+    onUpdate3(e) {
+      this.item.IDCardBackUrl = e;
+    },
+    onUpdate4(e) {
+      this.item.IDCardHandUrl = e;
+    },
     post() {
       let data = {
         RealName: this.item.RealName,
@@ -145,6 +161,8 @@ export default {
             console.log(json.purePhoneNumber);
             this.item.Telphone = json.purePhoneNumber;
           });
+      } else {
+        Tip.error(e.mp.detail.errMsg);
       }
     }
   }
