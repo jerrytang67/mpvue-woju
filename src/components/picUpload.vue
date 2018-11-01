@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     deleteImg(index) {
+      con
       if (this.limit == 1) this.data = "";
       else this.data.splice(index, 1);
     },
@@ -59,7 +60,9 @@ export default {
           // console.log(wx.getStorageSync("_tmpUpLoadImages"));
         })
         .catch(err => {
-          console.log(err);
+          wx.showToast({
+              title: err
+            });
         });
     }
   }

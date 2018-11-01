@@ -17,9 +17,7 @@ export function upload() {
         const imageSrc = res.tempFilePaths[0]
         const fileExt = imageSrc.replace(/.+\./, "");
         const fileName = moment(new Date).format("YYYY/MM/HHmmss") + "." + fileExt
-        // const path = `wxapp/${wx.getStorageSync('openid')}/${imageSrc.split('//')[1]}`;
         const path = `wxapp/${wx.getStorageSync('openid')}/${fileName}`;
-
         upyun.upload({
           localPath: imageSrc,
           remotePath: path,
@@ -29,7 +27,6 @@ export function upload() {
           fail: ({
             errMsg
           }) => {
-            console.log('uploadImage fail, errMsg is', errMsg);
             return reject(errMsg);
           }
         })
@@ -37,7 +34,6 @@ export function upload() {
       fail: ({
         errMsg
       }) => {
-        console.log('chooseImage fail, err is', errMsg)
         return reject(errMsg);
       }
     })

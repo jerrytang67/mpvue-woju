@@ -3,7 +3,7 @@
       <div class="contentBody">
           <div  style="padding:20rpx 5vw;">
             <demo-block title="滚动图片">
-                <picUpload :data="item.LogoList" :limit="4"></picUpload>
+                <picUpload :data="item.LogoList" limit="4"></picUpload>
             </demo-block>
 
             <demo-block title="商品详情">
