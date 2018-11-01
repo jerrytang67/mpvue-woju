@@ -1,20 +1,22 @@
 <template>
-  <view class="pic-upload">
+  <view class="pic-upload" >
 <block v-if="limit===1">
-    <div  class="upload-btn" @click="uploadImg()"  :style="{'width':width || '120rpx','height':height || '120rpx'}">
-        <span class="upload-add">+</span>
+    <div class="upload-btn" v-if="!data" @click="uploadImg()"  :style="{'width':width || '120rpx','height':height || '120rpx'}">
+        <span class="upload-add">+</span> 
     </div>
-    <block>
-        <img @click="previewImage(0)" :src="data+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
-    </block>
+    <div class="box" v-if="data">
+        <img v-if="data" @click.stop="previewImage(0)" :src="data+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
+        <image src="/static/images/close.png" background-size="cover" class="box__close" @click.stop="deleteImg(0)" />
+    </div>
 </block>
 <block v-if="limit>1">
     <div v-if="data && data.length<limit" class="upload-btn" @click="uploadImg()"  :style="{'width':width || '120rpx','height':height || '120rpx'}">
         <span class="upload-add">+</span>
     </div>
-    <block v-for="(src,index) in data" :key="src" >
+    <div v-for="(src,index) in data" :key="src"  class="box">
         <img @click="previewImage(index)" :src="src+'!w100h100'" :style="{'width':width || '120rpx','height':height || '120rpx'}" class="img" >
-    </block>
+        <image src="/static/images/close.png" background-size="cover" class="box__close" @click.stop="deleteImg(index)" />
+    </div>
 </block>
   </view>
 </template>
@@ -25,10 +27,14 @@ import upload from "@/utils/upload";
 export default {
   props: ["data", "limit"],
   data: {
-    width: "120rpx",
-    height: "120rpx"
+    width: "100px",
+    height: "100px"
   },
   methods: {
+    deleteImg(index) {
+      if (this.limit == 1) this.data = "";
+      else this.data.splice(index, 1);
+    },
     previewImage(e) {
       var that = this;
       if (that.limit > 1)
@@ -38,8 +44,7 @@ export default {
         });
       else
         wx.previewImage({
-          current: that.data,
-          urls: that.data // 需要预览的图片http链接列表
+          urls: [that.data]
         });
     },
     uploadImg() {
@@ -48,7 +53,7 @@ export default {
         .upload()
         .then(res => {
           console.log("upfile ok");
-          if (that.limit == 1) that.data = res;
+          if (that.limit == 1) that.data = "http://img.wjhaomama.com/" + res;
           else that.data.push("http://img.wjhaomama.com/" + res);
           // wx.setStorageSync("_tmpUpLoadImages", that.data);
           // console.log(wx.getStorageSync("_tmpUpLoadImages"));
@@ -80,6 +85,18 @@ export default {
     font-size: 80rpx;
     font-weight: 500;
     color: #c9c9c9;
+  }
+}
+
+.box {
+  position: relative;
+  .box__close {
+    position: absolute;
+    left: -16rpx;
+    top: -16rpx;
+    width: 45rpx;
+    height: 45rpx;
+    border-radius: 50%;
   }
 }
 

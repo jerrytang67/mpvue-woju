@@ -1,11 +1,6 @@
 //const Upyun = require('./upyun-wxapp-sdk')
 import Upyun from './upyun-wxapp-sdk'
 import moment from "moment"
-import Tips from './Tips'
-import {
-  resolve
-} from 'path';
-
 const upyun = new Upyun.Upyun({
   bucket: 'wjhaomama',
   operator: 'tjw',
