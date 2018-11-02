@@ -27,50 +27,39 @@ const request = (method, url, data = {}) => { // method为请求方法，url为�
 
 export default {
   code2session: code => request('get', `/WoJu/code2session?appid=${APPID}&code=${code}&storeId=${STOREID}`),
+
+  
+  getPartner: ({    pid  }) => request('get', `/WoJu/getPartner?pid=${pid}`),
+
+
   getPhone: data => request('post', `/WoJu/getPhone`, data),
 
   get_setting: () => request("get", `/WoJu/GetSetting`),
+
   post_buyitem: data => request("post", `/WoJu/PostBuyItem`, data),
-  getItemDetail: ({
-    id
-  }) => request('get', `/WoJu/GetBuyItem?id=${id}`),
 
-  getPartner: ({
-    pid
-  }) => request('get', `/WoJu/getPartner?pid=${pid}`),
+  getItemDetail: ({id  }) => request('get', `/WoJu/GetBuyItem?id=${id}`),
 
-  loadPartnerList: ({
-    Lat,
-    Lng
-  }) => request('get', `/WoJu/get?myLat=${Lat}&myLng=${Lng}&dis=${FIND_DISTANCE}`),
+  loadPartnerList: ({    Lat,    Lng  }) => request('get', `/WoJu/get?myLat=${Lat}&myLng=${Lng}&dis=${FIND_DISTANCE}`),
 
   loadPartnerItems: pid => request('get', `/WoJu/getBuyItems?pid=${pid}`),
 
-  getPay: (itemId, partnerId, count,address,telphone) => {
-    if (partnerId && itemId)
+  getPay: (itemId, partnerId, count,address,telphone) => {   
+    if (partnerId && itemId)      
       return request('get', `/WoJu/getpay?partner_Id=${partnerId}&itemid=${itemId }&count=${count}&address=${address}&telphone=${telphone}`)
     else
       Tips.error("错误:pid或itemId为空");
   },
 
-  placeSuggestion: ({
-    query,
-    region
-  }) => request('get', `/WoJu/PlaceSuggestion?ak=${MAPKEY}&query=${query}&region=${region}&type=gcj02`),
+  placeSuggestion: ({    query,    region  }) => request('get', `/WoJu/PlaceSuggestion?ak=${MAPKEY}&query=${query}&region=${region}&type=gcj02`),
 
   getPois: params => request('get', `/WoJu/GetPios?ak=${MAPKEY}&lat=${params.lat}&lng=${params.lng}&type=${params.type}`),
 
   getPartnerSetting: (params) => request('get', `/WoJu/GetPartnerSetting?lat=${params.lat}&lng=${params.lng}`),
 
-  getOrders: ({
-    shopId,
-    partnerId
-  }) => request("get", `/WoJu/GetOrders?shopId=${shopId}&&partnerId=${partnerId}`),
+  getOrders: ({    shopId,    partnerId  }) => request("get", `/WoJu/GetOrders?shopId=${shopId}&&partnerId=${partnerId}`),
 
-  getShopBuyItems: ({
-    shopId,
-    partnerId
-  }) => request("get", `/WoJu/GetShopBuyItems?shopId=${shopId}&partnerId=${partnerId}`),
+  getShopBuyItems: ({    shopId,    partnerId  }) => request("get", `/WoJu/GetShopBuyItems?shopId=${shopId}&partnerId=${partnerId}`),
 
   //团长!上架,下架,关闭团长商品 type: add delete disable
   setItems: (itemId, type) => request("get", `/WoJu/SetPartnerBuyItems?itemId=${itemId}&type=${type}`),
