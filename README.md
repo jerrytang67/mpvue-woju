@@ -59,7 +59,7 @@ npm run dev
 ![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/10.png)
 
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/11.png)
+![img](png/11.png)
 
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/12.png)
+![img](png/12.png)
