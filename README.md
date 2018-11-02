@@ -2,7 +2,7 @@
 
 ## 这是一个电商团长的项目
 
-> by jerrytang
+> by jerrytang QQ:138868998
 
 ## Build Setup
 
