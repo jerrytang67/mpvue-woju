@@ -18,51 +18,51 @@ npm run dev
 ```
 ## QR
 
-![image](https://github.com/jerrytang67/mpvue-woju/blob/master/png/gh_9d7d09e4df06_258.jpg)
+![image](png/gh_9d7d09e4df06_258.jpg)
 
 
 ## 普通访客页
 
-![image](https://github.com/jerrytang67/mpvue-woju/blob/master/png/1.png)
+![image](png/1.png)
 
 选择地址
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/2.png)
+![image](png/2.png)
 
 选择团长页
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/3.png)
+![image](png/3.png)
 
 首页
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/4.png)
+![img](png/4.png)
 
 商品详情
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/5.png)
+![img](png/5.png)
 
 > 支付
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/6.png)
+![img](png/6.png)
 
 > 查看订单
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/7.png)
+![img](png/7.png)
 
 
 
 ## 团长管理页
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/8.png)
+![img](png/8.png)
 
 
 
 ## 店铺主管理页
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/9.png)
+![img](png/9.png)
 
 
-![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/10.png)
+![img](png/10.png)
 
 
 ![img](png/11.png)
