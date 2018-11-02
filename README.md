@@ -19,43 +19,43 @@ npm run dev
 
 ## 普通访客页
 
-![image](https://github.com/jerrytang67/mpvue-woju/blob/master/png/1.png)
+![img](https://github.com/jerrytang67/mpvue-woju/blob/master/png/1.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/2.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/2.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/3.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/3.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/4.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/4.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/5.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/5.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/6.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/6.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/7.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/7.png)
 
 
 
 ## 团长管理页
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/8.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/8.png)
 
 
 
 ## 店铺主管理页
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/9.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/9.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/10.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/10.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/11.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/11.png)
 
 
-![image](https://github.com/jerrytang67/mpvue-woju/tree/master/png/12.png)
+![img](https://github.com/jerrytang67/mpvue-woju/tree/master/png/12.png)
