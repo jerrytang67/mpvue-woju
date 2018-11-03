@@ -1,29 +1,30 @@
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 export default {
   created() {
-    this.getUserInfo().then(res => {
-    });
+    this.getUserInfo().then(res => {});
   },
   methods: {
-    ...mapMutations(["USER_INFO","SET_OPENID"]),
+    ...mapMutations(["SET_OPENID"]),
+    ...mapActions(["setUserInfo"]),
     getUserInfo() {
       var that = this;
       return new Promise((resolve, reject) => {
         wx.login({
           success: logRes => {
+            // if (!wx.getStorageSync('token'))
             that.$api.code2session(logRes.code).then(res => {
-              if (res.openid) {
-                this.SET_OPENID(res.openid);
+              if (res) {
+                this.SET_OPENID(res);
               }
               if (res.token) {
                 wx.setStorageSync("token", res.token);
-              }
-            });
-            wx.getUserInfo({
-              success: res => {
-                this.USER_INFO(res);
-                return resolve();
+                wx.getUserInfo({
+                  success: res => {
+                    this.setUserInfo(res);
+                    return resolve();
+                  }
+                });
               }
             });
           },

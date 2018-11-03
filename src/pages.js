@@ -187,7 +187,7 @@ module.exports = [{
   {
     path: 'pages/index/login',
     config: {
-      usingComponents: Object.assign({}, usingComponents,{})
+      usingComponents: Object.assign({}, usingComponents, {})
     }
   }
 ]

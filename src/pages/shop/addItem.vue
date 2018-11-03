@@ -1,59 +1,58 @@
 <template>
   <div class="container">
-      <div class="contentBody">
-          <div  style="padding:20rpx 5vw;">
-            <demo-block title="滚动图片">
-                <picUpload :data="item.LogoList" limit="4"  @onUpdate="onPicUpdate"></picUpload>
-            </demo-block>
+    <div class="contentBody">
+      <div style="padding:20rpx 5vw;">
+        <demo-block title="滚动图片">
+          <picUpload :data="item.LogoList" limit="4" @onUpdate="onPicUpdate"></picUpload>
+        </demo-block>
 
-            <demo-block title="商品详情">
-              <van-cell-group>
-                  <van-field  label="商品名称" :value="item.Name" required clearable @change="onChange"  data-name="Name" />
-                  <van-field label="原价" :value="item.Price" type="digit"  required clearable @change="onChange" data-name="Price"/>
-                  <van-field  label="成交价" :value="item.VipPrice" type="digit"  required @change="onChange" data-name="VipPrice"/>
-                  <van-field  label="库存" :value="item.Count" type="number"  required @change="onChange" data-name="Count"/>
-                  <van-switch-cell title="是否限购" :checked="item.LimitBuyCount>0" @change="toggle('LimitBuyCount')" />
-                  <van-field  label="限购数量" :disabled="item.LimitBuyCount==0" :value="item.LimitBuyCount" type="number" 
-                  @change="onChange" data-name="LimitBuyCount"/>
-              </van-cell-group>
-            </demo-block>
+        <demo-block title="商品详情">
+          <van-cell-group>
+            <van-field label="商品名称" :value="item.Name" required clearable @change="onChange" data-name="Name" />
+            <van-field label="原价" :value="item.Price" type="digit" required clearable @change="onChange" data-name="Price" />
+            <van-field label="成交价" :value="item.VipPrice" type="digit" required @change="onChange" data-name="VipPrice" />
+            <van-field label="库存" :value="item.Count" type="number" required @change="onChange" data-name="Count" />
+            <van-switch-cell title="是否限购" :checked="item.LimitBuyCount>0" @change="toggle('LimitBuyCount')" />
+            <van-field label="限购数量" :disabled="item.LimitBuyCount==0" :value="item.LimitBuyCount" type="number" @change="onChange" data-name="LimitBuyCount" />
+          </van-cell-group>
+        </demo-block>
 
-            <demo-block title="开始时间">
-              <van-cell >
-                <view slot="title">
-                  <picker mode="date" :value="item.DateTimeStart" :start="dateStart" :end="dateEnd" @change="onChange"  data-name="DateTimeStart" >
-                    <view class="picker flex-between">
-                      <span>开始时间</span> <span>{{item.DateTimeStart}}</span>
-                    </view>
-                  </picker>
+        <demo-block title="开始时间">
+          <van-cell>
+            <view slot="title">
+              <picker mode="date" :value="item.DateTimeStart" :start="dateStart" :end="dateEnd" @change="onChange" data-name="DateTimeStart">
+                <view class="picker flex-between">
+                  <span>开始时间</span> <span>{{item.DateTimeStart}}</span>
                 </view>
-              </van-cell>
-            </demo-block>
-            <demo-block title="结束时间">
-              <van-cell>
-                <view slot="title">
-                  <picker mode="date" :value="item.DateTimeEnd" :start="dateStart" :end="dateEnd" @change="onChange" data-name="DateTimeEnd" >
-                    <view class="picker flex-between">
-                      <span>结束时间</span> <span>{{item.DateTimeEnd}}</span>
-                    </view>
-                  </picker>
+              </picker>
+            </view>
+          </van-cell>
+        </demo-block>
+        <demo-block title="结束时间">
+          <van-cell>
+            <view slot="title">
+              <picker mode="date" :value="item.DateTimeEnd" :start="dateStart" :end="dateEnd" @change="onChange" data-name="DateTimeEnd">
+                <view class="picker flex-between">
+                  <span>结束时间</span> <span>{{item.DateTimeEnd}}</span>
                 </view>
-              </van-cell>
-            </demo-block>
+              </picker>
+            </view>
+          </van-cell>
+        </demo-block>
 
-            <demo-block title="购前需知">
-              <van-cell-group>
-                <van-field :value="item.NoticeText" label="购前需知" type="textarea" required autosize @change="onChange" data-name="NoticeText" />
-              </van-cell-group>
-            </demo-block>
+        <demo-block title="购前需知">
+          <van-cell-group>
+            <van-field :value="item.NoticeText" label="购前需知" type="textarea" required autosize @change="onChange" data-name="NoticeText" />
+          </van-cell-group>
+        </demo-block>
 
-            <demo-block title="商品介绍">
-              <van-cell-group>
-                <van-field :value="item.Desc" label="商品介绍" type="textarea" required autosize @change="onChange" data-name="Desc" />
-              </van-cell-group>
-            </demo-block>
+        <demo-block title="商品介绍">
+          <van-cell-group>
+            <van-field :value="item.Desc" label="商品介绍" type="textarea" required autosize @change="onChange" data-name="Desc" />
+          </van-cell-group>
+        </demo-block>
 
-            <!-- <demo-block title="展示平台">
+        <!-- <demo-block title="展示平台">
               <van-checkbox-group :value="result" @change="onChkChange" data-id="group">
                   <van-cell-group >
                   <van-cell
@@ -70,36 +69,36 @@
               </van-checkbox-group>
             </demo-block> -->
 
-            <demo-block title="状态">
-              <van-switch-cell title="是否启用" :checked="item.State>0" @change="toggle('State')" />
-            </demo-block>
+        <demo-block title="状态">
+          <van-switch-cell title="是否启用" :checked="item.State>0" @change="toggle('State')" />
+        </demo-block>
 
-            <demo-block title="取货方式">
-              <van-radio-group :value="item.PickUpType" bind:change="onRadioChange">
-                <van-cell-group>
-                  <van-cell title="到店自提" clickable data-name="到店自提" @click="onRadioClick">
-                    <van-radio name="到店自提" />
-                  </van-cell>
-                  <van-cell title="团长处自提" clickable data-name="团长处自提" @click="onRadioClick">
-                    <van-radio name="团长处自提" />
-                  </van-cell>
-                  <van-cell title="商家送货" clickable data-name="商家送货" @click="onRadioClick">
-                    <van-radio name="商家送货" />
-                  </van-cell>
-                  <van-cell title="团长提货送货" clickable data-name="团长提货送货" @click="onRadioClick">
-                    <van-radio name="团长提货送货" />
-                  </van-cell>
-                </van-cell-group>
-              </van-radio-group>
-            </demo-block>
-          </div>
-          <div style="height:15vh;"> </div>
+        <demo-block title="取货方式">
+          <van-radio-group :value="item.PickUpType" bind:change="onRadioChange">
+            <van-cell-group>
+              <van-cell title="到店自提" clickable data-name="到店自提" @click="onRadioClick">
+                <van-radio name="到店自提" />
+              </van-cell>
+              <van-cell title="团长处自提" clickable data-name="团长处自提" @click="onRadioClick">
+                <van-radio name="团长处自提" />
+              </van-cell>
+              <van-cell title="商家送货" clickable data-name="商家送货" @click="onRadioClick">
+                <van-radio name="商家送货" />
+              </van-cell>
+              <van-cell title="团长提货送货" clickable data-name="团长提货送货" @click="onRadioClick">
+                <van-radio name="团长提货送货" />
+              </van-cell>
+            </van-cell-group>
+          </van-radio-group>
+        </demo-block>
       </div>
+      <div style="height:15vh;"> </div>
+    </div>
     <van-goods-action style="z-index:9999;">
-        <van-goods-action-icon icon="chat" text="客服"  open-type="contact"/>
-        <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
-        <!-- <van-goods-action-button @click="save()" text="暂存退出" type="warning" /> -->
-        <van-goods-action-button text="发布" @click="post()"  />
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact" />
+      <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
+      <!-- <van-goods-action-button @click="save()" text="暂存退出" type="warning" /> -->
+      <van-goods-action-button text="发布" @click="post()" />
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />

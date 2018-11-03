@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-     <!-- @click="clickHandle('test click', $event)"> -->
-    <view class="headBar" >
-      <van-row v-if="my_partner.Id" > 
+    <!-- @click="clickHandle('test click', $event)"> -->
+    <view class="headBar">
+      <van-row v-if="my_partner.Id">
         <van-col :span="6">
-          <img class="userinfo-avatar"  v-if="my_partner.headimgurl" :src="my_partner.headimgurl" background-size="cover"/>
+          <img class="userinfo-avatar" v-if="my_partner.headimgurl" :src="my_partner.headimgurl" background-size="cover" />
         </van-col>
         <van-col :span="14">
           <p style="font-size:.7rem;"><text>团长:{{my_partner.nickname}}</text></p>
@@ -12,35 +12,35 @@
           <p style="font-size:.7rem;"><text>{{my_partner.LocationAddress}}</text></p>
         </van-col>
         <van-col :span="4">
-            <view style="padding-top:20rpx;">
-                <van-button square type="primary" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1" style="border: none;background:none;margin-top: 20rpx">
+          <view style="padding-top:20rpx;">
+            <van-button square type="primary" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1" style="border: none;background:none;margin-top: 20rpx">
               <van-icon name="arrow" />
             </van-button>
-            </view>
+          </view>
         </van-col>
       </van-row>
-      <view class="center"  v-if="!my_partner.Id">
+      <view class="center" v-if="!my_partner.Id">
         <van-button style="margin:0 auto;" type="danger" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">请先选择团长</van-button>
       </view>
     </view>
-    <view class="contentBody" >
-      <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent"/>
-      <view class="flex-between"  >
-        <image src="/static/images/top1.png"  mode="aspectFit"  @click.stop="$navigate.To('/pages/index/realNameSys?type=0')" style="height:25vw;border-radius:15px 0 0 0;"/>
-        <image src="/static/images/top2.png"  mode="aspectFit"  @click.stop="$navigate.To('/pages/index/realNameSys?type=1')" style="height:25vw;border-radius:0 15px 0 0;"/>
-        </view>
+    <view class="contentBody">
+      <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent" />
+      <view class="flex-between">
+        <image src="/static/images/top1.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=0')" style="height:25vw;border-radius:15px 0 0 0;" />
+        <image src="/static/images/top2.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=1')" style="height:25vw;border-radius:0 15px 0 0;" />
+      </view>
       <div class="card-list">
-        <van-card v-for="x in buyItems" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'"  @click="goItem(x)">
+        <van-card v-for="x in buyItems" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" @click="goItem(x)">
           <!-- <view slot="footer">
              <van-stepper :value="x.Count" @plus="add(x)"  @minus="remove(x)"/> 
           </view>  -->
-          <view slot="tags" class="price"  >
+          <view slot="tags" class="price">
             <!-- <van-tag type="danger">自营</van-tag> -->
             <text class="vip">￥{{x.BuyItem.VipPrice}}</text><text class="old">￥{{x.BuyItem.Price}}</text>
           </view>
         </van-card>
       </div>
-       </view>
+    </view>
     <van-toast id="van-toast" />
   </div>
 </template>
@@ -53,8 +53,7 @@ import partner from "@/components/partner";
 import Toast from "../../../static/dist/toast/toast";
 
 export default {
-  onLoad(option) {
-  },
+  onLoad(option) {},
   onReady() {
     var that = this;
     var query = that.$root.$mp.query;
@@ -63,13 +62,12 @@ export default {
         that.SET_SELECT_PARTNER(res); //store set the current partner
       });
       that.$api.loadPartnerItems(that.$root.$mp.query.pid).then(res => {
-        if(res)
-        that.SET_BUYITEMLIST(res); //store set current buyitem list
+        if (res) that.SET_BUYITEMLIST(res); //store set current buyitem list
       });
     }
   },
   onPullDownRefresh: function() {
-    if (wx.getStorageSync("my_partner"))
+    if (wx.getStorageSync("my_partner") && wx.getStorageSync("my_partner").Id)
       this.$api
         .loadPartnerItems(wx.getStorageSync("my_partner").Id)
         .then(res => {
@@ -124,12 +122,11 @@ export default {
     ...mapMutations([
       "TEST",
       "PARTNER",
-      "USER_INFO",
       "SET_OPENID",
       "SET_BUYITEMLIST",
       "SET_SELECT_PARTNER"
     ]),
-    ...mapActions(["add_to_cart"]),
+    ...mapActions(["add_to_cart", "setUserInfo"]),
     add(item) {
       item.Count += 1;
       this.add_to_cart(item);
@@ -197,10 +194,18 @@ export default {
       return new Promise((resolve, reject) => {
         wx.login({
           success: logRes => {
-            wx.getUserInfo({
-              success: res => {
-                this.USER_INFO(res);
-                return resolve();
+            that.$api.code2session(logRes.code).then(res => {
+              if (res) {
+                this.SET_OPENID(res);
+              }
+              if (res.token) {
+                wx.setStorageSync("token", res.token);
+                wx.getUserInfo({
+                  success: res => {
+                    this.setUserInfo(res);
+                    return resolve();
+                  }
+                });
               }
             });
           },

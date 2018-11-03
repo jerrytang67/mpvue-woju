@@ -71,6 +71,7 @@
         <wxparser :rich-text="currentItem.Desc" />
     </view>
     <div style="height:5vh;"> </div>
+    <view class="spacing"></view>
 
     <van-goods-action>
       <van-goods-action-icon icon="home" text="返回" @click="back"/>

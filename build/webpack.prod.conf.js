@@ -20,7 +20,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
-  output: {
+  output: { 
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('[name].[chunkhash].js'),
     // chunkFilename: utils.assetsPath('[id].[chunkhash].js')
@@ -33,7 +33,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       'process.env': env
     }),
     new UglifyJsPlugin({
-      sourceMap: true
+      sourceMap: false
     }),
     // extract css into its own file
     new ExtractTextPlugin({

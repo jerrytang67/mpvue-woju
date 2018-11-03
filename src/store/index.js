@@ -11,6 +11,7 @@ Vue.use(Vuex)
 
 const state = {
   openid: wx.getStorageSync("openid"),
+  unionid: wx.getStorageSync("unionid"),
   test: 0,
   currentItem: {},
   userInfo: {},

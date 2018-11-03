@@ -16,7 +16,13 @@ export const actions = {
         })
         .catch(err => reject(err));
     })
+  },
 
+  setUserInfo: (context, v) => {
+    context.commit("USER_INFO", v);
+    if (v) {
+      api.postUserInfo(v).then(res => console.log("postuserinfo", res));
+    }
   },
   //选中团长
   select_partner: (context, v) => {

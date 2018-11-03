@@ -1,11 +1,11 @@
 <template>
-<div>
-<view style="margin-top:40vh;">
-  <button type="primary"  open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">
-    授权登录
-  </button>
-</view>
-</div>
+  <div>
+    <view style="margin-top:40vh;">
+      <button type="primary" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">
+        授权登录
+      </button>
+    </view>
+  </div>
 </template>
 
 <script>
@@ -16,7 +16,8 @@ export default {
   onLoad() {},
   data: {},
   methods: {
-    ...mapMutations(["USER_INFO", "SET_OPENID"]),
+    ...mapMutations(["SET_OPENID"]),
+    ...mapActions(["setUserInfo"]),
     bindGetUserInfo(e) {
       if (e.mp.detail.rawData) {
         //用户按了允许授权按钮
@@ -48,17 +49,17 @@ export default {
         wx.login({
           success: logRes => {
             that.$api.code2session(logRes.code).then(res => {
-              if (res.openid) {
-                this.SET_OPENID(res.openid);
+              if (res) {
+                this.SET_OPENID(res);
               }
               if (res.token) {
                 wx.setStorageSync("token", res.token);
-              }
-            });
-            wx.getUserInfo({
-              success: res => {
-                this.USER_INFO(res);
-                return resolve();
+                wx.getUserInfo({
+                  success: res => {
+                    this.setUserInfo(res);
+                    return resolve();
+                  }
+                });
               }
             });
           },

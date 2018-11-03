@@ -47,9 +47,11 @@ export const mutations = {
     }
   },
   SET_OPENID: (state, v) => {
-    console.log("SET_OPENID To", v)
-    wx.setStorageSync("openid", v);
-    state.openid = v;
+    wx.setStorageSync("openid", v.openid);
+    state.openid = v.openid;
+    console.log("OPENID:", v.openid, "UnionId", v.unionid)
+    wx.setStorageSync("openid", v.unionid);
+    state.unionid = v.unionid;
   },
   SET_POSITION: (state, v) => {
     console.log("SET_POSITION To", v)

@@ -2,35 +2,35 @@
   <div class="container">
     <div class="contentBody">
       <div style="padding:24rpx 32rpx;">
-        <van-steps :steps="steps" active="0"/>
+        <van-steps :steps="steps" active="0" />
         <demo-block title="实名认证基本信息">
           <van-cell-group>
-            <van-field label="姓名" :value="item.RealName" required @change="onChange"  data-name="RealName" />
+            <van-field label="姓名" :value="item.RealName" required @change="onChange" data-name="RealName" />
             <van-field label="手机号" disabled :value="item.Telphone" type="number" required @change="onChange" data-name="Telphone" use-button-slot>
-                <van-button slot="button" size="small" type="primary" @getphonenumber="getPhoneNumber" open-type="getPhoneNumber">微信授权获取</van-button>
+              <van-button slot="button" size="small" type="primary" @getphonenumber="getPhoneNumber" open-type="getPhoneNumber">微信授权获取</van-button>
             </van-field>
-            <van-field type="number" label="联系电话" :value="item.TelphoneBackup" required @change="onChange" data-name="TelphoneBackup" use-button-slot >
-              <van-button slot="button" size="small" plain  type="primary" @click="btnClick">同上</van-button>
+            <van-field type="number" label="联系电话" :value="item.TelphoneBackup" required @change="onChange" data-name="TelphoneBackup" use-button-slot>
+              <van-button slot="button" size="small" plain type="primary" @click="btnClick">同上</van-button>
             </van-field>
           </van-cell-group>
         </demo-block>
         <demo-block title="营业执照" v-if="type==1">
-            <picUpload :data="item.BusinessLicenseUrl" :limit="1" @onUpdate="onUpdate1"></picUpload>
+          <picUpload :data="item.BusinessLicenseUrl" :limit="1" @onUpdate="onUpdate1"></picUpload>
         </demo-block>
         <demo-block title="身份证-正面">
-            <picUpload :data="item.IDCardFrontUrl" :limit="1"  @onUpdate="onUpdate2"></picUpload>
+          <picUpload :data="item.IDCardFrontUrl" :limit="1" @onUpdate="onUpdate2"></picUpload>
         </demo-block>
         <demo-block title="身份证-背面">
-            <picUpload :data="item.IDCardBackUrl" :limit="1"  @onUpdate="onUpdate3"></picUpload>
+          <picUpload :data="item.IDCardBackUrl" :limit="1" @onUpdate="onUpdate3"></picUpload>
         </demo-block>
         <demo-block title="手持身份证-正面 照片">
-            <picUpload :data="item.IDCardHandUrl" :limit="1"  @onUpdate="onUpdate4"></picUpload>
+          <picUpload :data="item.IDCardHandUrl" :limit="1" @onUpdate="onUpdate4"></picUpload>
         </demo-block>
       </div>
     </div>
     <van-goods-action style="z-index:9999;">
-        <van-goods-action-icon icon="chat" text="客服"  open-type="contact"/>
-        <van-goods-action-button text="下一步" type="primary" @click="post()"  />
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact" />
+      <van-goods-action-button text="下一步" type="primary" @click="post()" />
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
@@ -100,7 +100,7 @@ export default {
   methods: {
     ...mapActions(["getRealNameInfo"]),
     onUpdate1(e) {
-      console.log(e)
+      console.log(e);
       this.item.BusinessLicenseUrl = e;
     },
     onUpdate2(e) {
