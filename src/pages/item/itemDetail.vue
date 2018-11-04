@@ -80,6 +80,7 @@
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
       <van-goods-action-button type="primary" text="立即购买" @click="getpay()"  />
     </van-goods-action>
+    <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
 </template>
@@ -134,7 +135,7 @@ export default {
           Toast.fail("已结束");
           return;
         }
-        item.Count += 1;
+        item.Count = 1;
         this.add_to_cart(item).then(res => {
           wx.navigateTo({ url: "/pages/index/pay" });
         });

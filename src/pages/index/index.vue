@@ -38,9 +38,13 @@
             <!-- <van-tag type="danger">自营</van-tag> -->
             <text class="vip">￥{{x.BuyItem.VipPrice}}</text><text class="old">￥{{x.BuyItem.Price}}</text>
           </view>
+          <view slot="footer">
+            <van-tag type="primary" v-if="x.BuyItem.LimitBuyCount">限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
+          </view>
         </van-card>
       </div>
     </view>
+    <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
 </template>

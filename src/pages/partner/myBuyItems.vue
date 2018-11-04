@@ -3,16 +3,15 @@
     <div style="background:#fff;width:100vw;">
       <van-tabs active="0" @change="onTabChange">
         <van-tab title="我的商品">
-            <van-card v-for="(x,index) in myBuyItems"  :index="index" 
-        lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice" >
+          <van-card v-for="(x,index) in myBuyItems" :index="index" lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice">
             <view slot="thumb">
-              <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)"/>
+              <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)" />
             </view>
             <view slot="footer">
               <van-button size="small" type="danger" @click.stop="deleteItem(index)">删除</van-button>
             </view>
             <view slot="tags">
-                <van-switch size="45rpx" :checked="x.State" @change="onChange(x)" />
+              <van-switch size="45rpx" :checked="x.State" @change="onChange(x)" />
             </view>
           </van-card>
         </van-tab>
@@ -20,16 +19,16 @@
 
         <van-tab title="店铺">
           <div style="display:flex;flex-direction:row;justify-content:start;">
-            <scroll-view scroll-y style="height: calc(100vh - 44px); width:25vw;" >
+            <scroll-view scroll-y style="height: calc(100vh - 44px); width:25vw;">
               <van-badge-group :active="selectShopIndex" @change="onBadgeChange">
                 <van-badge title="莴聚公告"></van-badge>
-                <van-badge v-for="x in partnerShops" :key="x" :title="x.ShopName"/>
+                <van-badge v-for="x in partnerShops" :key="x" :title="x.ShopName" />
               </van-badge-group>
             </scroll-view>
             <view style="width:75vw;">
               <div>
                 <div v-if="selectShopIndex<=0">
-                      这里放总的介绍页内容
+                  这里放总的介绍页内容
                 </div>
                 <div style="padding:25rpx;font-size:32rpx" v-if="selectShopIndex>0">
                   <image style="width:50px;height:50px;border-radius:50%;" :src="currentShop.LogoImageUrl+'!w100h100'" />
@@ -37,14 +36,13 @@
                   <p>地址:{{currentShop.ShopAddress}}</p>
                   <p>电话:{{currentShop.ShopKeFuTel}}</p>
                 </div>
-                <van-card  v-for="x in items"   @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)"
-            lazy-load="true" :key="x"  :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice" >
-                <view slot="footer">
-                  <van-button size="small" type="danger" @click.stop="addItem(x.Id)">上架</van-button>
-                </view>
-                <view slot="tags">
-                </view>
-              </van-card>
+                <van-card v-for="x in items" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)" lazy-load="true" :key="x" :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice">
+                  <view slot="footer">
+                    <van-button size="small" type="danger" @click.stop="addItem(x.Id)">上架</van-button>
+                  </view>
+                  <view slot="tags">
+                  </view>
+                </van-card>
               </div>
             </view>
           </div>
@@ -58,6 +56,7 @@
         <!-- tab4end -->
       </van-tabs>
     </div>
+    <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
 </template>
@@ -119,8 +118,8 @@ export default {
     onBadgeChange(e) {
       console.log(e);
       if (e.mp.detail < 0) return;
-      this.selectShopIndex = e.mp.detail;
-      const index = this.selectShopIndex - 1;
+      //this.selectShopIndex = e.mp.detail;
+      const index = e.mp.detail - 1;
       if (index >= 0) {
         this.currentShop = this.partnerShops[index];
         let shopId = this.currentShop.Id;

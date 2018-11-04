@@ -1,21 +1,22 @@
 <template>
-    <div class="container">
-      <div style="width:100%;background:#fff;">
-        <van-tabs :active="selectIndex" >
-          <van-tab title="未付款">
-            <order v-for="x in orderNotPay" :key="x" :data="x" type="partner"></order>
-          </van-tab>
-          <van-tab title="已付款">
-            <order v-for="x in orderIsPay" :key="x" :data="x" type="partner"></order>
-          </van-tab>
-          <van-tab title="已发货">
-          </van-tab>
-          <van-tab title="已完成">
-          </van-tab>
-        </van-tabs>
-      </div>
-      <van-toast id="van-toast" />
+  <div class="container">
+    <div style="width:100%;background:#fff;">
+      <van-tabs :active="selectIndex">
+        <van-tab title="未付款">
+          <order v-for="x in orderNotPay" :key="x" :data="x" type="partner"></order>
+        </van-tab>
+        <van-tab title="已付款">
+          <order v-for="x in orderIsPay" :key="x" :data="x" type="partner"></order>
+        </van-tab>
+        <van-tab title="已发货">
+        </van-tab>
+        <van-tab title="已完成">
+        </van-tab>
+      </van-tabs>
     </div>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
+  </div>
 </template>
 
 <script>
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     ...mapState(["orders", "openid", "partner"]),
-    ...mapGetters(["orderNotPay","orderIsPay"])
+    ...mapGetters(["orderNotPay", "orderIsPay"])
   },
   methods: {
     ...mapActions(["getOrders"]),

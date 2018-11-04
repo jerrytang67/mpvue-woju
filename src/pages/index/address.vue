@@ -32,6 +32,7 @@
         style="width: 100vw; height: 50vh;">
     </map> -->
 
+    <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
 </template>

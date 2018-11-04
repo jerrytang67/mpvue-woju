@@ -57,6 +57,9 @@
                 <van-tabbar-item icon="points-mall" @click="$navigate.To('/pages/partner/myBuyItems')">上架商品</van-tabbar-item>
                 <van-tabbar-item icon="cart" @click="$navigate.To('/pages/partner/orders')">我的订单</van-tabbar-item>
               </van-tabbar>
+              <div>
+                <van-button type="primary">点击进入我的团长主页</van-button>
+              </div>
             </view>
           </van-panel>
         </demo-block>
@@ -81,6 +84,7 @@
         </demo-block>
       </div>
     </view>
+    <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
 </template>

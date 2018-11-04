@@ -1,20 +1,22 @@
 <template>
   <div class="container">
     <div style="width:100%;background:#fff;">
-      <van-tabs :active="selectIndex" @change="onTabChange" >
+      <van-tabs :active="selectIndex" @change="onTabChange">
         <van-tab title="待付款">
-            <order v-for="x in waitForPay" :key="x" :data="x" type="user"></order>
+          <order v-for="x in waitForPay" :key="x" :data="x" type="user"></order>
         </van-tab>
         <van-tab title="已付款">
-            <order v-for="x in paidOrder" :key="x" :data="x" type="user"></order>
+          <order v-for="x in paidOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
         <van-tab title="可取货">
-            <order v-for="x in canTakeOrder" :key="x" :data="x" type="user"></order>
+          <order v-for="x in canTakeOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
         <van-tab title="已完成">
         </van-tab>
       </van-tabs>
     </div>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 <script>
@@ -59,7 +61,10 @@ export default {
   created() {},
   methods: {
     ...mapActions(["get_setting"]),
-    onTabChange(event) {}
+    onTabChange(event) {
+      console.log(event);
+      this.selectIndex = event.mp.detail.index;
+    }
   }
 };
 </script>

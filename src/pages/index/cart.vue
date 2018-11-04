@@ -21,7 +21,8 @@
             <van-tag type="danger" v-if="youhuan>0">省 {{youhuan}}元</van-tag>
         </van-submit-bar>
     </div>
-      <van-toast id="van-toast" />
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 

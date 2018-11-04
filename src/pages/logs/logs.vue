@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 

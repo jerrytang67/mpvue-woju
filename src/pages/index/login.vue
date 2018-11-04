@@ -5,6 +5,8 @@
         授权登录
       </button>
     </view>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 
