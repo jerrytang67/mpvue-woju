@@ -31,7 +31,6 @@
         </van-cell-group>
       </demo-block>
     </div>
-
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
@@ -73,14 +72,14 @@ export default {
         success: function(res) {
           that.address = res.provinceName + res.cityName + res.detailInfo;
           that.telphone = res.telNumber;
-          console.log(res.userName);
-          console.log(res.postalCode);
-          console.log(res.provinceName);
-          console.log(res.cityName);
-          console.log(res.countyName);
-          console.log(res.detailInfo);
-          console.log(res.nationalCode);
-          console.log(res.telNumber);
+          // console.log(res.userName);
+          // console.log(res.postalCode);
+          // console.log(res.provinceName);
+          // console.log(res.cityName);
+          // console.log(res.countyName);
+          // console.log(res.detailInfo);
+          // console.log(res.nationalCode);
+          // console.log(res.telNumber);
         }
       });
     },
@@ -89,10 +88,14 @@ export default {
       this.add_to_cart(item);
     },
     remove(item) {
-      item.Count -= 1;
-      this.add_to_cart(item);
+      if (item.Count > 1) {
+        item.Count -= 1;
+        this.add_to_cart(item);
+      }
+      item.Count = 1;
     },
     onSubmit() {
+      let thta = this;
       const itemId = this.cartItems[0].BuyItem_Id;
       const count = this.cartItems[0].Count;
       const partnerId = this.cartItems[0].Partner_Id;
@@ -108,6 +111,9 @@ export default {
             paySign: obj.paySign,
             success: function(res) {
               Toast.success("支付成功");
+              setTimeout(() => {
+                this.$navigate.To("/pages/order?index=1")
+              }, 1500);
             },
             fail: function(res) {
               Toast.fail("支付失败");

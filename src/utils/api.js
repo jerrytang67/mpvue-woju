@@ -8,7 +8,7 @@ const APPID = "wxd9d182e54258695e"; //小程序 appid
 const MAPKEY = "f8vW5GLQR7CaKA52XsxGXpR0"; //百度地图ak
 const FIND_DISTANCE = 3000; //团长范围 单位:米
 
-//const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
+// const ip = 'http://192.168.1.181:8088/api' // 后台的ip地址
 const ip = 'https://www.lovewujiang.com/api' // 后台的ip地址
 
 const getRequest = utils.httpsPromisify(wx.request)
@@ -33,6 +33,8 @@ export default {
   getPartner: ({pid}) => request('get', `/WoJu/getPartner?pid=${pid}`),
 
   getPhone: data => request('post', `/WoJu/getPhone`, data),
+
+  getShop: ({shopId})=>request('get',`/WoJu/GetMyShopPartner?shopId=${shopId}`),
 
   get_setting: () => request("get", `/WoJu/GetSetting`),
 
@@ -66,6 +68,7 @@ export default {
 
   //商家
   SetBuyItem: (itemId, type) => request("get", `/WoJu/SetBuyItems?itemId=${itemId}&type=${type}`),
+  joinShop:(shopId)=>request("get", `/WoJu/JoinShop?shopId=${shopId}`),
 
   //实名认证
   postRealNameInfo: data => request("post", `/WoJu/postRealNameInfo`, data),

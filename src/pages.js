@@ -171,6 +171,14 @@ module.exports = [{
     }
   },
   {
+    path: 'pages/shop/shop',
+    config: {
+      navigationBarTitleText: '',
+      enablePullDownRefresh: true,
+      usingComponents: Object.assign({}, usingComponents, {})
+    }
+  },
+  {
     path: 'pages/index/realNameSys',
     config: {
       navigationBarTitleText: '',

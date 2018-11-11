@@ -49,6 +49,7 @@ export default {
       var that = this;
       return new Promise((resolve, reject) => {
         wx.login({
+          // withCredentials: true,
           success: logRes => {
             that.$api.code2session(logRes.code).then(res => {
               if (res) {

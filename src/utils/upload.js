@@ -17,7 +17,7 @@ export function upload() {
         const imageSrc = res.tempFilePaths[0]
         const fileExt = imageSrc.replace(/.+\./, "");
         const fileName = moment(new Date).format("YYYY/MM/HHmmss") + "." + fileExt
-        const path = `wxapp/${wx.getStorageSync('openid')}/${fileName}`;
+        const path = `wxapp/${wx.getStorageSync('unionid')||wx.getStorageSync('openid')}/${fileName}`;
         upyun.upload({
           localPath: imageSrc,
           remotePath: path,

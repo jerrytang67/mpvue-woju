@@ -27,11 +27,13 @@ import Toast from "../../../static/dist/toast/toast";
 
 export default {
   onLoad(options) {
+    if (options.index) this.selectIndex = options.index;
     wx.setNavigationBarTitle({ title: "我的订单" });
   },
   mounted() {
     console.log(wx.getStorageSync("Tab_Select_index"));
-    this.selectIndex = wx.getStorageSync("Tab_Select_index") || 0;
+    this.selectIndex =
+      wx.getStorageSync("Tab_Select_index") || this.selectIndex;
     this.get_setting();
   },
   onPullDownRefresh: function() {

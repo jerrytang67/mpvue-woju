@@ -1,6 +1,6 @@
 <template>
   <div class="container" style="background:#fff;">
-      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
+    <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
       <block v-for="(x,$index) in currentItem.LogoList" :key="x">
         <swiper-item>
           <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
@@ -25,7 +25,7 @@
       </view>
     </view>
     <view class="order_num">
-      <view class="doc" >库存:
+      <view class="doc">库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
       <view class="doc">订单中:
@@ -61,6 +61,27 @@
       </view>
     </view> -->
     <!-- endblock -->
+
+    <view class="block" v-if="currentItem.Shop">
+      <view class="block_title">供货商家</view>
+      <!-- <view class="block_content" @click.stop="$navigate.To('/pages/shop/shop?shopId='+currentItem.Shop.Id)"> -->
+      <view class="block_content">
+        <view class="doc flex-r-ac">
+          <div>
+            <img class="img-circle thumb64" :src="currentItem.Shop.LogoImageUrl+'!w100h100'" />
+          </div>
+          <div class="flex-c px-lg">
+            <p class="title">{{currentItem.Shop.ShopName}}</p>
+            <p>地址:{{currentItem.Shop.ShopAddress}}</p>
+            <p>电话:{{currentItem.Shop.ShopKeFuTel}}</p>
+            <p>
+              <van-button size="small" type="primary" @click.stop="joinShop">申请成为Ta的团长</van-button>
+            </p>
+          </div>
+        </view>
+      </view>
+    </view>
+    <!-- endblock -->
     <view class="spacing"></view>
     <view class="block">
       <view class="block_title">商品详情</view>
@@ -68,17 +89,17 @@
       </view>
     </view>
     <view class="htmlContent">
-        <wxparser :rich-text="currentItem.Desc" />
+      <wxparser :rich-text="currentItem.Desc" />
     </view>
     <div style="height:5vh;"> </div>
     <view class="spacing"></view>
 
     <van-goods-action>
-      <van-goods-action-icon icon="home" text="返回" @click="back"/>
-      <van-goods-action-icon icon="chat" text="客服" open-type="contact"/>
+      <van-goods-action-icon icon="home" text="返回" @click="back" />
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact" />
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
-      <van-goods-action-button type="primary" text="立即购买" @click="getpay()"  />
+      <van-goods-action-button type="primary" text="立即购买" @click="getpay()" />
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
@@ -116,6 +137,11 @@ export default {
       this.$api.getItemDetail({ id }).then(res => {
         console.log(res);
         that.SET_ITEM(res);
+      });
+    },
+    joinShop() {
+      this.$api.joinShop(this.currentItem.ShopId).then(res => {
+        console.log(res);
       });
     },
     getItem() {
@@ -162,6 +188,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/theme.scss";
+
+.doc {
+  .title {
+    font-size: $font-lg;
+    color: $dark;
+  }
+  p {
+    padding-top: 8rpx;
+  }
+}
 .swiper {
   width: 100vw;
   height: 662rpx;

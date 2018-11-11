@@ -21,7 +21,10 @@ export const actions = {
   setUserInfo: (context, v) => {
     context.commit("USER_INFO", v);
     if (v) {
-      api.postUserInfo(v).then(res => console.log("postuserinfo", res));
+      api.postUserInfo(v).then(res => {
+        context.commit("SET_OPENID");
+        wx.setStorageSync("token", res.token);
+      });
     }
   },
   //选中团长

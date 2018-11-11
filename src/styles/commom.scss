@@ -61,6 +61,12 @@ view.center {
   flex-direction: column;
 }
 
+.flex-r-ac{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .flex-r {
   display: flex;
   flex-direction: row;
@@ -72,4 +78,48 @@ view.center {
       margin-left: 25rpx;
     }
   }
+}
+
+.px-lg {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.py-lg {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.thumb32 {
+  width: 32px !important;
+  height: 32px !important
+}
+
+.thumb48 {
+  width: 48px !important;
+  height: 48px !important
+}
+
+.thumb64 {
+  width: 64px !important;
+  height: 64px !important
+}
+
+.thumb80 {
+  width: 80px !important;
+  height: 80px !important
+}
+
+.thumb96 {
+  width: 96px !important;
+  height: 96px !important
+}
+
+.thumb128 {
+  width: 128px !important;
+  height: 128px !important
+}
+
+.img-circle {
+  border-radius: 50%;
 }
