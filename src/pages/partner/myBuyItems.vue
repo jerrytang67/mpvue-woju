@@ -124,7 +124,7 @@ export default {
         this.currentShop = this.partnerShops[index];
         let shopId = this.currentShop.Id;
         console.log(this.currentShop);
-        this.$api.getShopBuyItems({ shopId }).then(res => {
+        this.$api.getShopBuyItems({ shopId, state: 1 }).then(res => {
           this.items[shopId] = res;
           this.items = this.items[shopId];
         });

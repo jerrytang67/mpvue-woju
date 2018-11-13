@@ -12,6 +12,7 @@
           <order v-for="x in canTakeOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
         <van-tab title="已完成">
+          <order v-for="x in finishOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
       </van-tabs>
     </div>
@@ -54,7 +55,8 @@ export default {
       "canTakeOrderCount",
       "waitForPay",
       "paidOrder",
-      "canTakeOrder"
+      "canTakeOrder",
+      "finishOrder"
     ])
   },
   components: {

@@ -3,7 +3,7 @@
       <div style="width:100%;background:#fff;">
         <van-tabs :active="selectIndex" >
           <van-tab title="已付款">
-            <order v-for="x in orders" :key="x" :data="x" type="shop"></order>
+            <order v-for="x in orders" v-if="x.IsSuccessPay" :key="x" :data="x" type="shop"></order>
           </van-tab>
           <van-tab title="已发货">
           </van-tab>

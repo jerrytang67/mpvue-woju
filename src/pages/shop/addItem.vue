@@ -136,17 +136,19 @@ export default {
     //编辑模式
     if (options.itemId) {
       this.itemId = options.itemId;
-      this.$api.getItemDetail({ id: this.itemId }).then(res => {
-        this.item = res;
-        this.item.dateStart = moment(new Date(res.DateTimeStart)).format(
-          "YYYY-MM-DD"
-        );
-        this.item.dateEnd = moment(new Date(res.DateTimeEnd)).format(
-          "YYYY-MM-DD"
-        );
-        this.item.PickUpType = res.PickUpType.toString();
-        wx.setNavigationBarTitle({ title: "编辑 " + res.Name });
-      });
+      this.$api
+        .getItemDetail({ id: this.itemId, isBackend: true })
+        .then(res => {
+          this.item = res;
+          this.item.dateStart = moment(new Date(res.DateTimeStart)).format(
+            "YYYY-MM-DD"
+          );
+          this.item.dateEnd = moment(new Date(res.DateTimeEnd)).format(
+            "YYYY-MM-DD"
+          );
+          this.item.PickUpType = res.PickUpType.toString();
+          wx.setNavigationBarTitle({ title: "编辑 " + res.Name });
+        });
     } else {
       if (!options.shopId) wx.navigateBack();
       else {
