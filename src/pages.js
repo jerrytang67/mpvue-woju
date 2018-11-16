@@ -197,5 +197,19 @@ module.exports = [{
     config: {
       usingComponents: Object.assign({}, usingComponents, {})
     }
+  },
+  {
+    path: 'pages/partner/edit',
+    config: {
+      navigationBarTitleText: '',
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-steps": "/static/dist/steps/index",
+        "van-field": "/static/dist/field/index",
+        "van-checkbox": "/static/dist/checkbox/index",
+        "van-checkbox-group": "/static/dist/checkbox-group/index",
+        "van-radio": "/static/dist/radio/index",
+        "van-radio-group": "/static/dist/radio-group/index"
+      })
+    }
   }
 ]

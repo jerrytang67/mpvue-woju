@@ -113,26 +113,28 @@ export default {
       this.item.IDCardHandUrl = e;
     },
     post() {
+      var that = this;
       let data = {
-        RealName: this.item.RealName,
-        Telphone: this.item.Telphone,
-        TelphoneBackup: this.item.TelphoneBackup,
-        IDCardFrontUrl: this.item.IDCardFrontUrl,
-        IDCardBackUrl: this.item.IDCardBackUrl,
-        IDCardHandUrl: this.item.IDCardHandUrl
+        RealName: that.item.RealName,
+        Telphone: that.item.Telphone,
+        TelphoneBackup: that.item.TelphoneBackup,
+        IDCardFrontUrl: that.item.IDCardFrontUrl,
+        IDCardBackUrl: that.item.IDCardBackUrl,
+        IDCardHandUrl: that.item.IDCardHandUrl
       };
-      if (this.type == 1) {
-        if (!this.item.BusinessLicenseUrl) {
+      if (that.type == 1) {
+        if (!that.item.BusinessLicenseUrl) {
           Toast.fail("营业执照没有上传");
           return;
         }
-        data.BusinessLicenseUrl = this.item.BusinessLicenseUrl;
+        data.BusinessLicenseUrl = that.item.BusinessLicenseUrl;
       }
-      this.$api.postRealNameInfo(data).then(res => {
+      that.$api.postRealNameInfo(data).then(res => {
         if (res.Id) {
           Toast.success("提交成功,请审核结果");
           setTimeout(() => {
-            wx.navigateBack();
+            if (that.type === 1) wx.navigateBack();
+            else wx.navigateTo({url:'/pages/partner/edit'})
           }, 1500);
         }
       });

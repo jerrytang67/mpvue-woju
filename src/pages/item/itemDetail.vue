@@ -115,19 +115,51 @@ export default {
     if (!options.id) wx.navigateBack();
     wx.setNavigationBarTitle({ title: "商品详情" });
   },
+  onShareAppMessage: res => {
+    let select_partner = wx.getStorageSync("my_partner");
+    let currentItem = wx.getStorageSync("currentItem");
+
+    if (select_partner&& currentItem)
+      return {
+        title: currentItem.Name,
+        path: `/pages/item/itemDetail?pid=${select_partner.Id}&id=${
+          currentItem.Id}`
+      };
+  },
+  data:{
+    pid:1
+  },
   onPullDownRefresh: function() {
     this.load();
     wx.stopPullDownRefresh();
   },
-  onReady() {},
+  onReady() {
+    var that = this ;
+    var query = that.$root.$mp.query;
+    if (query.pid) {
+      that.$api.getPartner({ pid: query.pid }).then(res => {
+        that.SET_SELECT_PARTNER(res); //store set the current partner
+      });
+      that.$api.loadPartnerItems(that.$root.$mp.query.pid).then(res => {
+        if (res) that.SET_BUYITEMLIST(res); //store set current buyitem list
+      });
+    }
+  },
   mounted() {
     this.load();
   },
   computed: {
-    ...mapState(["userInfo", "cartItems", "buyItems", "total", "currentItem"])
+    ...mapState([
+      "userInfo",
+      "cartItems",
+      "buyItems",
+      "total",
+      "currentItem",
+      "my_partner"
+    ])
   },
   methods: {
-    ...mapMutations(["SET_ITEM"]),
+    ...mapMutations(["SET_ITEM", "SET_BUYITEMLIST", "SET_SELECT_PARTNER"]),
     ...mapActions(["add_to_cart"]),
     load() {
       let that = this;
@@ -151,7 +183,11 @@ export default {
       return current;
     },
     back() {
-      wx.navigateBack();
+      var pages = getCurrentPages();
+      if(pages.length>1)
+        wx.navigateBack();
+      else
+      wx.switchTab({ url: "/pages/index/index" });
     },
     addCart() {
       let item = this.getItem();

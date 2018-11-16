@@ -18,6 +18,7 @@ export const mutations = {
   },
   SET_ITEM: (state, v) => {
     console.log("SET_ITEM to" + v);
+    wx.setStorageSync("currentItem", v);
     state.currentItem = v
   },
   PARTNER: (state, v) => {

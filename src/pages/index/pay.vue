@@ -95,7 +95,7 @@ export default {
       item.Count = 1;
     },
     onSubmit() {
-      let thta = this;
+      let that = this;
       const itemId = this.cartItems[0].BuyItem_Id;
       const count = this.cartItems[0].Count;
       const partnerId = this.cartItems[0].Partner_Id;
@@ -112,7 +112,7 @@ export default {
             success: function(res) {
               Toast.success("支付成功");
               setTimeout(() => {
-                this.$navigate.To("/pages/order?index=1")
+                that.$navigate.To("/pages/order?index=1")
               }, 1500);
             },
             fail: function(res) {

@@ -2,16 +2,16 @@
   <div class="container">
     <div style="width:100%;background:#fff;">
       <van-tabs :active="selectIndex" @change="onTabChange">
-        <van-tab title="待付款">
+        <van-tab :title="'待付款'">
           <order v-for="x in waitForPay" :key="x" :data="x" type="user"></order>
         </van-tab>
-        <van-tab title="已付款">
+        <van-tab :title="'已付款'">
           <order v-for="x in paidOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
-        <van-tab title="可取货">
+        <van-tab :title="'可取货'">
           <order v-for="x in canTakeOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
-        <van-tab title="已完成">
+        <van-tab :title="'已完成'">
           <order v-for="x in finishOrder" :key="x" :data="x" type="user"></order>
         </van-tab>
       </van-tabs>

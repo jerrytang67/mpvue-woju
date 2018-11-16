@@ -15,7 +15,20 @@ const getters = {
   canTakeOrder: state => state.myOrders.filter(x => x.ProductState == "可取货"),
   canTakeOrderCount: (state, getters) => getters.canTakeOrder.length,
 
+
+
+  //团长用
+  //未付款订单
   orderNotPay: state => state.orders.filter(x => !x.IsSuccessPay),
-  orderIsPay: state => state.orders.filter(x => x.IsSuccessPay)
+  orderNotPayCount: (state, getters) => getters.orderNotPay.length,
+  //已支付订单
+  orderIsPay: state => state.orders.filter(x => x.IsSuccessPay && !x.IsCheckOut),
+  orderIsPayCount: (state, getters) => getters.orderIsPay.length,
+  //已完成订单
+  orderFinish: state => state.orders.filter(x => x.IsSuccessPay && x.IsCheckOut),
+  orderFinishCount: (state, getters) => getters.orderFinish.length,
+  //待取货
+  orderCanTake: state => state.orders.filter(x => x.ProductState == "可取货"),
+  orderCanTakeCount: (state, getters) => getters.orderCanTake.length
 };
 export default getters;

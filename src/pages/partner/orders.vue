@@ -2,15 +2,17 @@
   <div class="container">
     <div style="width:100%;background:#fff;">
       <van-tabs :active="selectIndex">
-        <van-tab title="未付款">
+        <van-tab :title="'未付款 '+orderNotPayCount">
           <order v-for="x in orderNotPay" :key="x" :data="x" type="partner"></order>
         </van-tab>
-        <van-tab title="已付款">
+        <van-tab :title="'已付款 '+orderIsPayCount">
           <order v-for="x in orderIsPay" :key="x" :data="x" type="partner"></order>
         </van-tab>
-        <van-tab title="已发货">
+        <van-tab :title="'待取货 '+orderCanTakeCount">
+          <order v-for="x in orderCanTake" :key="x" :data="x" type="partner"></order>
         </van-tab>
-        <van-tab title="已完成">
+        <van-tab :title="'已完成 ' +orderFinishCount">
+          <order v-for="x in orderCanTake" :key="x" :data="x" type="partner"></order>
         </van-tab>
       </van-tabs>
     </div>
@@ -41,7 +43,16 @@ export default {
   },
   computed: {
     ...mapState(["orders", "openid", "partner"]),
-    ...mapGetters(["orderNotPay", "orderIsPay"])
+    ...mapGetters([
+      "orderNotPay",
+      "orderIsPay",
+      "orderFinish",
+      "orderCanTake",
+      "orderNotPayCount",
+      "orderIsPayCount",
+      "orderFinishCount",
+      "orderCanTakeCount"
+    ])
   },
   methods: {
     ...mapActions(["getOrders"]),
