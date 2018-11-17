@@ -133,7 +133,7 @@ export default {
         if (res.Id) {
           Toast.success("提交成功,请审核结果");
           setTimeout(() => {
-            if (that.type === 1) wx.navigateBack();
+            if (that.type == 1) wx.navigateBack();
             else wx.navigateTo({url:'/pages/partner/edit'})
           }, 1500);
         }
