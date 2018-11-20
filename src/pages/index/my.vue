@@ -7,7 +7,7 @@
           <van-panel>
             <view slot="header" style="padding:1rem 2rem;text-align:center">
               <view v-if="userInfo.userInfo">{{userInfo.userInfo.nickName}}</view>
-              <view style="font-size:.7rem;">{{position.address}}</view>
+              <!-- <view style="font-size:.7rem;">{{position.address}}</view> -->
               <image style="width:30vw;height:30vw;margin:10rpx auto;" :src="qr" v-if="qr" />
               <view>
                 <van-button @click="showQR" type="primary" size="small">显示取货码</van-button>
@@ -137,7 +137,7 @@ export default {
     showQR() {
       this.qr = `https://www.wujiangapp.com/home/qr?str=${
         this.unionid
-      }&type=WoJu&sid=6`;
+      }&type=WoJu&sid=${this.$api.STOREID}`;
     },
     onChange(event) {
       console.log(event.detail);

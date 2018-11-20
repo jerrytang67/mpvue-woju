@@ -31,7 +31,7 @@ export const actions = {
   select_partner: (context, v) => {
     return new Promise((resolve, reject) => {
       context.commit("SET_SELECT_PARTNER", v)
-      resolve()
+      return resolve()
     });
   },
 
