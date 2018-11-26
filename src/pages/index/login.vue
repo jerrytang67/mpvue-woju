@@ -51,20 +51,23 @@ export default {
         wx.login({
           // withCredentials: true,
           success: logRes => {
-            that.$api.code2session(logRes.code).then(res => {
-              if (res) {
-                this.SET_OPENID(res);
-              }
-              if (res.token) {
-                wx.setStorageSync("token", res.token);
+            // that.$api.code2session(logRes.code).then(res => {
+            //   console.log(res);
+              // if (res) {
+              //   this.SET_OPENID(res);
+              // }
+              // if (res.token) {
+                // console.log("token ok");
+                // wx.setStorageSync("token", res.token);
                 wx.getUserInfo({
                   success: res => {
+                    res.code = logRes.code;
                     this.setUserInfo(res);
                     return resolve();
                   }
                 });
-              }
-            });
+              // }
+            // });
           },
           fail: error => {
             return reject(error);

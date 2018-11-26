@@ -1,13 +1,21 @@
 <template>
   <div class="container" style="background:#fff;">
-    <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
-      <block v-for="(x,$index) in currentItem.LogoList" :key="x">
-        <swiper-item>
-          <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
-        </swiper-item>
-      </block>
-    </swiper>
-
+    <div style="position:relative;">
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
+        <block v-for="(x,$index) in currentItem.LogoList" :key="x">
+          <swiper-item>
+            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <div class="locationLabel">
+        <van-tag round type="danger" class="locationLabel-tag">
+          <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
+          
+          
+          </van-tag>
+      </div>
+    </div>
     <!-- end swiper -->
 
     <view class="details-msg">
@@ -119,22 +127,23 @@ export default {
     let select_partner = wx.getStorageSync("my_partner");
     let currentItem = wx.getStorageSync("currentItem");
 
-    if (select_partner&& currentItem)
+    if (select_partner && currentItem)
       return {
         title: currentItem.Name,
         path: `/pages/item/itemDetail?pid=${select_partner.Id}&id=${
-          currentItem.Id}`
+          currentItem.Id
+        }`
       };
   },
-  data:{
-    pid:1
+  data: {
+    pid: 1
   },
   onPullDownRefresh: function() {
     this.load();
     wx.stopPullDownRefresh();
   },
   onReady() {
-    var that = this ;
+    var that = this;
     var query = that.$root.$mp.query;
     if (query.pid) {
       that.$api.getPartner({ pid: query.pid }).then(res => {
@@ -184,10 +193,8 @@ export default {
     },
     back() {
       var pages = getCurrentPages();
-      if(pages.length>1)
-        wx.navigateBack();
-      else
-      wx.switchTab({ url: "/pages/index/index" });
+      if (pages.length > 1) wx.navigateBack();
+      else wx.switchTab({ url: "/pages/index/index" });
     },
     addCart() {
       let item = this.getItem();
@@ -226,6 +233,12 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/theme.scss";
 
+.locationLabel {
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
+  z-index: 9999;
+}
 .doc {
   .title {
     font-size: $font-lg;
