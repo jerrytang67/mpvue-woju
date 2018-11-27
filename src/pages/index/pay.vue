@@ -28,6 +28,8 @@
             <van-icon slot="right-icon" name="search" class="van-cell__right-icon" />
           </van-cell>
           <van-cell :title="'联系电话: '+telphone" clickable icon="phone" v-if="telphone" @click="setAddress" />
+          <van-cell :title="'收货人: '+userName" clickable icon="user" v-if="userName" @click="setAddress" />
+
         </van-cell-group>
       </demo-block>
     </div>
@@ -47,7 +49,8 @@ export default {
   onReady() {},
   data: {
     address: "",
-    telphone: ""
+    telphone: "",
+    userName: ""
   },
   mounted() {},
   computed: {
@@ -72,6 +75,8 @@ export default {
         success: function(res) {
           that.address = res.provinceName + res.cityName + res.detailInfo;
           that.telphone = res.telNumber;
+          that.userName = res.userName;
+
           // console.log(res.userName);
           // console.log(res.postalCode);
           // console.log(res.provinceName);
@@ -100,7 +105,7 @@ export default {
       const count = this.cartItems[0].Count;
       const partnerId = this.cartItems[0].Partner_Id;
       this.$api
-        .getPay(itemId, partnerId, count, this.address, this.telphone)
+        .getPay(itemId, partnerId, count, this.address, this.telphone,this.userName)
         .then(obj => {
           wx.requestPayment({
             //相关支付参数
@@ -112,7 +117,7 @@ export default {
             success: function(res) {
               Toast.success("支付成功");
               setTimeout(() => {
-                that.$navigate.To("/pages/order?index=1")
+                that.$navigate.To("/pages/order?index=1");
               }, 1500);
             },
             fail: function(res) {

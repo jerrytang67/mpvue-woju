@@ -59,11 +59,11 @@ export default {
 
   loadPartnerItems: pid => request("get", `/WoJu/getBuyItems?pid=${pid}`),
 
-  getPay: (itemId, partnerId, count, address, telphone) => {
+  getPay: (itemId, partnerId, count, address, telphone,userName) => {
     if (partnerId && itemId)
       return request(
         "get",
-        `/WoJu/getpay?partner_Id=${partnerId}&itemid=${itemId}&count=${count}&address=${address}&telphone=${telphone}`
+        `/WoJu/getpay?partner_Id=${partnerId}&itemid=${itemId}&count=${count}&address=${address}&telphone=${telphone}&userName=${userName}`
       );
     else Tips.error("错误:pid或itemId为空");
   },

@@ -182,8 +182,9 @@ export default {
     },
     joinShop() {
       this.$api.joinShop(this.currentItem.ShopId).then(res => {
-        console.log(res);
-      });
+          Toast.success("申请成功");
+          return;
+      } );
     },
     getItem() {
       var current = this.buyItems.filter(
