@@ -8,11 +8,10 @@
           </swiper-item>
         </block>
       </swiper>
-      <div class="locationLabel">
+      <div class="locationLabel flex-r-ac">
+        <img class="img-circle thumb48" :src="my_partner.headimgurl" style="margin-right:5px;border:2px solid #fff;" />
         <van-tag round type="danger" class="locationLabel-tag">
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
-          
-          
           </van-tag>
       </div>
     </div>

@@ -24,11 +24,12 @@
       </view>
     </view>
     <view class="contentBody">
-      <van-notice-bar scrollable="false" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent" />
       <view class="flex-between">
         <image src="/static/images/top1.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=0')" style="height:25vw;border-radius:15px 0 0 0;" />
         <image src="/static/images/top2.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=1')" style="height:25vw;border-radius:0 15px 0 0;" />
       </view>
+      <van-notice-bar :scrollable="true" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent" />
+
       <div class="card-list">
         <van-card v-for="x in buyItems" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" @click="goItem(x)">
           <!-- <view slot="footer">

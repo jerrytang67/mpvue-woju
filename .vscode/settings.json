@@ -1,2 +1,14 @@
 {
+    "line-counter.excludes": [
+        "**/.vscode/**",
+        "**/build/**",
+        "**/config/**",
+        "**/dist/**",
+        "**/node_modules/**",
+        "**/png/**",
+        "**/static/**",
+    ],
+    "line-counter.includes": [
+        "**/*"
+    ]
 }

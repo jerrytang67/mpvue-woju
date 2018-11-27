@@ -30,7 +30,9 @@ module.exports = [{
     config: {
       navigationBarTitleText: '',
       enablePullDownRefresh: true,
-      usingComponents: Object.assign({}, usingComponents, {})
+      usingComponents: Object.assign({}, usingComponents, {
+        "van-notice-bar":"/static/dist/notice-bar/index"
+      })
     }
   },
   {
