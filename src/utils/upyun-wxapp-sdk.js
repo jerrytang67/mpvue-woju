@@ -8,7 +8,7 @@ Upyun.prototype.upload = function (options) {
   var self = this
   console.log(options);
   if (!options.remotePath) {
-    options.remotePath =  options.localPath.split('//')[1]
+    options.remotePath = options.localPath.split('//')[1]
   }
   var date = (new Date()).toGMTString()
   var opts = {

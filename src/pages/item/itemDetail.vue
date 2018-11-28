@@ -1,18 +1,43 @@
 <template>
-  <div class="container" style="background:#fff;">
+  <div
+    class="container"
+    style="background:#fff;"
+  >
     <div style="position:relative;">
-      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
-        <block v-for="(x,$index) in currentItem.LogoList" :key="x">
+      <swiper
+        indicator-dots="true"
+        autoplay="true"
+        interval="5000"
+        duration="500"
+        class="swiper"
+      >
+        <block
+          v-for="(x,$index) in currentItem.LogoList"
+          :key="x"
+        >
           <swiper-item>
-            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
+            <image
+              :src="x+'!w500'"
+              class="slide-image"
+              mode="aspectFill"
+              @click="previewImage($index)"
+            />
           </swiper-item>
         </block>
       </swiper>
       <div class="locationLabel flex-r-ac">
-        <img class="img-circle thumb48" :src="my_partner.headimgurl" style="margin-right:5px;border:2px solid #fff;" />
-        <van-tag round type="danger" class="locationLabel-tag">
+        <img
+          class="img-circle thumb48"
+          :src="my_partner.headimgurl"
+          style="margin-right:5px;border:2px solid #fff;"
+        />
+        <van-tag
+          round
+          type="danger"
+          class="locationLabel-tag"
+        >
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
-          </van-tag>
+        </van-tag>
       </div>
     </div>
     <!-- end swiper -->
@@ -26,9 +51,20 @@
         </view> -->
       </view>
       <view class="baoyou">
-        <van-tag round type="primary">{{currentItem.PickUpType}}</van-tag>
-        <van-tag round type="primary" v-if="currentItem.LimitBuyCount==0">不限购</van-tag>
-        <van-tag round type="primary" v-else>每人限购{{currentItem.LimitBuyCount}}件</van-tag>
+        <van-tag
+          round
+          type="primary"
+        >{{currentItem.PickUpType}}</van-tag>
+        <van-tag
+          round
+          type="primary"
+          v-if="currentItem.LimitBuyCount==0"
+        >不限购</van-tag>
+        <van-tag
+          round
+          type="primary"
+          v-else
+        >每人限购{{currentItem.LimitBuyCount}}件</van-tag>
       </view>
     </view>
     <view class="order_num">
@@ -69,20 +105,30 @@
     </view> -->
     <!-- endblock -->
 
-    <view class="block" v-if="currentItem.Shop">
+    <view
+      class="block"
+      v-if="currentItem.Shop"
+    >
       <view class="block_title">供货商家</view>
       <!-- <view class="block_content" @click.stop="$navigate.To('/pages/shop/shop?shopId='+currentItem.Shop.Id)"> -->
       <view class="block_content">
         <view class="doc flex-r-ac">
           <div>
-            <img class="img-circle thumb64" :src="currentItem.Shop.LogoImageUrl+'!w100h100'" />
+            <img
+              class="img-circle thumb64"
+              :src="currentItem.Shop.LogoImageUrl+'!w100h100'"
+            />
           </div>
           <div class="flex-c px-lg">
             <p class="title">{{currentItem.Shop.ShopName}}</p>
             <p>地址:{{currentItem.Shop.ShopAddress}}</p>
             <p>电话:{{currentItem.Shop.ShopKeFuTel}}</p>
             <p>
-              <van-button size="small" type="primary" @click.stop="joinShop">申请成为Ta的团长</van-button>
+              <van-button
+                size="small"
+                type="primary"
+                @click.stop="joinShop"
+              >申请成为Ta的团长</van-button>
             </p>
           </div>
         </view>
@@ -102,11 +148,23 @@
     <view class="spacing"></view>
 
     <van-goods-action>
-      <van-goods-action-icon icon="home" text="返回" @click="back" />
-      <van-goods-action-icon icon="chat" text="客服" open-type="contact" />
+      <van-goods-action-icon
+        icon="home"
+        text="返回"
+        @click="back"
+      />
+      <van-goods-action-icon
+        icon="chat"
+        text="客服"
+        open-type="contact"
+      />
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
-      <van-goods-action-button type="primary" text="立即购买" @click="getpay()" />
+      <van-goods-action-button
+        type="primary"
+        text="立即购买"
+        @click="getpay()"
+      />
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
@@ -181,9 +239,9 @@ export default {
     },
     joinShop() {
       this.$api.joinShop(this.currentItem.ShopId).then(res => {
-          Toast.success("申请成功");
-          return;
-      } );
+        Toast.success("申请成功");
+        return;
+      });
     },
     getItem() {
       var current = this.buyItems.filter(
@@ -198,9 +256,10 @@ export default {
     },
     addCart() {
       let item = this.getItem();
+      var that = this;
       console.log(item);
       if (item.BuyItem) {
-        if (new Date(item.BuyItem.DateTimeEnd) < new Date()) {
+        if (new Date(that.currentItem.DateTimeEnd) < new Date()) {
           Toast.fail("已结束");
           return;
         }
