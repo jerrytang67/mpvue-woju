@@ -65,6 +65,13 @@
           type="primary"
           v-else
         >每人限购{{currentItem.LimitBuyCount}}件</van-tag>
+        <div style="float:right;">
+          <button
+            type="default" size="mini" round
+            @click="openModal"
+          >海报
+          </button>
+        </div>
       </view>
     </view>
     <view class="order_num">
@@ -168,6 +175,30 @@
     </van-goods-action>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
+    <van-popup
+      :show="modalShow"
+      :custom-style="'background-color:transparent;'"
+      @click-overlay="openModal"
+      :duration="0"
+    >
+      <canvas
+        canvas-id="shareCanvas"
+        style="width:700rpx;height:1000rpx;"
+      ></canvas>
+      <div style="margin:10px auto;text-align:center;">
+        <van-button
+          type="primary"
+          @click.stop="save"
+          style="margin:5px;"
+        >保存到相册</van-button>
+        <van-button
+          type="primary"
+          style="margin:5px;"
+          @click.stop="openModal"
+        >关　　闭</van-button>
+      </div>
+
+    </van-popup>
   </div>
 </template>
 <script>
@@ -175,6 +206,11 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 import { formatTime } from "../../utils/index";
 import Toast from "../../../static/dist/toast/toast";
+import { promisify } from "../../utils/promisify";
+
+const wxGetImageInfo = promisify(wx.getImageInfo);
+const wxCanvasToTempFilePath = promisify(wx.canvasToTempFilePath);
+const wxSaveImageToPhotosAlbum = promisify(wx.saveImageToPhotosAlbum);
 export default {
   onLoad(options) {
     if (!options.id) wx.navigateBack();
@@ -193,7 +229,8 @@ export default {
       };
   },
   data: {
-    pid: 1
+    pid: 1,
+    modalShow: false
   },
   onPullDownRefresh: function() {
     this.load();
@@ -211,6 +248,10 @@ export default {
       });
     }
   },
+  onUnload() {
+    console.log("销毁前");
+    this.modalShow = false;
+  },
   mounted() {
     this.load();
   },
@@ -227,6 +268,143 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM", "SET_BUYITEMLIST", "SET_SELECT_PARTNER"]),
     ...mapActions(["add_to_cart"]),
+    onClose() {},
+    openModal() {
+      var that = this;
+
+      var rpx;
+      //获取屏幕宽度，获取自适应单位
+      wx.getSystemInfo({
+        success: function(res) {
+          rpx = res.windowWidth / 750;
+          console.log(res.windowWidth);
+          console.log(rpx);
+        }
+      });
+
+      Promise.all([
+        wxGetImageInfo({src:that.currentItem.LogoList[0].replace(/http:/i, "https:") + "!wh500"}),
+        wxGetImageInfo({src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${that.my_partner.Id}&itemId=${that.currentItem.Id}&storeId=6`})
+      ]).then(
+        res => {
+          console.log(res);
+          const ctx = wx.createCanvasContext("shareCanvas");
+          const ctxW = 700 * rpx;
+          const ctxH = 1000 * rpx;
+          const space = 35 * rpx;
+          const space_lg = 46 * rpx;
+          const tLength = that.currentItem.Name.length;
+          const tPrice = that.currentItem.VipPrice;
+          const nickname = that.my_partner.nickname;
+          const qrtext = '长按识别，即可查看商品';
+          const label = that.my_partner.LocationLabel;
+          let nowH = 0;
+          /* 绘制白色背景 todo:以图片代替*/
+          ctx.rect(0, 0, ctxW, ctxH);
+          ctx.setFillStyle("white");
+          ctx.fillRect(0, 0, ctxW, ctxH);
+          /* 底图 */
+          ctx.drawImage(res[0].path,space_lg,space_lg,ctxW - 2 * space_lg,ctxW - 2 * space_lg);
+          /* 背景*/
+          ctx.setFillStyle("#7B24B3");
+          ctx.fillRect(space_lg,0,ctxW - 2 * space_lg,space_lg);
+          /*绘制店名*/
+           ctx.setFontSize(22*rpx);
+           ctx.setFillStyle("#fff");
+           ctx.textAlign = "left";
+           ctx.fillText(`${label} 社区 ${nickname} 的小店`, space_lg + (5*rpx) ,space);
+           ctx.restore();
+          /* 绘制产品名称背景 */
+          ctx.setFillStyle("#A22CB1");
+          ctx.fillRect(space_lg,space_lg + ctxW - 2 * space_lg,ctxW - 2 * space_lg,120 * rpx);
+          nowH = space_lg + ctxW - 2 * space_lg + 45 * rpx;
+          ctx.setTextAlign("left");
+          ctx.setFillStyle("#ffffff");
+          ctx.setFontSize(32 * rpx);
+          ctx.fillText(
+            that.currentItem.Name.substr(0, 16),
+            space_lg + space,
+            nowH
+          );
+          nowH = nowH + 45 * rpx;
+          if (tLength > 13) {
+            ctx.setTextAlign("left");
+            ctx.setFillStyle("#ffffff");
+            ctx.setFontSize(32 * rpx);
+            ctx.fillText(that.currentItem.Name.substr(16, 15) + "...",space_lg + space,nowH); }
+          nowH = 800 * rpx;
+          const qrImgSize = 168*rpx;
+           /* 绘制线框*/
+          ctx.setLineDash([1, 3], 1);
+          ctx.beginPath();
+          ctx.moveTo(space_lg, nowH);
+          ctx.lineTo(400 * rpx , nowH);
+          ctx.moveTo(space_lg, nowH + qrImgSize);
+          ctx.lineTo(400 * rpx, nowH + qrImgSize);
+          ctx.setStrokeStyle('#979797');
+          ctx.restore();
+          /*绘制文字*/
+          ctx.setFontSize(36 * rpx);
+          ctx.setFillStyle('#333333');
+          ctx.textAlign = "left";
+          ctx.fillText('￥', space_lg+space, nowH + (70*rpx));
+          ctx.setFontSize(48*rpx);
+          ctx.fillText(tPrice, space_lg + (70*rpx),  nowH + (70*rpx));
+          ctx.setFontSize(32 * rpx);
+          ctx.setFillStyle('#666666');
+          ctx.fillText(qrtext, space_lg, nowH + qrImgSize - (30*rpx));
+          ctx.restore();
+          // 小程序码
+          ctx.drawImage(res[1].path,700 * rpx / 4 * 3 - qrImgSize / 2,800 * rpx,qrImgSize,qrImgSize);
+
+          /*圆形头像*/
+          // ctx.save()
+          // ctx.beginPath();
+          // ctx.arc(35, 30, 20, 0, 2 * Math.PI)
+          // ctx.setFillStyle('#fff')
+          // ctx.fill()
+          // ctx.clip()
+          // ctx.drawImage( res[2].path, 15, 10, 40, 40)
+          // ctx.restore()
+          ctx.stroke();
+          ctx.draw();
+          //打开窗口
+          this.modalShow = !this.modalShow;
+        },
+        error => {
+          wx.showToast({
+            title: "海报图片下载失败",
+            icon: "none"
+          });
+        }
+      );
+    },
+    save() {
+      wxCanvasToTempFilePath(
+        {
+          canvasId: "shareCanvas"
+        },
+        this
+      )
+        .then(res => {
+          return wxSaveImageToPhotosAlbum({
+            filePath: res.tempFilePath
+          });
+        })
+        .then(
+          res => {
+            wx.showToast({
+              title: "已保存到相册"
+            });
+          },
+          error => {
+            wx.showToast({
+              title: "保存失败,请打开保存相册权限!!",
+              icon: "none"
+            });
+          }
+        );
+    },
     load() {
       let that = this;
       this.currentItem = {};
@@ -296,7 +474,7 @@ export default {
   position: absolute;
   top: 30rpx;
   left: 30rpx;
-  z-index: 9999;
+  z-index: 90;
 }
 .doc {
   .title {

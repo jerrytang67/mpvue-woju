@@ -22,6 +22,8 @@ const usingComponents = {
   "van-goods-action-button": "/static/dist/goods-action-button/index",
   "van-dialog": "/static/dist/dialog/index",
 
+  "van-popup": "/static/dist/popup/index",
+
   "demo-block": "/static/demo-block/index"
 }
 
