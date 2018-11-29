@@ -269,6 +269,7 @@ export default {
     ...mapMutations(["SET_ITEM", "SET_BUYITEMLIST", "SET_SELECT_PARTNER"]),
     ...mapActions(["add_to_cart"]),
     onClose() {},
+    //todo:这里要加入loading处理
     openModal() {
       var that = this;
 
