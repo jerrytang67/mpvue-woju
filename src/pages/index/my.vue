@@ -36,10 +36,10 @@
         </demo-block> -->
         <demo-block title="其它设置">
           <van-switch-cell title="接收通知" :checked="noticeChk" @change="toggleSetting('notice')" />
-          <van-switch-cell title="隐藏金额" :checked="showMoneyChk" @change="toggleSetting('showMoney')" />
+          <van-switch-cell v-if="myShops && myShops.length > 0" title="隐藏金额" :checked="showMoneyChk" @change="toggleSetting('showMoney')" />
         </demo-block>
 
-        <demo-block title="我的团长信息" v-if="partner">
+        <demo-block title="我的团长信息" v-if="partner && partner.State ==='成功' ">
           <van-panel use-footer-slot class="partner">
             <view slot="header" class="header">
               <div>团长姓名:{{partner.Realname}}</div>
@@ -63,7 +63,7 @@
             </view>
           </van-panel>
         </demo-block>
-        <demo-block title="我的店铺管理">
+        <demo-block title="我的店铺管理" v-if="myShops && myShops.length > 0">
           <van-panel v-for="shop in myShops" :key="shop" use-footer-slot>
             <view slot="header" style="display:flex; align-items:center;padding:20rpx; flex-direction:row;">
               <image :src="shop.LogoImageUrl+'!w100h100'" style="width:80rpx;height:80rpx;border-radius:8rpx;" />
@@ -135,9 +135,7 @@ export default {
     ...mapMutations([]),
     ...mapActions(["get_setting"]),
     showQR() {
-      this.qr = `https://www.wujiangapp.com/home/qr?str=${
-        this.unionid
-      }&type=WoJu&sid=${this.$api.STOREID}`;
+      this.qr = `https://www.wujiangapp.com/home/qr?str=${this.unionid}&type=WoJu&sid=${this.$api.STOREID}`;
     },
     onChange(event) {
       console.log(event.detail);
