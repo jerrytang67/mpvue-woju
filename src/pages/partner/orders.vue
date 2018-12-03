@@ -12,7 +12,7 @@
           <order v-for="x in orderCanTake" :key="x" :data="x" type="partner"></order>
         </van-tab>
         <van-tab :title="'已完成 ' +orderFinishCount">
-          <order v-for="x in orderCanTake" :key="x" :data="x" type="partner"></order>
+          <order v-for="x in orderFinish" :key="x" :data="x" type="partner"></order>
         </van-tab>
       </van-tabs>
     </div>
