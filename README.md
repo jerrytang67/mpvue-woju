@@ -27,10 +27,13 @@ npm run dev
 ## 普通访客页
 
 ###新增生成海报功能
+
 ![image](png/13.png)
 
 ###团长申请页面
+
 ![image](png/14.png)
+
 
 ![image](png/1.png)
 
