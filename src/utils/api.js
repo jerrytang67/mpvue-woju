@@ -1,5 +1,5 @@
 import utils from "./utils"; // 此处，引入存放对promise处理的文件
-import Tip from "./Tips";
+
 import Tips from "./Tips";
 
 //自定义设置
@@ -14,7 +14,7 @@ const ip = "https://www.lovewujiang.com/api"; // 后台的ip地址
 const getRequest = utils.httpsPromisify(wx.request);
 const request = (method, url, data = {}) => {
   // method为请求方法，url为接口路径，data为传参
-  Tip.loading();
+  Tips.loading();
   return getRequest({
     url: (url.startsWith("http") ? "" : ip) + url,
     data: data,
