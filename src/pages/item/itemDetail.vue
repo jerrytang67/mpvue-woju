@@ -230,7 +230,8 @@ export default {
   },
   data: {
     pid: 1,
-    modalShow: false
+    modalShow: false,
+    colorList:[{ mid:"#7B24B3",top:"#A22CB1"},{mid:"#F44786",top:"#D21B51"},{mid:"#FFE948",top:"#D7D63D"},{mid:"#4DA2E5",top:"#232A3C"}]
   },
   onPullDownRefresh: function() {
     this.load();
@@ -270,19 +271,8 @@ export default {
     ...mapActions(["add_to_cart"]),
     onClose() {},
     //todo:这里要加入loading处理
-    openModal() {
+    draw(index,rpx){
       var that = this;
-
-      var rpx;
-      //获取屏幕宽度，获取自适应单位
-      wx.getSystemInfo({
-        success: function(res) {
-          rpx = res.windowWidth / 750;
-          console.log(res.windowWidth);
-          console.log(rpx);
-        }
-      });
-
       Promise.all([
         wxGetImageInfo({src:that.currentItem.LogoList[0].replace(/http:/i, "https:") + "!wh500"}),
         wxGetImageInfo({src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${that.my_partner.Id}&itemId=${that.currentItem.Id}&storeId=6`})
@@ -307,7 +297,7 @@ export default {
           /* 底图 */
           ctx.drawImage(res[0].path,space_lg,space_lg,ctxW - 2 * space_lg,ctxW - 2 * space_lg);
           /* 背景*/
-          ctx.setFillStyle("#7B24B3");
+          ctx.setFillStyle(that.colorList[index].top);
           ctx.fillRect(space_lg,0,ctxW - 2 * space_lg,space_lg);
           /*绘制店名*/
            ctx.setFontSize(22*rpx);
@@ -316,7 +306,7 @@ export default {
            ctx.fillText(`${label} 社区 ${nickname} 的小店`, space_lg + (5*rpx) ,space);
            ctx.restore();
           /* 绘制产品名称背景 */
-          ctx.setFillStyle("#A22CB1");
+          ctx.setFillStyle(that.colorList[index].mid);
           ctx.fillRect(space_lg,space_lg + ctxW - 2 * space_lg,ctxW - 2 * space_lg,120 * rpx);
           nowH = space_lg + ctxW - 2 * space_lg + 45 * rpx;
           ctx.setTextAlign("left");
@@ -377,8 +367,21 @@ export default {
             title: "海报图片下载失败",
             icon: "none"
           });
+        });
+    },
+    openModal() {
+      var that = this;
+      var rpx;
+      var index = Math.floor(Math.random() * that.colorList.length);
+      //获取屏幕宽度，获取自适应单位
+      wx.getSystemInfo({
+        success: function(res) {
+          rpx = res.windowWidth / 750;
+          // console.log(res.windowWidth);
+          // console.log(rpx);
         }
-      );
+      });
+      that.draw(index,rpx);
     },
     save() {
       wxCanvasToTempFilePath(
