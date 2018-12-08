@@ -1,13 +1,13 @@
 <template>
   <div style="margin:15rpx">
-    <van-card :num="data.count" :price="data.price/100" :title="'#'+data.Id+' '+data.body" class="card" :thumb="data.LogoImgUrl?data.LogoImgUrl+'!w100h100':'/static/images/no-image.png'">
+    <van-card :tag="data.PickUpType" :num="data.count" :lazy-load="true" :price="data.price/100" :title="'#'+data.Id+' '+data.body" class="card" :thumb="data.LogoImgUrl?data.LogoImgUrl+'!w100h100':'/static/images/no-image.png'">
       <view slot="tags" class="tags">
         <div v-if="data.Address">地址:{{data.Address}}</div>
         <div v-if="data.TelPhone">电话:{{data.TelPhone}}</div>
-        <div>
+        <!-- <div>
           提货方式:
           <van-tag round type="primary">{{data.PickUpType}}</van-tag>
-        </div>
+        </div> -->
         <div>
           合计:<span class="price">￥{{data.totalprice/100}}</span>
         </div>

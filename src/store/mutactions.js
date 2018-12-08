@@ -86,6 +86,10 @@ export const mutations = {
     state.totalPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.Price * n.Count), 0);
     state.totalVipPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.VipPrice * n.Count), 0);
     console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
+  },
+  ADD_SEARCHHISTORY: (state, v) => {
+    state.searchHistory = Array.from(new Set([v, ...state.searchHistory.slice(0, 5)]));
+    wx.setStorageSync("searchHistory", state.searchHistory);
   }
 }
 export default

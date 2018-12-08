@@ -75,11 +75,9 @@ export const actions = {
     const items = state.myBuyItems.filter(z => z.BuyItem.Id != itemId);
     commit("SET_MY_BUYITEM_LIST", items);
   },
+  
   //商家删除商品
-  deleteBuyItem: ({
-    commit,
-    state
-  }, itemId) => {
+  deleteBuyItem: ({commit,state}, itemId) => {
     console.log("商家删除商品", itemId);
     api.SetBuyItem(itemId, "delete").then(res => {
       if (res) {
@@ -88,13 +86,10 @@ export const actions = {
           payload: item
         });
       }
-
     })
 
   },
-  getRealNameInfo: ({
-    commit
-  }, v) => {
+  getRealNameInfo: ({commit}, v) => {
     console.log("action getRealNameInfo");
     return new Promise((resolve, reject) => {
       api.getRealNameInfo().then(res => {
@@ -105,7 +100,8 @@ export const actions = {
         return reject();
       })
     })
-  }
+  },
+
 }
 
 export default actions;

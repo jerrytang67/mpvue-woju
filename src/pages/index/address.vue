@@ -1,37 +1,41 @@
 <template>
-  <div class="container"  style="background:#fff;">
-      <view style="width:100vw;">
-        <van-search placeholder="请输入搜索关键词" @search="onSearch" />
-      </view>
-      <van-cell-group style="width:100vw;">
-          <van-cell icon="location" v-if="l.location"
-          v-for="l in location"
-          :key="l" 
-          is-link border="true"
-          :url="'/pages/index/choosePartner?lng='+l.location.lng+'&lat='+l.location.lat+'&address='+ l.city + l.district + l.name">
-            <view slot="title">
-              <span class="van-cell-text">{{l.city}}{{l.district}} {{l.name}}</span>
-              <!-- <van-tag type="danger">标签</van-tag> -->
-            </view>
-          </van-cell>
-      </van-cell-group>
-    <!-- <map v-if="position"  
-        id="map" 
-        subkey="JQDBZ-M7CR6-LAYS5-MCG7D-DCXHK-GJBIV"  
-        :longitude="position.longitude" 
-        :latitude="position.latitude"  
-        scale="18" 
-        :controls="controls" 
-        :markers="markers" 
-        :polyline="polyline"
-        @controltap="controltap" 
-        @markertap="markertap"
-        @tap="tapMap" 
-        @regionchange="regionchange"
-        show-location 
-        style="width: 100vw; height: 50vh;">
-    </map> -->
-
+  <div
+    class="container"
+    style="background:#fff;"
+  >
+    <view style="width:100vw;">
+      <van-search
+        placeholder="请输入搜索关键词"
+        @search="onSearch"
+      />
+    </view>
+    <view class="history" v-if="searchHistory && searchHistory.length >0">
+    搜索历史:
+      <van-button
+        size="small"
+        v-for="s in searchHistory"
+        :key="s"
+        @click="selectAddress(s)"
+      >
+        {{s}}
+      </van-button>
+    </view>
+    <van-cell-group style="width:100vw;">
+      <van-cell
+        icon="location"
+        v-if="l.location"
+        v-for="l in location"
+        :key="l"
+        is-link
+        border="true"
+        :url="'/pages/index/choosePartner?lng='+l.location.lng+'&lat='+l.location.lat+'&address='+ l.city + l.district + l.name"
+      >
+        <view slot="title">
+          <span class="van-cell-text">{{l.city}}{{l.district}} {{l.name}}</span>
+          <!-- <van-tag type="danger">标签</van-tag> -->
+        </view>
+      </van-cell>
+    </van-cell-group>
     <van-dialog id="van-dialog" />
     <van-toast id="van-toast" />
   </div>
@@ -42,7 +46,7 @@
 import { mapState, mapMutations, mapActions } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
 export default {
-  onLoad(){
+  onLoad() {
     wx.setNavigationBarTitle({ title: "选择位置" });
   },
   onReady() {},
@@ -57,19 +61,22 @@ export default {
     // });
   },
   computed: {
-    ...mapState(["userInfo", "position"])
+    ...mapState(["userInfo", "position", "searchHistory"])
   },
   methods: {
-    ...mapMutations(["SET_POSITION"]),
-    onSearch(event) {
-      var that = this;
-      that.position = [];
-      console.log(event.mp.detail);
+    ...mapMutations(["SET_POSITION", "ADD_SEARCHHISTORY"]),
+    selectAddress(txt) {
+      this.postSearch(txt);
+    },
+
+    postSearch(txt) {
+      let that = this;
       this.$api
-        .placeSuggestion({ query: event.mp.detail, region: "苏州" })
+        .placeSuggestion({ query: txt, region: "苏州" })
         .then(res => {
           if (res.result && res.result.length) {
             that.location = res.result;
+            that.ADD_SEARCHHISTORY(txt);
           } else {
             Toast.fail("换个关键字试试");
           }
@@ -78,84 +85,25 @@ export default {
           Toast.fail("出错了");
         });
     },
-    markertap(e) {
-      console.log(e.markerId);
-    },
-    controltap(e) {
-      console.log(e);
-    },
-    tapMap(e) {
-      console.log(e);
-    },
-
-    regionchange(e) {
-      var that = this;
-      // 改变中心点位置
-      if (res.type == "end") {
-        that.getCenterLocation();
-      }
-    },
-    getCenterLocation: function() {
-      var that = this;
-      //mapId 就是你在 map 标签中定义的 id
-      var mapCtx = wx.createMapContext(mapId);
-      mapCtx.getCenterLocation({
-        success: function(res) {
-          console.log("getCenterLocation----------------------->");
-          console.log(res);
-          that.updateCenterLocation(res.latitude, res.longitude);
-          that.regeocodingAddress();
-          that.queryMarkerInfo();
-        }
-      });
+    onSearch(event) {
+      let that = this;
+      let txt = event.mp.detail;
+      that.position = [];
+      that.postSearch(txt);
     }
   },
   data: {
-    msg: "asfdasdf",
-    location: [],
-    markers: [
-      // {
-      //   iconPath: "/static/images/other.png",
-      //   id: 0,
-      //   latitude: 23.099994,
-      //   longitude: 113.32452,
-      //   width: 50,
-      //   height: 50
-      // }
-    ],
-    polyline: [
-      // {
-      //   points: [
-      //     {
-      //       longitude: 113.3245211,
-      //       latitude: 23.10229
-      //     },
-      //     {
-      //       longitude: 113.32452,
-      //       latitude: 23.21229
-      //     }
-      //   ],
-      //   color: "#FF0000DD",
-      //   width: 2,
-      //   dottedLine: true
-      // }
-    ],
-    controls: [
-      // {
-      //   id: 1,
-      //   iconPath: "/static/images/location.png",
-      //   position: {
-      //     left: (windowWidth - controlsWidth) / 2,
-      //     top: (windowHeight - bottomHeight) / 2 - controlsHeight * 3 / 4,
-      //     width: controlsWidth,
-      //     height: controlsHeight
-      //   },
-      //   clickable: true
-      // }
-    ]
+    location: []
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.history {
+  font-size:24rpx;
+  padding: 10rpx 20rpx;
+  ._van-button {
+    margin-right: 20rpx;
+  }
+}
 </style>

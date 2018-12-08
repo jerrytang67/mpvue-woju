@@ -36,7 +36,7 @@
         </demo-block> -->
         <demo-block title="其它设置">
           <van-switch-cell title="接收通知" :checked="noticeChk" @change="toggleSetting('notice')" />
-          <van-switch-cell v-if="myShops && myShops.length > 0" title="隐藏金额" :checked="showMoneyChk" @change="toggleSetting('showMoney')" />
+          <van-switch-cell v-if="partner && partner.State ==='成功'" title="隐藏金额" :checked="showMoneyChk" @change="toggleSetting('showMoney')" />
         </demo-block>
 
         <demo-block title="我的团长信息" v-if="partner && partner.State ==='成功' ">

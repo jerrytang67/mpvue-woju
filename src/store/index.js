@@ -10,6 +10,7 @@ import getters from './getters';
 Vue.use(Vuex)
 
 const state = {
+  searchHistory: wx.getStorageSync("searchHistory") || [],
   openid: wx.getStorageSync("openid"),
   unionid: wx.getStorageSync("unionid"),
   test: 0,

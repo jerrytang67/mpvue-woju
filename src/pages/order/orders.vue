@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div style="width:100%;background:#fff;">
-      <van-tabs :active="selectIndex" @change="onTabChange">
+      <van-tabs :active="selectIndex" @change="onTabChange" sticky="true" :scroll-top="0">
         <van-tab :title="'待付款'">
           <order v-for="x in waitForPay" :key="x" :data="x" type="user"></order>
         </van-tab>
