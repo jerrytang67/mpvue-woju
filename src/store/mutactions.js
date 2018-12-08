@@ -88,6 +88,7 @@ export const mutations = {
     console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
   },
   ADD_SEARCHHISTORY: (state, v) => {
+    //取前6个,去重
     state.searchHistory = Array.from(new Set([v, ...state.searchHistory.slice(0, 5)]));
     wx.setStorageSync("searchHistory", state.searchHistory);
   }
