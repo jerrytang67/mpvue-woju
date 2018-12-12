@@ -67,7 +67,9 @@
         >每人限购{{currentItem.LimitBuyCount}}件</van-tag>
         <div style="float:right;">
           <button
-            type="default" size="mini" round
+            type="default"
+            size="mini"
+            round
             @click="openModal"
           >海报
           </button>
@@ -181,11 +183,11 @@
       @click-overlay="openModal"
       :duration="0"
     >
-      <canvas
+      <canvas v-show="modalShow"
         canvas-id="shareCanvas"
         style="width:700rpx;height:1000rpx;"
       ></canvas>
-      <div style="margin:10px auto;text-align:center;">
+      <div  v-show="modalShow" style="margin:10px auto;text-align:center;">
         <van-button
           type="primary"
           @click.stop="save"
@@ -231,7 +233,12 @@ export default {
   data: {
     pid: 1,
     modalShow: false,
-    colorList:[{ mid:"#7B24B3",top:"#A22CB1"},{mid:"#F44786",top:"#D21B51"},{mid:"#FFE948",top:"#D7D63D"},{mid:"#4DA2E5",top:"#232A3C"}]
+    colorList: [
+      { mid: "#7B24B3", top: "#A22CB1" },
+      { mid: "#F44786", top: "#D21B51" },
+      { mid: "#FFE948", top: "#D7D63D" },
+      { mid: "#4DA2E5", top: "#232A3C" }
+    ]
   },
   onPullDownRefresh: function() {
     this.load();
@@ -271,11 +278,18 @@ export default {
     ...mapActions(["add_to_cart"]),
     onClose() {},
     //todo:这里要加入loading处理
-    draw(index,rpx){
+    draw(index, rpx) {
       var that = this;
       Promise.all([
-        wxGetImageInfo({src:that.currentItem.LogoList[0].replace(/http:/i, "https:") + "!wh500"}),
-        wxGetImageInfo({src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${that.my_partner.Id}&itemId=${that.currentItem.Id}&storeId=6`})
+        wxGetImageInfo({
+          src:
+            that.currentItem.LogoList[0].replace(/http:/i, "https:") + "!wh500"
+        }),
+        wxGetImageInfo({
+          src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${
+            that.my_partner.Id
+          }&itemId=${that.currentItem.Id}&storeId=6`
+        })
       ]).then(
         res => {
           console.log(res);
@@ -287,7 +301,7 @@ export default {
           const tLength = that.currentItem.Name.length;
           const tPrice = that.currentItem.VipPrice;
           const nickname = that.my_partner.nickname;
-          const qrtext = '长按识别，即可查看商品';
+          const qrtext = "长按识别，即可查看商品";
           const label = that.my_partner.LocationLabel;
           let nowH = 0;
           /* 绘制白色背景 todo:以图片代替*/
@@ -295,19 +309,34 @@ export default {
           ctx.setFillStyle("white");
           ctx.fillRect(0, 0, ctxW, ctxH);
           /* 底图 */
-          ctx.drawImage(res[0].path,space_lg,space_lg,ctxW - 2 * space_lg,ctxW - 2 * space_lg);
+          ctx.drawImage(
+            res[0].path,
+            space_lg,
+            space_lg,
+            ctxW - 2 * space_lg,
+            ctxW - 2 * space_lg
+          );
           /* 背景*/
           ctx.setFillStyle(that.colorList[index].top);
-          ctx.fillRect(space_lg,0,ctxW - 2 * space_lg,space_lg);
+          ctx.fillRect(space_lg, 0, ctxW - 2 * space_lg, space_lg);
           /*绘制店名*/
-           ctx.setFontSize(22*rpx);
-           ctx.setFillStyle("#fff");
-           ctx.textAlign = "left";
-           ctx.fillText(`${label} 社区 ${nickname} 的小店`, space_lg + (5*rpx) ,space);
-           ctx.restore();
+          ctx.setFontSize(22 * rpx);
+          ctx.setFillStyle("#fff");
+          ctx.textAlign = "left";
+          ctx.fillText(
+            `${label} 社区 ${nickname} 的小店`,
+            space_lg + 5 * rpx,
+            space
+          );
+          ctx.restore();
           /* 绘制产品名称背景 */
           ctx.setFillStyle(that.colorList[index].mid);
-          ctx.fillRect(space_lg,space_lg + ctxW - 2 * space_lg,ctxW - 2 * space_lg,120 * rpx);
+          ctx.fillRect(
+            space_lg,
+            space_lg + ctxW - 2 * space_lg,
+            ctxW - 2 * space_lg,
+            120 * rpx
+          );
           nowH = space_lg + ctxW - 2 * space_lg + 45 * rpx;
           ctx.setTextAlign("left");
           ctx.setFillStyle("#ffffff");
@@ -322,31 +351,42 @@ export default {
             ctx.setTextAlign("left");
             ctx.setFillStyle("#ffffff");
             ctx.setFontSize(32 * rpx);
-            ctx.fillText(that.currentItem.Name.substr(16, 15) + "...",space_lg + space,nowH); }
+            ctx.fillText(
+              that.currentItem.Name.substr(16, 15) + "...",
+              space_lg + space,
+              nowH
+            );
+          }
           nowH = 800 * rpx;
-          const qrImgSize = 168*rpx;
-           /* 绘制线框*/
+          const qrImgSize = 168 * rpx;
+          /* 绘制线框*/
           ctx.setLineDash([1, 3], 1);
           ctx.beginPath();
           ctx.moveTo(space_lg, nowH);
-          ctx.lineTo(400 * rpx , nowH);
+          ctx.lineTo(400 * rpx, nowH);
           ctx.moveTo(space_lg, nowH + qrImgSize);
           ctx.lineTo(400 * rpx, nowH + qrImgSize);
-          ctx.setStrokeStyle('#979797');
+          ctx.setStrokeStyle("#979797");
           ctx.restore();
           /*绘制文字*/
           ctx.setFontSize(36 * rpx);
-          ctx.setFillStyle('#333333');
+          ctx.setFillStyle("#333333");
           ctx.textAlign = "left";
-          ctx.fillText('￥', space_lg+space, nowH + (70*rpx));
-          ctx.setFontSize(48*rpx);
-          ctx.fillText(tPrice, space_lg + (70*rpx),  nowH + (70*rpx));
+          ctx.fillText("￥", space_lg + space, nowH + 70 * rpx);
+          ctx.setFontSize(48 * rpx);
+          ctx.fillText(tPrice, space_lg + 70 * rpx, nowH + 70 * rpx);
           ctx.setFontSize(32 * rpx);
-          ctx.setFillStyle('#666666');
-          ctx.fillText(qrtext, space_lg, nowH + qrImgSize - (30*rpx));
+          ctx.setFillStyle("#666666");
+          ctx.fillText(qrtext, space_lg, nowH + qrImgSize - 30 * rpx);
           ctx.restore();
           // 小程序码
-          ctx.drawImage(res[1].path,700 * rpx / 4 * 3 - qrImgSize / 2,800 * rpx,qrImgSize,qrImgSize);
+          ctx.drawImage(
+            res[1].path,
+            700 * rpx / 4 * 3 - qrImgSize / 2,
+            800 * rpx,
+            qrImgSize,
+            qrImgSize
+          );
 
           /*圆形头像*/
           // ctx.save()
@@ -360,28 +400,31 @@ export default {
           ctx.stroke();
           ctx.draw();
           //打开窗口
-          this.modalShow = !this.modalShow;
         },
         error => {
           wx.showToast({
             title: "海报图片下载失败",
             icon: "none"
           });
-        });
+        }
+      );
     },
     openModal() {
       var that = this;
-      var rpx;
-      var index = Math.floor(Math.random() * that.colorList.length);
-      //获取屏幕宽度，获取自适应单位
-      wx.getSystemInfo({
-        success: function(res) {
-          rpx = res.windowWidth / 750;
-          // console.log(res.windowWidth);
-          // console.log(rpx);
-        }
-      });
-      that.draw(index,rpx);
+      that.modalShow = !that.modalShow;
+      if (that.modalShow) {
+        var rpx;
+        var index = Math.floor(Math.random() * that.colorList.length);
+        //获取屏幕宽度，获取自适应单位
+        wx.getSystemInfo({
+          success: function(res) {
+            rpx = res.windowWidth / 750;
+            // console.log(res.windowWidth);
+            // console.log(rpx);
+          }
+        });
+        that.draw(index, rpx);
+      }
     },
     save() {
       wxCanvasToTempFilePath(

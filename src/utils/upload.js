@@ -13,6 +13,7 @@ export function upload() {
       count: 1,
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
+      //成功
       success: (res) => {
         const imageSrc = res.tempFilePaths[0]
         const fileExt = imageSrc.replace(/.+\./, "");
@@ -31,6 +32,7 @@ export function upload() {
           }
         })
       },
+      //失败
       fail: ({
         errMsg
       }) => {

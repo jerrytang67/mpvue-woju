@@ -26,6 +26,7 @@
         <demo-block title="手持身份证-正面 照片">
           <picUpload :data="item.IDCardHandUrl" :limit="1" @onUpdate="onUpdate4"></picUpload>
         </demo-block>
+        <view style="height:10vh"></view>
       </div>
     </div>
     <van-goods-action style="z-index:9999;">
@@ -94,6 +95,9 @@ export default {
     item: Object.assign({}, REALNAMEINFO)
   },
   onReady() {},
+  mounted() {
+    console.log(this)
+  },
   computed: {
     ...mapState(["realNameInfo"])
   },
