@@ -2,34 +2,131 @@
   <div class="container">
     <div class="contentBody">
       <van-cell-group>
-        <van-cell center="true" :title="'团长:'+my_partner.nickname">
-          <img slot="right-icon" :src="my_partner.headimgurl" style="border-radius:50%;width:80rpx;height:80rpx;" />
+        <van-cell
+          center="true"
+          :title="'团长:'+my_partner.nickname"
+        >
+          <img
+            slot="right-icon"
+            :src="my_partner.headimgurl"
+            style="border-radius:50%;width:80rpx;height:80rpx;"
+          />
         </van-cell>
-        <van-cell :title="'团长地址:'+my_partner.LocationAddress" icon="location" is-link>
-          <van-icon slot="right-icon" name="search" class="van-cell__right-icon" />
+        <van-cell
+          :title="'团长地址:'+my_partner.LocationAddress"
+          icon="location"
+          is-link
+        >
+          <van-icon
+            slot="right-icon"
+            name="search"
+            class="van-cell__right-icon"
+          />
         </van-cell>
       </van-cell-group>
-      <van-card v-for="x in cartItems" lazy-load="true" :key="x" :tag="x.BuyItem.Type" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" :num="x.Count" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice">
+      <van-card
+        v-for="x in cartItems"
+        lazy-load="true"
+        :key="x"
+        :tag="x.BuyItem.Type"
+        :desc="x.BuyItem.ShareDesc"
+        :title="x.BuyItem.Name"
+        :thumb="x.BuyItem.LogoList[0]+'!w100h100'"
+        :num="x.Count"
+        :origin-price="x.BuyItem.Price"
+        :price="x.BuyItem.VipPrice"
+      >
         <view slot="footer">
-          <van-stepper min="1" :value="x.Count" :max="x.BuyItem.LimitBuyCount||'-'" @plus="add(x)" @minus="remove(x)" />
+          <van-stepper
+            min="1"
+            :value="x.Count"
+            :max="x.BuyItem.LimitBuyCount||'-'"
+            @plus="add(x)"
+            @minus="remove(x)"
+          />
         </view>
         <view slot="tags">
         </view>
       </van-card>
-      <van-submit-bar :disabled="totalVipPrice<=0" :price="totalVipPrice*100" button-type="primary" button-text="微信支付" @submit="onSubmit">
-        <van-tag type="danger" v-if="youhuan>0">省 {{youhuan}}元</van-tag>
+      <van-submit-bar
+        :disabled="totalVipPrice<=0"
+        :price="totalVipPrice*100"
+        button-type="primary"
+        button-text="微信支付"
+        @submit="onSubmit"
+      >
+        <van-tag
+          type="danger"
+          v-if="youhuan>0"
+        >省 {{youhuan}}元</van-tag>
       </van-submit-bar>
       <demo-block title="收货方式">
         <van-cell :title="cartItems[0].BuyItem.PickUpType" />
       </demo-block>
-      <demo-block title="收货地址" v-if="cartItems[0].BuyItem.PickUpType=='团长提货送货'||cartItems[0].BuyItem.PickUpType=='商家送货'">
+      <demo-block
+        title="收货地址"
+        v-if="cartItems[0].BuyItem.PickUpType=='团长提货送货'||cartItems[0].BuyItem.PickUpType=='商家送货'"
+      >
         <van-cell-group>
-          <van-cell :title="address||'选择收货地址'" clickable icon="location" @click="setAddress">
-            <van-icon slot="right-icon" name="search" class="van-cell__right-icon" />
+          <van-cell
+            :title="address||'选择收货地址'"
+            clickable
+            icon="location"
+            @click="setAddress"
+          >
+            <van-icon
+              slot="right-icon"
+              name="search"
+              class="van-cell__right-icon"
+            />
           </van-cell>
-          <van-cell :title="'联系电话: '+telphone" clickable icon="phone" v-if="telphone" @click="setAddress" />
-          <van-cell :title="'收货人: '+userName" clickable icon="user" v-if="userName" @click="setAddress" />
-
+          <van-cell
+            :title="'联系电话: '+telphone"
+            clickable
+            icon="phone"
+            v-if="telphone"
+            @click="setAddress"
+          />
+          <van-cell
+            :title="'收货人: '+userName"
+            clickable
+            icon="user"
+            v-if="userName"
+            @click="setAddress"
+          />
+        </van-cell-group>
+      </demo-block>
+      <demo-block
+        title="联系方式"
+        v-if="cartItems[0].BuyItem.PickUpType=='到店自提'||cartItems[0].BuyItem.PickUpType=='团长处自提'"
+      >
+        <van-cell-group>
+          <van-cell
+            :title="address||'选择联系方式'"
+            clickable
+            icon="location"
+            @click="setAddress"
+          >
+            <van-icon
+              slot="right-icon"
+              name="search"
+              class="van-cell__right-icon"
+            />
+          </van-cell>
+          <van-cell
+            :title="'联系电话: '+telphone"
+            clickable
+            icon="phone"
+            v-if="telphone"
+            @click="setAddress"
+          />
+          <van-cell
+            :title="'联系人: '+userName"
+            clickable
+            icon="user"
+            v-if="userName"
+            @click="setAddress"
+          />
         </van-cell-group>
       </demo-block>
     </div>
@@ -101,11 +198,23 @@ export default {
     },
     onSubmit() {
       let that = this;
+      if (!that.userName || !that.telphone) {
+        Toast.fail("请填写联系信息或收货地址");
+        return;
+      }
+
       const itemId = this.cartItems[0].BuyItem_Id;
       const count = this.cartItems[0].Count;
       const partnerId = this.cartItems[0].Partner_Id;
       this.$api
-        .getPay(itemId, partnerId, count, this.address, this.telphone,this.userName)
+        .getPay(
+          itemId,
+          partnerId,
+          count,
+          that.address,
+          that.telphone,
+          that.userName
+        )
         .then(obj => {
           wx.requestPayment({
             //相关支付参数

@@ -4,24 +4,10 @@
     style="background:#fff;"
   >
     <div style="position:relative;">
-      <swiper
-        indicator-dots="true"
-        autoplay="true"
-        interval="5000"
-        duration="500"
-        class="swiper"
-      >
-        <block
-          v-for="(x,$index) in currentItem.LogoList"
-          :key="x"
-        >
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
+        <block v-for="(x,$index) in currentItem.LogoList" :key="x">
           <swiper-item>
-            <image
-              :src="x+'!w500'"
-              class="slide-image"
-              mode="aspectFill"
-              @click="previewImage($index)"
-            />
+            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
           </swiper-item>
         </block>
       </swiper>
@@ -31,11 +17,7 @@
           :src="my_partner.headimgurl"
           style="margin-right:5px;border:2px solid #fff;"
         />
-        <van-tag
-          round
-          type="danger"
-          class="locationLabel-tag"
-        >
+        <van-tag round type="danger" class="locationLabel-tag" >
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
         </van-tag>
       </div>
@@ -80,7 +62,7 @@
       <view class="doc">库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
-      <view class="doc">订单中:
+      <view class="doc" v-if="currentItem.SoldCount>0">订单中:
         <text class="num">已拼{{currentItem.SoldCount}}件</text>
       </view>
     </view>

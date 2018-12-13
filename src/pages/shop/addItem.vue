@@ -112,37 +112,6 @@
           </van-cell-group>
         </demo-block>
 
-        <demo-block title="商品介绍">
-          <van-cell-group>
-            <van-field
-              :value="item.Desc"
-              label="商品介绍"
-              type="textarea"
-              required
-              autosize
-              @change="onChange"
-              data-name="Desc"
-            />
-          </van-cell-group>
-        </demo-block>
-
-        <!-- <demo-block title="展示平台">
-              <van-checkbox-group :value="result" @change="onChkChange" data-id="group">
-                  <van-cell-group >
-                  <van-cell
-                    v-for="xx in showType"
-                    :key="xx"
-                    :title="xx.name"
-                    clickable
-                    :data-name="xx.value"
-                    @click.stop="onChkToggle"
-                  >
-                  <van-checkbox :class="'checkboxes-'+xx.value" :name="xx.value" @click.stop="onChkTap" />
-              </van-cell>
-              </van-cell-group >
-              </van-checkbox-group>
-            </demo-block> -->
-
         <demo-block title="状态">
           <van-switch-cell
             title="是否启用"
@@ -192,6 +161,45 @@
             </van-cell-group>
           </van-radio-group>
         </demo-block>
+        <!-- <demo-block title="展示平台">
+          <van-checkbox-group
+            :value="result"
+            @change="onChkChange"
+            data-id="group"
+          >
+            <van-cell-group>
+              <van-cell
+                v-for="xx in showType"
+                :key="xx"
+                :title="xx.name"
+                clickable
+                :data-name="xx.value"
+                @click.stop="onChkToggle"
+              >
+                <van-checkbox
+                  :class="'checkboxes-'+xx.value"
+                  :name="xx.value"
+                  @click.stop="onChkTap"
+                />
+              </van-cell>
+            </van-cell-group>
+          </van-checkbox-group>
+        </demo-block> -->
+
+        <demo-block title="商品介绍">
+          <van-cell-group>
+            <van-field
+              :value="item.Desc"
+              label="商品介绍"
+              type="textarea"
+              required
+              autosize
+              @change="onChange"
+              data-name="Desc"
+            />
+          </van-cell-group>
+        </demo-block>
+
       </div>
       <div style="height:15vh;"> </div>
     </div>
@@ -279,7 +287,6 @@ export default {
     dateEnd: moment(new Date())
       .add({ months: 12 })
       .format("YYYY-MM-DD"),
-    result2: "1",
     result: ["2"],
     showType: [
       { name: "莴聚小程序", value: "2" },
@@ -307,27 +314,29 @@ export default {
     },
     //发布
     post() {
+      let that = this;
       // this.item.PickUpType = parseInt(this.item.PickUpType);
-      if (!this.itemId) {
-        if (!this.shopId) {
+      if (!that.itemId) {
+        if (!that.shopId) {
           Tip.error("没有选中商家");
           return;
         }
-        this.item.ShopId = this.shopId;
+        that.item.ShopId = this.shopId;
       }
-      if (!this.item.DateTimeEnd) {
+      if (!that.item.DateTimeEnd) {
         Tip.error("结束时间不能为空");
         return;
       }
       //位操作.这里加起来
-      if (this.result)
-        this.result.forEach(element => {
-          this.item.ShowType = parseInt(element) + parseInt(this.item.ShowType);
-        });
-      else this.item.ShowType = 0;
+      // that.item.ShowType = 0;
+      // if (that.result && that.result.length)
+      //   that.result.forEach(element => {
+      //     that.item.ShowType = parseInt(element) + parseInt(that.item.ShowType);
+      //   });
+      // else that.item.ShowType = 2;
 
-      this.$api.post_buyitem(this.item).then(res => {
-        this.item = DEFAULTITEM;
+      that.$api.post_buyitem(that.item).then(res => {
+        that.item = DEFAULTITEM;
         Tip.error("发布成功");
         setTimeout(() => {
           wx.navigateBack();
