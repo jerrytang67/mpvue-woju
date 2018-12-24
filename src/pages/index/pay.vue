@@ -2,50 +2,49 @@
   <div class="container">
     <div class="contentBody">
       <van-cell-group>
-        <van-cell
-          center="true"
-          :title="'团长:'+my_partner.nickname"
-        >
+        <van-cell center="true" :title="'团长:'+my_partner.nickname">
           <img
             slot="right-icon"
             :src="my_partner.headimgurl"
             style="border-radius:50%;width:80rpx;height:80rpx;"
-          />
+          >
         </van-cell>
-        <van-cell
-          :title="'团长地址:'+my_partner.LocationAddress"
-          icon="location"
-          is-link
-        >
-          <van-icon
-            slot="right-icon"
-            name="search"
-            class="van-cell__right-icon"
-          />
+        <van-cell :title="'团长地址:'+my_partner.LocationAddress" icon="location" is-link>
+          <van-icon slot="right-icon" name="search" class="van-cell__right-icon"/>
         </van-cell>
       </van-cell-group>
       <van-card
         v-for="x in cartItems"
         lazy-load="true"
         :key="x"
-        :tag="x.BuyItem.Type"
-        :desc="x.BuyItem.ShareDesc"
-        :title="x.BuyItem.Name"
         :thumb="x.BuyItem.LogoList[0]+'!w100h100'"
         :num="x.Count"
         :origin-price="x.BuyItem.Price"
         :price="x.BuyItem.VipPrice"
       >
+        <view slot="title" class="title">{{x.BuyItem.Name}}</view>
+        <view slot="desc" class="desc" v-if="x.BuyItem.ShareDesc">{{x.BuyItem.ShareDesc}}</view>
         <view slot="footer">
+          <!-- {{x.BuyItem.LimitBuyCount>0}} 这里step有个BUG不能用?:来赋值'-'所以用了v-if分2个输出 -->
           <van-stepper
-            min="1"
+            v-if="x.BuyItem.LimitBuyCount>0"
+            :min="1"
+            :max="x.BuyItem.LimitBuyCount"
             :value="x.Count"
-            :max="x.BuyItem.LimitBuyCount||'-'"
+            @plus="add(x)"
+            @minus="remove(x)"
+          />
+          <van-stepper
+            v-if="x.BuyItem.LimitBuyCount===0"
+            :min="1"
+            :value="x.Count"
             @plus="add(x)"
             @minus="remove(x)"
           />
         </view>
         <view slot="tags">
+          <van-tag round type="primary" v-if="x.BuyItem.LimitBuyCount==0">不限购</van-tag>
+          <van-tag round type="primary" v-else>每人限购{{x.BuyItem.LimitBuyCount}}件</van-tag>
         </view>
       </van-card>
       <van-submit-bar
@@ -55,30 +54,18 @@
         button-text="微信支付"
         @submit="onSubmit"
       >
-        <van-tag
-          type="danger"
-          v-if="youhuan>0"
-        >省 {{youhuan}}元</van-tag>
+        <van-tag type="danger" v-if="youhuan>0">省 {{youhuan}}元</van-tag>
       </van-submit-bar>
       <demo-block title="收货方式">
-        <van-cell :title="cartItems[0].BuyItem.PickUpType" />
+        <van-cell :title="cartItems[0].BuyItem.PickUpType"/>
       </demo-block>
       <demo-block
         title="收货地址"
         v-if="cartItems[0].BuyItem.PickUpType=='团长提货送货'||cartItems[0].BuyItem.PickUpType=='商家送货'"
       >
         <van-cell-group>
-          <van-cell
-            :title="address||'选择收货地址'"
-            clickable
-            icon="location"
-            @click="setAddress"
-          >
-            <van-icon
-              slot="right-icon"
-              name="search"
-              class="van-cell__right-icon"
-            />
+          <van-cell :title="address||'选择收货地址'" clickable icon="location" @click="setAddress">
+            <van-icon slot="right-icon" name="search" class="van-cell__right-icon"/>
           </van-cell>
           <van-cell
             :title="'联系电话: '+telphone"
@@ -101,17 +88,8 @@
         v-if="cartItems[0].BuyItem.PickUpType=='到店自提'||cartItems[0].BuyItem.PickUpType=='团长处自提'"
       >
         <van-cell-group>
-          <van-cell
-            :title="address||'选择联系方式'"
-            clickable
-            icon="location"
-            @click="setAddress"
-          >
-            <van-icon
-              slot="right-icon"
-              name="search"
-              class="van-cell__right-icon"
-            />
+          <van-cell :title="address||'选择联系方式'" clickable icon="location" @click="setAddress">
+            <van-icon slot="right-icon" name="search" class="van-cell__right-icon"/>
           </van-cell>
           <van-cell
             :title="'联系电话: '+telphone"
@@ -130,8 +108,8 @@
         </van-cell-group>
       </demo-block>
     </div>
-    <van-dialog id="van-dialog" />
-    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog"/>
+    <van-toast id="van-toast"/>
   </div>
 </template>
 
@@ -193,6 +171,7 @@ export default {
       if (item.Count > 1) {
         item.Count -= 1;
         this.add_to_cart(item);
+        return;
       }
       item.Count = 1;
     },

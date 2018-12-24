@@ -29,6 +29,9 @@ const getters = {
   orderFinishCount: (state, getters) => getters.orderFinish.length,
   //待取货
   orderCanTake: state => state.orders.filter(x => x.ProductState == "可取货"),
-  orderCanTakeCount: (state, getters) => getters.orderCanTake.length
+  orderCanTakeCount: (state, getters) => getters.orderCanTake.length,
+
+  topList: state => state.buyItems.filter(x => x.State >1),
+  notopList : state => state.buyItems.filter(x => x.State === 1)
 };
 export default getters;

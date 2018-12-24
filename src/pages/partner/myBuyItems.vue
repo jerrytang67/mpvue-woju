@@ -5,10 +5,12 @@
         <van-tab title="我的商品">
           <van-card v-for="(x,index) in myBuyItems" :index="index" lazy-load="true" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :origin-price="x.BuyItem.Price" :price="x.BuyItem.VipPrice">
             <view slot="thumb">
-              <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.BuyItem.Id)" />
+              <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To(`/pages/item/itemDetail?id=${x.BuyItem.Id}&pid=${partner.Id}`)" />
             </view>
             <view slot="footer">
-              <van-button size="small" type="danger" @click.stop="deleteItem(index)">删除</van-button>
+              <van-button size="small" type="primary" @click.stop="topItem(index)" v-if="x.State!==2">置顶</van-button>
+              <van-button size="small" type="primary" @click.stop="notopItem(index)" v-if="x.State===2">取消置顶</van-button>
+              <van-button size="small" type="danger" @click.stop="deleteItem(index)" style="margin-left:10px;">删除</van-button>
             </view>
             <view slot="tags">
               <van-switch size="45rpx" :checked="x.State" @change="onChange(x)" />
@@ -27,19 +29,21 @@
             </scroll-view>
             <view style="width:75vw;">
               <div>
-                <div v-if="selectShopIndex<=0">
-                  这里放总的介绍页内容
-                </div>
+                <!-- <div v-if="selectShopIndex<=0">
+                  这里放总的介绍页内容{{selectShopIndex}}
+                </div> -->
                 <div style="padding:25rpx;font-size:32rpx" v-if="selectShopIndex>0">
                   <image style="width:50px;height:50px;border-radius:50%;" :src="currentShop.LogoImageUrl+'!w100h100'" />
                   <p>{{currentShop.ShopName}}</p>
                   <p>地址:{{currentShop.ShopAddress}}</p>
                   <p>电话:{{currentShop.ShopKeFuTel}}</p>
                 </div>
-                <van-card v-for="x in items" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)" lazy-load="true" :key="x" :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice">
+                <van-card v-for="x in items" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)" lazy-load="true" :key="x" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice">
                   <view slot="footer">
                     <van-button size="small" type="danger" @click.stop="addItem(x.Id)">上架</van-button>
                   </view>
+                  <view slot="title" class="title">{{x.Name}}</view>
+        <view slot="desc" class="desc" v-if="x.ShareDesc">{{x.ShareDesc}}</view>
                   <view slot="tags">
                   </view>
                 </van-card>
@@ -67,6 +71,7 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import Toast from "../../../static/dist/toast/toast";
 
 export default {
+
   onLoad(options) {
     console.log(options);
   },
@@ -74,7 +79,7 @@ export default {
     this.get();
   },
   computed: {
-    ...mapState(["openid", "myBuyItems", "partnerShops", "position"])
+    ...mapState(["openid","partner", "myBuyItems", "partnerShops", "position"])
   },
   data: {
     selectShopIndex: 0,
@@ -86,7 +91,10 @@ export default {
 
   methods: {
     ...mapMutations(["SET_POSITION"]),
-    ...mapActions(["getPartnerSetting", "deleteMyItem"]),
+    ...mapActions(["getPartnerSetting", "deleteMyItem","topMyItem"]),
+    onShare(item){
+      wx.setStorageSync("shareItem",item);
+    },
     onTabChange(e) {
       console.log(e);
       let index = e.mp.detail.index;
@@ -106,12 +114,26 @@ export default {
       console.log({ itemId });
       this.$api.setItems(itemId, t).then();
     },
+    topItem(index){
+      let item = this.myBuyItems[index];
+      if (!item) return;
+      this.$api.setItems(item.BuyItem_Id, "top").then(res => {
+        //this.topMyItem(itemId);
+        item.State = 2;
+      });
+    },
+    notopItem(index){
+      let item = this.myBuyItems[index];
+      if (!item) return;
+      this.$api.setItems(item.BuyItem_Id, "notop").then(res => {
+        item.State = 1;
+      });
+    },
     deleteItem(index) {
-      let that = this;
-      let itemId = that.myBuyItems[index].BuyItem.Id;
+      let itemId = this.myBuyItems[index].BuyItem.Id;
       if (!itemId) return;
-      that.$api.setItems(itemId, "delete").then(res => {
-        that.deleteMyItem(itemId);
+      this.$api.setItems(itemId, "delete").then(res => {
+        this.deleteMyItem(itemId);
       });
     },
     //商家便签切换

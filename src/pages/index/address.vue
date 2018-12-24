@@ -1,24 +1,10 @@
 <template>
-  <div
-    class="container"
-    style="background:#fff;"
-  >
+  <div class="container" style="background:#fff;">
     <view style="width:100vw;">
-      <van-search
-        placeholder="请输入搜索关键词"
-        @search="onSearch"
-      />
+      <van-search placeholder="请输入搜索关键词" @search="onSearch"/>
     </view>
-    <view class="history" v-if="searchHistory && searchHistory.length >0">
-    搜索历史:
-      <van-button
-        size="small"
-        v-for="s in searchHistory"
-        :key="s"
-        @click="selectAddress(s)"
-      >
-        {{s}}
-      </van-button>
+    <view class="history" v-if="searchHistory && searchHistory.length >0">搜索历史:
+      <van-button size="small" v-for="s in searchHistory" :key="s" @click="selectAddress(s)">{{s}}</van-button>
     </view>
     <van-cell-group style="width:100vw;">
       <van-cell
@@ -36,8 +22,8 @@
         </view>
       </van-cell>
     </van-cell-group>
-    <van-dialog id="van-dialog" />
-    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog"/>
+    <van-toast id="van-toast"/>
   </div>
 </template>
 
@@ -100,7 +86,7 @@ export default {
 
 <style lang="scss" scoped>
 .history {
-  font-size:24rpx;
+  font-size: 24rpx;
   padding: 10rpx 20rpx;
   ._van-button {
     margin-right: 20rpx;

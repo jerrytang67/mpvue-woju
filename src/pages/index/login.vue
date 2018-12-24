@@ -1,12 +1,15 @@
 <template>
   <div>
     <view style="margin-top:40vh;">
-      <button type="primary" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">
-        授权登录
-      </button>
+      <button
+        type="primary"
+        open-type="getUserInfo"
+        @getuserinfo="bindGetUserInfo"
+        @click="getUserInfo1"
+      >授权登录</button>
     </view>
-    <van-dialog id="van-dialog" />
-    <van-toast id="van-toast" />
+    <van-dialog id="van-dialog"/>
+    <van-toast id="van-toast"/>
   </div>
 </template>
 
@@ -53,20 +56,20 @@ export default {
           success: logRes => {
             // that.$api.code2session(logRes.code).then(res => {
             //   console.log(res);
-              // if (res) {
-              //   this.SET_OPENID(res);
-              // }
-              // if (res.token) {
-                // console.log("token ok");
-                // wx.setStorageSync("token", res.token);
-                wx.getUserInfo({
-                  success: res => {
-                    res.code = logRes.code;
-                    this.setUserInfo(res);
-                    return resolve();
-                  }
-                });
-              // }
+            // if (res) {
+            //   this.SET_OPENID(res);
+            // }
+            // if (res.token) {
+            // console.log("token ok");
+            // wx.setStorageSync("token", res.token);
+            wx.getUserInfo({
+              success: res => {
+                res.code = logRes.code;
+                this.setUserInfo(res);
+                return resolve();
+              }
+            });
+            // }
             // });
           },
           fail: error => {

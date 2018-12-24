@@ -61,7 +61,7 @@ view.center {
   flex-direction: column;
 }
 
-.flex-r-ac{
+.flex-r-ac {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -122,4 +122,42 @@ view.center {
 
 .img-circle {
   border-radius: 50%;
+}
+
+.show2line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.van-card {
+  width: 100% !important;
+}
+
+van-card {
+  view.title {
+    font-size: 28rpx;
+    font-weight: 700;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  view.desc {
+    color: gray;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+}
+
+ml {
+  margin-left: 10px;
+}
+mr {
+  margin-right: 10px;
 }

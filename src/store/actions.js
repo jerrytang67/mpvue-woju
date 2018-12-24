@@ -76,6 +76,20 @@ export const actions = {
     commit("SET_MY_BUYITEM_LIST", items);
   },
   
+    //从团长商品置顶一列
+    topMyItem: ({
+      commit,
+      state
+    }, itemId) => {
+      // let item = state.myBuyItems.filter(z => z.BuyItem.Id === itemId)[0];
+      // if(item)
+      // {
+      //   item.State = 2
+      // }
+      // commit("SET_MY_BUYITEM_LIST", state.myBuyItems);
+    },
+
+
   //商家删除商品
   deleteBuyItem: ({commit,state}, itemId) => {
     console.log("商家删除商品", itemId);

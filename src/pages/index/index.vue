@@ -4,54 +4,115 @@
     <view class="headBar">
       <van-row v-if="my_partner.Id">
         <van-col :span="6">
-          <img class="userinfo-avatar" v-if="my_partner.headimgurl" :src="my_partner.headimgurl" background-size="cover" />
+          <img
+            class="userinfo-avatar"
+            v-if="my_partner.headimgurl"
+            :src="my_partner.headimgurl"
+            background-size="cover"
+          >
         </van-col>
         <van-col :span="14">
-          <p style="font-size:.7rem;"><text>团长:{{my_partner.nickname}}</text></p>
-          <p style="font-weight:500;"><text>{{my_partner.LocationLabel}}</text></p>
-          <p style="font-size:.7rem;"><text>{{my_partner.LocationAddress}}</text></p>
+          <p style="font-size:.7rem;">
+            <text>团长:{{my_partner.nickname}}</text>
+          </p>
+          <p style="font-weight:500;">
+            <text>{{my_partner.LocationLabel}}</text>
+          </p>
+          <p style="font-size:.7rem;">
+            <text>{{my_partner.LocationAddress}}</text>
+          </p>
         </van-col>
         <van-col :span="4">
           <view style="padding-top:20rpx;">
-            <van-button square type="primary" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1" style="border: none;background:none;margin-top: 20rpx">
-              <van-icon name="arrow" />
+            <van-button
+              square
+              type="primary"
+              open-type="getUserInfo"
+              @getuserinfo="bindGetUserInfo"
+              @click="getUserInfo1"
+              style="border: none;background:none;margin-top: 20rpx"
+            >
+              <van-icon name="arrow"/>
             </van-button>
           </view>
         </van-col>
       </van-row>
       <view class="center" v-if="!my_partner.Id">
-        <van-button style="margin:0 auto;" type="danger" open-type="getUserInfo" @getuserinfo="bindGetUserInfo" @click="getUserInfo1">请先选择团长</van-button>
+        <van-button
+          style="margin:0 auto;"
+          type="danger"
+          open-type="getUserInfo"
+          @getuserinfo="bindGetUserInfo"
+          @click="getUserInfo1"
+        >请先选择团长</van-button>
       </view>
     </view>
     <view class="contentBody">
       <view class="flex-between">
-        <image src="/static/images/top1.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=0')" style="height:25vw;border-radius:15px 0 0 0;" />
-        <image src="/static/images/top2.png" mode="aspectFit" @click.stop="$navigate.To('/pages/index/realNameSys?type=1')" style="height:25vw;border-radius:0 15px 0 0;" />
+        <image
+          src="/static/images/top1.png"
+          mode="aspectFit"
+          @click.stop="$navigate.To('/pages/index/realNameSys?type=0')"
+          style="height:25vw;border-radius:15px 0 0 0;"
+        />
+        <image
+          src="/static/images/top2.png"
+          mode="aspectFit"
+          @click.stop="$navigate.To('/pages/index/realNameSys?type=1')"
+          style="height:25vw;border-radius:0 15px 0 0;"
+        />
       </view>
-      <van-notice-bar :scrollable="true" :text="my_partner.NoticeContent" v-if="my_partner.NoticeContent" />
-
-      <div class="card-list">
-        <van-card v-for="x in buyItems" :key="x" :desc="x.BuyItem.ShareDesc" :title="x.BuyItem.Name" :thumb="x.BuyItem.LogoList[0]+'!w100h100'" @click="goItem(x)">
-          <!-- <view slot="footer">
-             <van-stepper :value="x.Count" @plus="add(x)"  @minus="remove(x)"/> 
-          </view>  -->
-          <view slot="tags" class="price">
-            <!-- <van-tag type="danger">自营</van-tag> -->
-            <text class="vip">￥{{x.BuyItem.VipPrice}}</text><text class="old">￥{{x.BuyItem.Price}}</text>
-          </view>
-          <view slot="footer">
-            <van-tag type="primary" v-if="x.BuyItem.LimitBuyCount">限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
-          </view>
-        </van-card>
-      </div>
+      <van-notice-bar
+        :scrollable="true"
+        :text="my_partner.NoticeContent"
+        v-if="my_partner.NoticeContent"
+      />
+      <!-- <swiper :indicator-dots="false"
+        autoplay="false"
+        display-multiple-items="1"
+        next-margin="150rpx"
+        circular="true"
+      >
+        <swiper-item v-for="x in topList" :key="x" @click="goItem(x)">
+          <image
+            mode="aspectFill"
+            :src="x.BuyItem.LogoList[0]+'!w100h100'"
+            class="slide-image"
+            style="width:250rpx;height:160rpx;border-radius:10px;"
+          />
+          <view style="font-size:28rpx;" class="show2line">{{x.BuyItem.Name}}</view>
+          <view style="color:#F83101;">￥{{x.BuyItem.VipPrice}}</view>
+        </swiper-item>
+      </swiper> -->
     </view>
-    <van-dialog id="van-dialog" />
-    <van-toast id="van-toast" />
+    <div class="card-list">
+      <van-card
+        v-for="x in buyItems"
+        :key="x"
+        :thumb="x.BuyItem.LogoList[0]+'!w100h100'"
+        @click.stop="goItem(x)"
+      >
+        <view slot="title" class="title">{{x.BuyItem.Name}}</view>
+        <view slot="desc" class="desc" v-if="x.BuyItem.ShareDesc">{{x.BuyItem.ShareDesc}}</view>
+        <view slot="tags" class="price">
+          <!-- <van-tag type="danger">自营</van-tag> -->
+          <text class="vip">￥{{x.BuyItem.VipPrice}}</text>
+          <text class="old">￥{{x.BuyItem.Price}}</text>
+
+        </view>
+        <view slot="footer">
+          <van-tag type="primary" v-if="x.BuyItem.LimitBuyCount">限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
+          <!-- <van-stepper :value="x.Count" @plus.stop="add(x)" @minus.stop="remove(x)"/> -->
+        </view>
+      </van-card>
+    </div>
+    <van-dialog id="van-dialog"/>
+    <van-toast id="van-toast"/>
   </div>
 </template>
 <script>
 //vuex
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 
 import partner from "@/components/partner";
 // import area from "@/utils/area";
@@ -120,7 +181,8 @@ export default {
       "partner_list",
       "buyItems",
       "openid"
-    ])
+    ]),
+    ...mapGetters(["topList","notopList"])
   },
 
   methods: {
@@ -220,13 +282,13 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .card-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-items: center;
-  margin: 15rpx 20rpx;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // justify-items: center;
+  // margin: 15rpx 20rpx;
 }
 .card-list .price {
   display: flex;

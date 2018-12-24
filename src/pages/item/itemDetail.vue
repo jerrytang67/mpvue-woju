@@ -219,7 +219,8 @@ export default {
       { mid: "#7B24B3", top: "#A22CB1" },
       { mid: "#F44786", top: "#D21B51" },
       { mid: "#FFE948", top: "#D7D63D" },
-      { mid: "#4DA2E5", top: "#232A3C" }
+      { mid: "#4DA2E5", top: "#232A3C" },
+      { mid: "#FD2739", top: "#FD2739" }
     ]
   },
   onPullDownRefresh: function() {

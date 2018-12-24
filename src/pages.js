@@ -33,7 +33,8 @@ module.exports = [{
       navigationBarTitleText: '',
       enablePullDownRefresh: true,
       usingComponents: Object.assign({}, usingComponents, {
-        "van-notice-bar":"/static/dist/notice-bar/index"
+        "van-notice-bar":"/static/dist/notice-bar/index",
+        "van-stepper":"/static/dist/stepper/index"
       })
     }
   },
