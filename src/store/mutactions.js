@@ -12,7 +12,7 @@ export const mutations = {
   SET_MY_ORDER: (state, v) => state.myOrders = v,
 
   USER_INFO: (state, v) => {
-    console.log("SET USERINFO TO", v)
+    // console.log("SET USERINFO TO", v)
     wx.setStorageSync("userInfo", v);
     state.userInfo = v
   },
@@ -52,11 +52,11 @@ export const mutations = {
     state.unionid = v.unionid;
     wx.setStorageSync("unionid", v.unionid);
     wx.setStorageSync("openid", v.openid);
-    console.log("OPENID:", v.openid, "UnionId", v.unionid)
+    // console.log("OPENID:", v.openid, "UnionId", v.unionid)
 
   },
   SET_POSITION: (state, v) => {
-    console.log("SET_POSITION To", v)
+    console.log("SOPENIDET_POSITION To", v)
     state.position = Object.assign({}, state.position, v);
     wx.setStorageSync("SET_POSITION", state.position);
   },

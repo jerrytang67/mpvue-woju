@@ -15,12 +15,12 @@
           v-for="p in partner_list"
           :key="p"
           v-if="partner_list.length>0"
-          :title="p.nickname"
-          :desc="'社群:'+p.LocationLabel"
           :thumb="p.headimgurl"
           @click="select(p)"
           tag="团长"
         >
+          <view slot="title" class="title">{{p.nickname}}</view>
+          <view slot="desc" class="desc" style="font-size:34rpx;color:red;">社群:{{p.LocationLabel}}</view>
           <view slot="tags">取货地址{{p.LocationAddress}}</view>
           <view slot="footer">
             <van-tag type="primary">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>

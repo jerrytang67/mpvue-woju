@@ -7,7 +7,7 @@
       <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
         <block v-for="(x,$index) in currentItem.LogoList" :key="x">
           <swiper-item>
-            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click="previewImage($index)" />
+            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click.stop="previewImage($index)" />
           </swiper-item>
         </block>
       </swiper>
@@ -16,6 +16,7 @@
           class="img-circle thumb48"
           :src="my_partner.headimgurl"
           style="margin-right:5px;border:2px solid #fff;"
+          @click.stop="copyWeixin"
         />
         <van-tag round type="danger" class="locationLabel-tag" >
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
@@ -62,7 +63,7 @@
       <view class="doc">库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
-      <view class="doc" v-if="currentItem.SoldCount>0">订单中:
+      <view class="doc" v-if="currentItem.SoldCount>5">订单中:
         <text class="num">已拼{{currentItem.SoldCount}}件</text>
       </view>
     </view>
@@ -81,9 +82,10 @@
       <view class="block_title">跟团说明</view>
       <view class="block_content">
         <view class="doc">
+          <strong v-if="my_partner.weixin" style="color:red;font-weight:700;margin:5px;">点击团长头像可以复制团长微信号</strong>
+          <!-- <strong style="color:red;font-weight:500;margin-top:5px;">如超过订单时间而又没有拼购到规定数量的，我们将会第一时间为您退款，请您放心购买! </strong> -->
           此商品在拼团期间可接收订单，如若超过拼团时间则不能下单；未付款订单系统一小时内将自动取消，所以，亲下单以后请尽快付款。
           我们会以实际订单为准为您发货。请您放心购买!
-          <!-- ，如超过订单时间而又没有拼购到规定数量的，我们将会第一时间为您退款，请您放心购买! -->
         </view>
       </view>
     </view>
@@ -259,14 +261,34 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM", "SET_BUYITEMLIST", "SET_SELECT_PARTNER"]),
     ...mapActions(["add_to_cart"]),
+    copyWeixin(){
+      var that= this;
+      console.log(that.my_partner);
+      wx.setClipboardData({
+        data: that.my_partner.weixin,
+        success: function(res) {
+          wx.getClipboardData({
+            success: function(res) {
+              console.log(res.data) // data
+               wx.showToast({
+                title: "复制微信名成功",
+                icon: "none"
+              });
+            }
+          })
+        }
+      })
+    },
     onClose() {},
     //todo:这里要加入loading处理
     draw(index, rpx) {
       var that = this;
+      var imageListLength = that.currentItem.LogoList.length;
+      var idx = Math.floor(Math.random() * imageListLength);
       Promise.all([
         wxGetImageInfo({
           src:
-            that.currentItem.LogoList[0].replace(/http:/i, "https:") + "!wh500"
+            that.currentItem.LogoList[idx].replace(/http:/i, "https:") + "!wh500"
         }),
         wxGetImageInfo({
           src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${

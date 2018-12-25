@@ -7,6 +7,8 @@
             <view slot="thumb">
               <image style="width:90px;height:90px;" mode="aspectFill" :src="x.BuyItem.LogoList[0]+'!w100h100'" lazy-load="true" @click.stop="$navigate.To(`/pages/item/itemDetail?id=${x.BuyItem.Id}&pid=${partner.Id}`)" />
             </view>
+            <view slot="title" class="title">{{x.BuyItem.Name}}</view>
+            <view slot="desc" class="desc" v-if="x.BuyItem.ShareDesc">{{x.BuyItem.ShareDesc}}</view>
             <view slot="footer">
               <van-button size="small" type="primary" @click.stop="topItem(index)" v-if="x.State!==2">置顶</van-button>
               <van-button size="small" type="primary" @click.stop="notopItem(index)" v-if="x.State===2">取消置顶</van-button>
@@ -43,7 +45,7 @@
                     <van-button size="small" type="danger" @click.stop="addItem(x.Id)">上架</van-button>
                   </view>
                   <view slot="title" class="title">{{x.Name}}</view>
-        <view slot="desc" class="desc" v-if="x.ShareDesc">{{x.ShareDesc}}</view>
+                  <view slot="desc" class="desc" v-if="x.ShareDesc">{{x.ShareDesc}}</view>
                   <view slot="tags">
                   </view>
                 </van-card>
@@ -52,12 +54,10 @@
           </div>
         </van-tab>
         <!-- tab2end -->
-        <van-tab title="备用">
+        <!-- <van-tab title="备用">
           内容 4
-        </van-tab>
+        </van-tab> -->
         <!-- tab3end -->
-        <van-tab title="备用标签">内容 4</van-tab>
-        <!-- tab4end -->
       </van-tabs>
     </div>
     <van-dialog id="van-dialog" />

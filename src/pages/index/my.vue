@@ -53,7 +53,7 @@
             <view style="padding:0 20rpx;" slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
                 <van-tabbar-item icon="location" @click="$navigate.To('/pages/partner/map')">打开地图</van-tabbar-item>
-                <van-tabbar-item icon="info-o">编辑信息</van-tabbar-item>
+                <van-tabbar-item icon="info-o" @click="$navigate.To('/pages/partner/edit')">编辑信息</van-tabbar-item>
                 <van-tabbar-item icon="points-mall" @click="$navigate.To('/pages/partner/myBuyItems')">上架商品</van-tabbar-item>
                 <van-tabbar-item icon="cart" @click="$navigate.To('/pages/partner/orders')">团长的订单</van-tabbar-item>
               </van-tabbar>

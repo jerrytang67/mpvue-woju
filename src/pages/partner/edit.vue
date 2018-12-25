@@ -5,6 +5,7 @@
         <van-steps :steps="steps" :active="step" />
         <demo-block title="实名认证基本信息">
           <van-cell-group>
+            <van-field label="微信号" :value="item.weixin"  @change="onChange" data-name="weixin"  />
             <van-field label="社区名" :value="item.LocationLabel" required @change="onChange" data-name="LocationLabel" use-button-slot>
               <van-button slot="button" size="small" type="primary" @click="search">搜索</van-button>
             </van-field>
@@ -28,6 +29,7 @@
 </template>
 <script>
 const Partner = {
+  weixin:"",
   LocationLabel: "",
   LocationAddress: "",
   Lat: 0,
@@ -47,18 +49,26 @@ export default {
       title: "团长信息"
     });
   },
-  onReady() {},
+  onReady() {
+
+
+  },
   mounted() {
     var that = this;
+
     wx.getLocation({
       type: "gcj02",
       success: function(res) {
-        console.log(res);
         that.SET_POSITION(res);
-        // that.markers[0].latitude = res.latitude;
-        // that.markers[0].longitude = res.longitude;
         that.setCenter(res);
         that.mapCtx = wx.createMapContext("map");
+        that.get_setting().then(()=>{
+          if( that.partner)
+          {
+            that.item = that.partner;
+            that.setCenter({ latitude: that.partner.Lat, longitude: that.partner.Lng });
+          }
+        });
       },
       fail: function() {
         Tip.error("你拒绝了定位授权,请打开授权定位后再试...");
@@ -72,7 +82,7 @@ export default {
     step: 1,
     isFinish: false,
     item: Object.assign({}, Partner),
-    mapCtx: wx.createMapContext("map"),
+    mapCtx: undefined,
     location: [],
     markers: [
       {
@@ -103,11 +113,11 @@ export default {
   },
   onReady() {},
   computed: {
-    ...mapState(["position"])
+    ...mapState(["position","partner"])
   },
   methods: {
     ...mapMutations(["SET_POSITION"]),
-    // ...mapActions([""]),
+    ...mapActions(["get_setting"]),
     //提交资料
     onSubmit(e) {
       let that = this;
@@ -141,6 +151,7 @@ export default {
         that.getCenterLocation();
       }
     },
+    //地图和MARKER移至中心点
     setCenter({ latitude, longitude }) {
       this.markers[0].latitude = latitude;
       this.markers[0].longitude = longitude;
@@ -149,6 +160,7 @@ export default {
       this.item.Lng = longitude;
       this.item.Lat = latitude;
     },
+
     getCenterLocation: function() {
       let that = this;
       that.mapCtx.getCenterLocation({

@@ -1,13 +1,28 @@
 <template>
-    <div class="container">
-      <div class="contentBody" >
-        <div style="padding:20rpx;">
-          <van-card v-for="x in shopBuyItems" class="card" @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)"
-      lazy-load="true" :key="x" :tag="x.Type" :desc="x.ShareDesc" :title="x.Name" :thumb="x.LogoList[0]+'!w100h100'" :origin-price="x.Price" :price="x.VipPrice" >
+  <div class="container">
+    <div class="contentBody">
+      <div style="padding:20rpx;">
+        <van-card
+          v-for="x in shopBuyItems"
+          class="card"
+          @click.stop="$navigate.To('/pages/item/itemDetail?id='+x.Id)"
+          lazy-load="true"
+          :key="x"
+          :tag="x.Type"
+          :thumb="x.LogoList[0]+'!w100h100'"
+          :origin-price="x.Price"
+          :price="x.VipPrice"
+        >
           <view slot="footer" class="footer">
-            <van-button size="small" type="primary" @click.stop="$navigate.To('/pages/shop/addItem?itemId='+x.Id)" >编辑</van-button>
+            <van-button
+              size="small"
+              type="primary"
+              @click.stop="$navigate.To('/pages/shop/addItem?itemId='+x.Id)"
+            >编辑</van-button>
             <van-button size="small" type="danger" @click.stop="onDelete(x)">删除</van-button>
           </view>
+          <view slot="title" class="title">{{x.Name}}</view>
+          <view slot="desc" class="desc" v-if="x.ShareDesc">{{x.ShareDesc}}</view>
           <view slot="tags" style="margin-top:24rpx;">
             <van-tag round type="primary">{{x.PickUpType}}</van-tag>
 
@@ -15,12 +30,11 @@
             <van-tag round type="primary" v-else>限购{{x.LimitBuyCount}}件</van-tag>
           </view>
         </van-card>
-        </div>
-
       </div>
-    <van-toast id="van-toast" />
-    <van-dialog id="van-dialog" />
     </div>
+    <van-toast id="van-toast"/>
+    <van-dialog id="van-dialog"/>
+  </div>
 </template>
 
 <script>
