@@ -139,7 +139,6 @@ export default {
       });
     },
     onChange(e) {
-      // console.log(e);
       let value = e.mp.detail.value || e.mp.detail;
       let key = e.mp.currentTarget.dataset.name;
       this.item[key] = value;

@@ -283,12 +283,13 @@ export default {
     //todo:这里要加入loading处理
     draw(index, rpx) {
       var that = this;
-      var imageListLength = that.currentItem.LogoList.length;
-      var idx = Math.floor(Math.random() * imageListLength);
+      var imgList = [...that.currentItem.LogoList.filter(r=>!r.endsWith(".gif"))];
+      var imgListLength = imgList.length;
+      var idx = Math.floor(Math.random() * imgListLength);
       Promise.all([
         wxGetImageInfo({
           src:
-            that.currentItem.LogoList[idx].replace(/http:/i, "https:") + "!wh500"
+            imgList[idx].replace(/http:/i, "https:") + "!wh500"
         }),
         wxGetImageInfo({
           src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${
