@@ -75,17 +75,18 @@ export const mutations = {
   },
   SET_REALNAMEINFO: (state, v) => state.realNameInfo = v,
   ADD_TO_CART: (state, v) => {
-    //v.Count += 1;
-    // state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
+    state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
     // state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
-    if (v)
-      state.cartItems = [v];
-    else
-      state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)];
+    //如果是单品START
+    // if (v)
+    //   state.cartItems = [v];
+    // else
+    //   state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)];
+    //单品END
     state.total = state.cartItems.reduce((c, n) => c + n.Count, 0);
     state.totalPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.Price * n.Count), 0);
     state.totalVipPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.VipPrice * n.Count), 0);
-    console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
+    //console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
   },
   ADD_SEARCHHISTORY: (state, v) => {
     //取前6个,去重

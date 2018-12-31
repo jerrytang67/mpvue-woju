@@ -154,7 +154,7 @@
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
       <van-goods-action-button
-        type="primary"
+        type="primary" 
         text="立即购买"
         @click="getpay()"
       />

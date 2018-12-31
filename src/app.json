@@ -12,6 +12,13 @@
       "text": "首页",
       "iconPath": "/static/images/home2.png",
       "selectedIconPath": "/static/images/home.png"
+    }
+    , {
+      "pagePath": "pages/index/cart",
+      "text": "购物车",
+      "iconPath": "/static/images/cart2.png",
+      "selectedIconPath": "/static/images/cart.png"
+
     }, {
       "pagePath": "pages/order/orders",
       "text": "订单",

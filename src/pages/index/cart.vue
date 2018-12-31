@@ -83,4 +83,7 @@ export default {
 </script>
 
 <style scoped>
+.van-submit-bar__bar--safe {
+  padding-bottom: 0 !important;
+}
 </style>

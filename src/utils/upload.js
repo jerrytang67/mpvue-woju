@@ -42,6 +42,28 @@ export function upload() {
   })
 }
 
+export function uploadRecord(file) {
+  return new Promise((resolve, reject) => {
+    const imageSrc = file
+    const fileExt = imageSrc.replace(/.+\./, "");
+    const fileName = moment(new Date).format("YYYY/MM/HHmmss") + "." + fileExt
+    const path = `wxapp/${wx.getStorageSync('unionid')||wx.getStorageSync('openid')}/${fileName}`;
+    upyun.upload({
+      localPath: imageSrc,
+      remotePath: path,
+      success: function (res) {
+        return resolve(path);
+      },
+      fail: ({
+        errMsg
+      }) => {
+        return reject(errMsg);
+      }
+    })
+  });
+}
+
 export default {
-  upload
+  upload,
+  uploadRecord
 }

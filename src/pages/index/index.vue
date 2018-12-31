@@ -32,12 +32,15 @@
               @click="getUserInfo1"
               style="border: none;background:none;margin-top: 20rpx"
             >
-              <van-icon name="arrow"/>
+              <van-icon name="arrow" />
             </van-button>
           </view>
         </van-col>
       </van-row>
-      <view class="center" v-if="!my_partner.Id">
+      <view
+        class="center"
+        v-if="!my_partner.Id"
+      >
         <van-button
           style="margin:0 auto;"
           type="danger"
@@ -67,23 +70,33 @@
         :text="my_partner.NoticeContent"
         v-if="my_partner.NoticeContent"
       />
-      <!-- <swiper :indicator-dots="false"
+      <swiper
+        :indicator-dots="false"
+        style="margin:10rpx;"
         autoplay="false"
-        display-multiple-items="1"
+        display-multiple-items="2"
         next-margin="150rpx"
         circular="true"
+        v-if="topList.length>2"
       >
-        <swiper-item v-for="x in topList" :key="x" @click="goItem(x)">
+        <swiper-item
+          v-for="x in topList"
+          :key="x"
+          @click="goItem(x)"
+        >
           <image
             mode="aspectFill"
             :src="x.BuyItem.LogoList[0]+'!w100h100'"
             class="slide-image"
             style="width:250rpx;height:160rpx;border-radius:10px;"
           />
-          <view style="font-size:28rpx;" class="show2line">{{x.BuyItem.Name}}</view>
+          <view
+            style="font-size:28rpx;"
+            class="show2line"
+          >{{x.BuyItem.Name}}</view>
           <view style="color:#F83101;">￥{{x.BuyItem.VipPrice}}</view>
         </swiper-item>
-      </swiper> -->
+      </swiper>
     </view>
     <div class="card-list">
       <van-card
@@ -92,22 +105,47 @@
         :thumb="x.BuyItem.LogoList[0]+'!w100h100'"
         @click.stop="goItem(x)"
       >
-        <view slot="title" class="title">{{x.BuyItem.Name}}</view>
-        <view slot="desc" class="desc" v-if="x.BuyItem.ShareDesc">{{x.BuyItem.ShareDesc}}</view>
-        <view slot="tags" class="price">
+        <view
+          slot="title"
+          class="title"
+        >{{x.BuyItem.Name}}</view>
+        <view
+          slot="desc"
+          class="desc"
+          v-if="x.BuyItem.ShareDesc"
+        >{{x.BuyItem.ShareDesc}}</view>
+        <view
+          slot="tags"
+          class="price"
+        >
           <!-- <van-tag type="danger">自营</van-tag> -->
-          <text class="vip">￥{{x.BuyItem.VipPrice}}</text>
-          <text class="old">￥{{x.BuyItem.Price}}</text>
+          <view>
+            <text class="vip">￥{{x.BuyItem.VipPrice}}</text>
+            <text class="old">￥{{x.BuyItem.Price}}</text>
+          </view>
 
+          <van-tag
+            type="danger"
+            style="float:right;"
+          >{{x.BuyItem.PickUpType}}</van-tag>
         </view>
         <view slot="footer">
-          <van-tag type="primary" v-if="x.BuyItem.LimitBuyCount">限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
-          <!-- <van-stepper :value="x.Count" @plus.stop="add(x)" @minus.stop="remove(x)"/> -->
+          <van-tag
+            type="primary"
+            v-if="x.BuyItem.LimitBuyCount"
+          >限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
+          <van-stepper
+            :value="x.Count"
+            min="0"
+            @click.stop=""
+            @plus.stop="add(x)"
+            @minus.stop="remove(x)"
+          />
         </view>
       </van-card>
     </div>
-    <van-dialog id="van-dialog"/>
-    <van-toast id="van-toast"/>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 <script>
@@ -182,7 +220,7 @@ export default {
       "buyItems",
       "openid"
     ]),
-    ...mapGetters(["topList","notopList"])
+    ...mapGetters(["topList", "notopList"])
   },
 
   methods: {
@@ -203,7 +241,9 @@ export default {
       this.add_to_cart(item);
     },
     goItem(x) {
-      wx.navigateTo({ url: "/pages/item/itemDetail?id=" + x.BuyItem.Id });
+      if (x) {
+        wx.navigateTo({ url: "/pages/item/itemDetail?id=" + x.BuyItem.Id });
+      }
     },
     getSetting() {
       wx.getSetting({
@@ -295,6 +335,8 @@ export default {
   flex-direction: row;
   align-items: center;
   margin-top: 15rpx;
+  display: flex;
+  justify-content: space-between;
 }
 .card-list .price .vip {
   color: #f00;
