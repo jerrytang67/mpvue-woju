@@ -90,8 +90,8 @@ export default {
       if (this.tempFilePath) {
         //播放声音
         this.innerAudioContext.autoplay = true;
-        (this.innerAudioContext.src = this.tempFilePath),
-          this.innerAudioContext.onPlay(() => {
+        this.innerAudioContext.src = this.tempFilePath;
+        this.innerAudioContext.onPlay(() => {
             console.log("开始播放");
           });
         this.innerAudioContext.onError(res => {

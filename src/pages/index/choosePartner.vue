@@ -5,22 +5,36 @@
         <p>您所在的当位置</p>
         <p>
           {{position.address}}
-          <van-button type="default" @click="goMap" size="small">修改位置</van-button>
+          <van-button
+            type="default"
+            @click="goMap"
+            size="small"
+          >修改位置</van-button>
         </p>
       </div>
     </view>
     <view class="contentBody">
-      <div class="card-list" style="padding:20rpx 30rpx">
+      <div
+        class="card-list"
+        style="padding:20rpx 30rpx"
+        v-if="partner_list.length>0"
+      >
         <van-card
           v-for="p in partner_list"
           :key="p"
-          v-if="partner_list.length>0"
           :thumb="p.headimgurl"
           @click="select(p)"
           tag="团长"
         >
-          <view slot="title" class="title">{{p.nickname}}</view>
-          <view slot="desc" class="desc" style="font-size:34rpx;color:red;">社群:{{p.LocationLabel}}</view>
+          <view
+            slot="title"
+            class="title"
+          >{{p.nickname}}</view>
+          <view
+            slot="desc"
+            class="desc"
+            style="font-size:34rpx;color:red;"
+          >社群:{{p.LocationLabel}}</view>
           <view slot="tags">取货地址{{p.LocationAddress}}</view>
           <view slot="footer">
             <van-tag type="primary">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>
@@ -29,8 +43,8 @@
         <view v-if="partner_list.length==0">您当前位置三公里内没有团长,可以手动更换位置</view>
       </div>
     </view>
-    <van-dialog id="van-dialog"/>
-    <van-toast id="van-toast"/>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </div>
 </template>
 

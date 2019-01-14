@@ -52,10 +52,10 @@
             </view>
             <view style="padding:0 20rpx;" slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="location" @click="$navigate.To('/pages/partner/map')">打开地图</van-tabbar-item>
+                <van-tabbar-item icon="location-o" @click="$navigate.To('/pages/partner/map')">打开地图</van-tabbar-item>
                 <van-tabbar-item icon="info-o" @click="$navigate.To('/pages/partner/edit')">编辑信息</van-tabbar-item>
-                <van-tabbar-item icon="points-mall" @click="$navigate.To('/pages/partner/myBuyItems')">上架商品</van-tabbar-item>
-                <van-tabbar-item icon="cart" @click="$navigate.To('/pages/partner/orders')">团长的订单</van-tabbar-item>
+                <van-tabbar-item icon="upgrade" @click="$navigate.To('/pages/partner/myBuyItems')">上架商品</van-tabbar-item>
+                <van-tabbar-item icon="cart-o" @click="$navigate.To('/pages/partner/orders')">团长的订单</van-tabbar-item>
               </van-tabbar>
               <!-- <div>
                 <van-button type="primary">点击进入我的团长主页</van-button>
@@ -73,11 +73,11 @@
             </view>
             <view slot="footer">
               <van-tabbar :active="active" @change="tabbar_change" :fixed="false">
-                <van-tabbar-item icon="gold-coin" @click="$navigate.To(`/pages/shop/buyItems?shopId=${shop.Id}&shopName=${shop.ShopName}`)">商品列表</van-tabbar-item>
-                <van-tabbar-item icon="chat" @click="$navigate.To(`/pages/shop/orders?shopId=${shop.Id}&shopName=${shop.ShopName}`)">查看订单</van-tabbar-item>
-                <van-tabbar-item icon="shop">团长申请</van-tabbar-item>
-                <van-tabbar-item icon="shop">评价管理</van-tabbar-item>
-                <van-tabbar-item icon="shop" @click="$navigate.To(`/pages/shop/addItem?shopId=${shop.Id}&shopName=${shop.ShopName}`)">新建商品</van-tabbar-item>
+                <van-tabbar-item icon="goods-collect-o" @click="$navigate.To(`/pages/shop/buyItems?shopId=${shop.Id}&shopName=${shop.ShopName}`)">商品列表</van-tabbar-item>
+                <van-tabbar-item icon="orders-o" @click="$navigate.To(`/pages/shop/orders?shopId=${shop.Id}&shopName=${shop.ShopName}`)">查看订单</van-tabbar-item>
+                <!-- <van-tabbar-item icon="shop">团长申请</van-tabbar-item> -->
+                <!-- <van-tabbar-item icon="shop">评价管理</van-tabbar-item> -->
+                <van-tabbar-item icon="add-o" @click="$navigate.To(`/pages/shop/addItem?shopId=${shop.Id}&shopName=${shop.ShopName}`)">新建商品</van-tabbar-item>
               </van-tabbar>
             </view>
           </van-panel>
