@@ -9,7 +9,6 @@
     <van-cell-group style="width:100vw;">
       <van-cell
         icon="location"
-        v-if="l.location"
         v-for="l in location"
         :key="l"
         is-link
