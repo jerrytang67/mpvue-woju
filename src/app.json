@@ -14,12 +14,6 @@
       "selectedIconPath": "/static/images/home.png"
     }
     , {
-      "pagePath": "pages/index/cart",
-      "text": "购物车",
-      "iconPath": "/static/images/cart2.png",
-      "selectedIconPath": "/static/images/cart.png"
-
-    }, {
       "pagePath": "pages/order/orders",
       "text": "订单",
       "iconPath": "/static/images/order2.png",
@@ -39,6 +33,11 @@
     "wxparserPlugin": {
       "version": "0.2.1",
       "provider": "wx9d4d4ffa781ff3ac"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于莴聚查找你周边的团长"
     }
   }
 }

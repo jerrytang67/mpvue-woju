@@ -54,7 +54,8 @@
                   @click.stop="deleteItem(index)"
                   style="margin-left:10px;"
                 >删除</van-button>
-                <record></record>
+                <!-- 录音 -->
+                <!-- <record></record> -->
               </view>
               <view>
               </view>

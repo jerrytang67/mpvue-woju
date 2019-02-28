@@ -134,13 +134,13 @@
             type="primary"
             v-if="x.BuyItem.LimitBuyCount"
           >限购 {{x.BuyItem.LimitBuyCount}}件</van-tag>
-          <van-stepper
+          <!-- <van-stepper
             :value="x.Count"
             min="0"
             @click.stop=""
             @plus.stop="add(x)"
             @minus.stop="remove(x)"
-          />
+          /> -->
         </view>
       </van-card>
     </div>
@@ -157,7 +157,13 @@ import partner from "@/components/partner";
 import Toast from "../../../static/dist/toast/toast";
 
 export default {
-  onLoad(option) {},
+  onLoad(option) {
+    if (wx.getStorageSync("my_partner") && wx.getStorageSync("my_partner").Id){
+      this.$api.loadPartnerItems(wx.getStorageSync("my_partner").Id).then(res => {
+        this.SET_BUYITEMLIST(res);
+      });
+    }
+  },
   onReady() {
     var that = this;
     var query = that.$root.$mp.query;

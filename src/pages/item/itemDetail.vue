@@ -59,12 +59,18 @@
         </div>
       </view>
     </view>
+
     <view class="order_num">
       <view class="doc">库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
       <view class="doc" v-if="currentItem.SoldCount>5">订单中:
         <text class="num">已拼{{currentItem.SoldCount}}件</text>
+      </view>
+    </view>
+    <view v-if="currentItem.CountItems && currentItem.CountItems.length>0" style="width:90vw">
+      <view v-for="x in currentItem.CountItems" :key="x" style="margin:20rpx 0;">
+        <van-tag  plain size="large" type="primary" >{{x.Name}} ￥{{x.Price}}元</van-tag>
       </view>
     </view>
     <!-- endblock -->
