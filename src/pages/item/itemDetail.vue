@@ -142,12 +142,12 @@
 
     <van-goods-action>
       <van-goods-action-icon
-        icon="home"
+        icon="home-o"
         text="返回"
         @click="back"
       />
       <van-goods-action-icon
-        icon="chat"
+        icon="chat-o"
         text="客服"
         open-type="contact"
       />

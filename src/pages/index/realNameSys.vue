@@ -30,7 +30,7 @@
       </div>
     </div>
     <van-goods-action style="z-index:9999;">
-      <van-goods-action-icon icon="chat" text="客服" open-type="contact" />
+      <van-goods-action-icon icon="chat-o" text="客服" open-type="contact" />
       <van-goods-action-button text="下一步" type="primary" @click="post()" />
     </van-goods-action>
     <van-dialog id="van-dialog" />
