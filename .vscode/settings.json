@@ -10,5 +10,8 @@
     ],
     "line-counter.includes": [
         "**/*"
-    ]
+    ],
+    "prettier.printWidth": 500,
+    "html.format.wrapAttributes": "force-aligned",
+    "html.format.wrapLineLength": 250
 }

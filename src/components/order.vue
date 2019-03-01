@@ -60,7 +60,15 @@
               v-for="(x,index ) in items"
               :key="index"
             >
-              {{x.Name}} x <van-tag size="large" plain type="danger">{{x.Count}}</van-tag> 单价 <van-tag color="#7232dd" plain> {{x.Price}}</van-tag>
+              <van-tag
+                size="large"
+                plain
+                type="danger"
+              >数量 {{x.Count}}</van-tag> × {{x.Name}} <van-tag
+                color="#7232dd"
+                plain
+                size="large"
+              >单价 ￥{{x.Price}}</van-tag>
             </view>
           </div>
           <div v-if="data.RealName">
@@ -81,7 +89,7 @@
             <van-tag
               mark
               type="primary"
-            > 收货人 电话</van-tag>
+            >收货人 电话</van-tag>
             {{data.TelPhone}}
           </div>
           <div>
@@ -89,7 +97,7 @@
               mark
               type="primary"
             >提货方式</van-tag>
-            <van-tag type="primary">{{data.PickUpType}}</van-tag>
+            {{data.PickUpType}}
           </div>
           <div v-if="data.KeFuTel">
             <van-tag

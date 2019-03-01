@@ -4,12 +4,7 @@
     <view class="headBar">
       <van-row v-if="my_partner.Id">
         <van-col :span="6">
-          <img
-            class="userinfo-avatar"
-            v-if="my_partner.headimgurl"
-            :src="my_partner.headimgurl"
-            background-size="cover"
-          >
+          <img class="userinfo-avatar" v-if="my_partner.headimgurl" :src="my_partner.headimgurl" background-size="cover">
         </van-col>
         <van-col :span="14">
           <p style="font-size:.7rem;">
@@ -158,10 +153,12 @@ import Toast from "../../../static/dist/toast/toast";
 
 export default {
   onLoad(option) {
-    if (wx.getStorageSync("my_partner") && wx.getStorageSync("my_partner").Id){
-      this.$api.loadPartnerItems(wx.getStorageSync("my_partner").Id).then(res => {
-        this.SET_BUYITEMLIST(res);
-      });
+    if (wx.getStorageSync("my_partner") && wx.getStorageSync("my_partner").Id) {
+      this.$api
+        .loadPartnerItems(wx.getStorageSync("my_partner").Id)
+        .then(res => {
+          this.SET_BUYITEMLIST(res);
+        });
     }
   },
   onReady() {

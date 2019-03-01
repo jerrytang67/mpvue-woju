@@ -4,7 +4,7 @@ const getters = {
   waitForPayCount: (state, getters) => getters.waitForPay.length,
 
   //已支付订单
-  paidOrder: state => state.myOrders.filter(x => x.IsSuccessPay && !x.IsCheckOut),
+  paidOrder: state => state.myOrders.filter(x => x.IsSuccessPay && !x.IsCheckOut && x.State!=='退款成功'),
   paidOrderCount: (state, getters) => getters.paidOrder.length,
 
   //已完成订单
