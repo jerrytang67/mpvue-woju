@@ -138,7 +138,6 @@ module.exports = [{
     path: 'pages/partner/map',
     config: {
       navigationBarTitleText: '地图',
-      // enablePullDownRefresh: true,
       usingComponents: Object.assign({}, usingComponents, {})
     }
   },
