@@ -25,46 +25,19 @@
                 @click.stop="$navigate.To(`/pages/item/itemDetail?id=${x.BuyItem.Id}&pid=${partner.Id}`)"
               />
             </view>
-            <view
-              slot="title"
-              class="title"
-            >{{x.BuyItem.Name}}</view>
-            <view
-              slot="desc"
-              class="desc"
-              v-if="x.BuyItem.ShareDesc"
-            >{{x.BuyItem.ShareDesc}}</view>
+            <view slot="title" class="title" >{{x.BuyItem.Name}}</view>
+            <view slot="desc" class="desc" v-if="x.BuyItem.ShareDesc">{{x.BuyItem.ShareDesc}}</view>
             <view slot="footer">
               <view>
-                <van-button
-                  size="small"
-                  type="primary"
-                  @click.stop="topItem(index)"
-                  v-if="x.State!==2"
-                >置顶</van-button>
-                <van-button
-                  size="small"
-                  type="primary"
-                  @click.stop="notopItem(index)"
-                  v-if="x.State===2"
-                >取消置顶</van-button>
-                <van-button
-                  size="small"
-                  type="danger"
-                  @click.stop="deleteItem(index)"
-                  style="margin-left:10px;"
-                >删除</van-button>
-                <record></record>
-              </view>
-              <view>
+                <van-button size="small" type="primary" @click.stop="topItem(index)" v-if="x.State!==2">置顶</van-button>
+                <van-button size="small" type="primary" @click.stop="notopItem(index)" v-if="x.State===2">取消置顶</van-button>
+                <van-button size="small" type="danger" @click.stop="deleteItem(index)" style="margin-left:10px;">删除</van-button>
+                <!-- 录音 -->
+                <!-- <record></record> -->
               </view>
             </view>
             <view slot="tags">
-              <van-switch
-                size="45rpx"
-                :checked="x.State"
-                @change="onChange(x)"
-              />
+              <van-switch size="45rpx" :checked="x.State?true:false" @change="onChange(x)"/>
             </view>
           </van-card>
         </van-tab>

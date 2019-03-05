@@ -54,7 +54,9 @@ module.exports = [{
       navigationBarTitleText: '支付',
       usingComponents: Object.assign({}, usingComponents, {
         "van-submit-bar": "/static/dist/submit-bar/index",
-        "van-stepper": "/static/dist/stepper/index"
+        "van-stepper": "/static/dist/stepper/index",
+        "van-field": "/static/dist/field/index",
+        "van-notice-bar":"/static/dist/notice-bar/index",
       })
     }
   },
@@ -136,7 +138,6 @@ module.exports = [{
     path: 'pages/partner/map',
     config: {
       navigationBarTitleText: '地图',
-      // enablePullDownRefresh: true,
       usingComponents: Object.assign({}, usingComponents, {})
     }
   },

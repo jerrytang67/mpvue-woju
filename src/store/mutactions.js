@@ -74,20 +74,53 @@ export const mutations = {
     console.log(state.shopBuyItems);
   },
   SET_REALNAMEINFO: (state, v) => state.realNameInfo = v,
+
   ADD_TO_CART: (state, v) => {
-    state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
+    console.log(v);
+    //state.cartItems = [...state.cartItems.filter(z => z.Partner_Id != state.my_partner.Id), ...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
     // state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)]
     //如果是单品START
-    // if (v)
-    //   state.cartItems = [v];
-    // else
-    //   state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)];
+    if (v)
+       state.cartItems = [v];
+    else
+       state.cartItems = [...state.buyItems.filter(z => z.Count > 0 && z.Partner_Id == state.my_partner.Id)];
     //单品END
-    state.total = state.cartItems.reduce((c, n) => c + n.Count, 0);
-    state.totalPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.Price * n.Count), 0);
-    state.totalVipPrice = state.cartItems.reduce((c, n) => c + (n.BuyItem.VipPrice * n.Count), 0);
-    //console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
+
+    //原价
+    state.totalPrice = state.cartItems.reduce((c, n) => {
+      if(n.BuyItem.CountItems && n.BuyItem.CountItems.length>0)
+      {
+        return  n.BuyItem.CountItems.reduce((cc,nn) =>  cc  + (n.BuyItem * nn.Count) , 0) + n.Count
+      }
+      else{
+        return c + (n.BuyItem.Price * n.Count)
+      }
+    } , 0);
+
+    //购物车数量
+    state.total = state.cartItems.reduce((c, n) => {
+      if(n.BuyItem.CountItems && n.BuyItem.CountItems.length>0)
+      {
+        return  n.BuyItem.CountItems.reduce((cc,nn) => cc + nn.Count , 0) + n.Count
+      }
+      else{
+        return c + n.Count
+      }
+    }, 0);
+
+    //需支付的价格
+    state.totalVipPrice = state.cartItems.reduce((c, n) =>{
+      if(n.BuyItem.CountItems && n.BuyItem.CountItems.length>0)
+      {
+        return n.BuyItem.CountItems.reduce((cc,nn) => cc  + (nn.Price * nn.Count) , 0)
+      }
+      else{
+        return c + (n.BuyItem.VipPrice * n.Count)
+      }
+    } , 0);
+    console.log(state.cartItems, state.total, state.totalPrice, state.totalVipPrice);
   },
+
   ADD_SEARCHHISTORY: (state, v) => {
     //取前6个,去重
     state.searchHistory = Array.from(new Set([v, ...state.searchHistory.slice(0, 5)]));
