@@ -19,6 +19,8 @@ npm run dev
 #Open 微信开发工具
 #创建测试小程序,设置目录为生成的dist目录
 ```
+
+copy vant-weapp file to static 
 ## QR
 
 ![image](png/gh_9d7d09e4df06_258.jpg)
