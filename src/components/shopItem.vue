@@ -1,5 +1,5 @@
 <template>
-  <view class="item-wrap">
+  <view class="item-wrap"  @click.stop="go(data)">
     <image
       :src="img"
       class="item"
@@ -28,7 +28,7 @@
         <text class="price">¥1000</text>  -->
       </view>
       <view class="col-2">
-        <text class="tag" @click.stop="go(data)">立即购买</text>
+        <text class="tag">立即购买</text>
       </view>
     </view>
   </view>

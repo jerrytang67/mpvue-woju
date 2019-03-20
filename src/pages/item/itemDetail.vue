@@ -4,10 +4,24 @@
     style="background:#fff;"
   >
     <div style="position:relative;">
-      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
-        <block v-for="(x,$index) in currentItem.LogoList" :key="x">
+      <swiper
+        indicator-dots="true"
+        autoplay="true"
+        interval="5000"
+        duration="500"
+        class="swiper"
+      >
+        <block
+          v-for="(x,$index) in currentItem.LogoList"
+          :key="x"
+        >
           <swiper-item>
-            <image :src="x+'!w500'" class="slide-image" mode="aspectFill" @click.stop="previewImage($index)" />
+            <image
+              :src="x+'!w500'"
+              class="slide-image"
+              mode="aspectFill"
+              @click.stop="previewImage($index)"
+            />
           </swiper-item>
         </block>
       </swiper>
@@ -18,7 +32,11 @@
           style="margin-right:5px;border:2px solid #fff;"
           @click.stop="copyWeixin"
         />
-        <van-tag round type="danger" class="locationLabel-tag" >
+        <van-tag
+          round
+          type="danger"
+          class="locationLabel-tag"
+        >
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
         </van-tag>
       </div>
@@ -64,13 +82,27 @@
       <view class="doc">库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
-      <view class="doc" v-if="currentItem.SoldCount>5">订单中:
+      <view
+        class="doc"
+        v-if="currentItem.SoldCount>5"
+      >订单中:
         <text class="num">已拼{{currentItem.SoldCount}}件</text>
       </view>
     </view>
-    <view v-if="currentItem.CountItems && currentItem.CountItems.length>0" style="width:90vw">
-      <view v-for="x in currentItem.CountItems" :key="x" style="margin:20rpx 0;">
-        <van-tag  plain size="large" type="primary" >{{x.Name}} ￥{{x.Price}}元</van-tag>
+    <view
+      v-if="currentItem.CountItems && currentItem.CountItems.length>0"
+      style="width:90vw"
+    >
+      <view
+        v-for="x in currentItem.CountItems"
+        :key="x"
+        style="margin:20rpx 0;"
+      >
+        <van-tag
+          plain
+          size="large"
+          type="primary"
+        >{{x.Name}} ￥{{x.Price}}元</van-tag>
       </view>
     </view>
     <!-- endblock -->
@@ -88,7 +120,10 @@
       <view class="block_title">跟团说明</view>
       <view class="block_content">
         <view class="doc">
-          <strong v-if="my_partner.weixin" style="color:red;font-weight:700;margin:5px;">点击团长头像可以复制团长微信号</strong>
+          <strong
+            v-if="my_partner.weixin"
+            style="color:red;font-weight:700;margin:5px;"
+          >点击团长头像可以复制团长微信号</strong>
           <!-- <strong style="color:red;font-weight:500;margin-top:5px;">如超过订单时间而又没有拼购到规定数量的，我们将会第一时间为您退款，请您放心购买! </strong> -->
           此商品在拼团期间可接收订单，如若超过拼团时间则不能下单；未付款订单系统一小时内将自动取消，所以，亲下单以后请尽快付款。
           我们会以实际订单为准为您发货。请您放心购买!
@@ -160,7 +195,7 @@
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
       <van-goods-action-button
-        type="primary" 
+        type="primary"
         text="立即购买"
         @click="getpay()"
       />
@@ -169,15 +204,17 @@
     <van-toast id="van-toast" />
     <van-popup
       :show="modalShow"
-      :custom-style="'background-color:transparent;'"
       @click-overlay="openModal"
-      :duration="0"
     >
-      <canvas v-show="modalShow"
+      <canvas
+        v-show="modalShow"
         canvas-id="shareCanvas"
         style="width:700rpx;height:1000rpx;"
       ></canvas>
-      <div  v-show="modalShow" style="margin:10px auto;text-align:center;">
+      <div
+        v-show="modalShow"
+        style="margin:10px auto;text-align:center;"
+      >
         <van-button
           type="primary"
           @click.stop="save"
@@ -267,35 +304,36 @@ export default {
   methods: {
     ...mapMutations(["SET_ITEM", "SET_BUYITEMLIST", "SET_SELECT_PARTNER"]),
     ...mapActions(["add_to_cart"]),
-    copyWeixin(){
-      var that= this;
+    copyWeixin() {
+      var that = this;
       console.log(that.my_partner);
       wx.setClipboardData({
         data: that.my_partner.weixin,
         success: function(res) {
           wx.getClipboardData({
             success: function(res) {
-              console.log(res.data) // data
-               wx.showToast({
+              console.log(res.data); // data
+              wx.showToast({
                 title: "复制微信名成功",
                 icon: "none"
               });
             }
-          })
+          });
         }
-      })
+      });
     },
     onClose() {},
     //todo:这里要加入loading处理
     draw(index, rpx) {
       var that = this;
-      var imgList = [...that.currentItem.LogoList.filter(r=>!r.endsWith(".gif"))];
+      var imgList = [
+        ...that.currentItem.LogoList.filter(r => !r.endsWith(".gif"))
+      ];
       var imgListLength = imgList.length;
       var idx = Math.floor(Math.random() * imgListLength);
       Promise.all([
         wxGetImageInfo({
-          src:
-            imgList[idx].replace(/http:/i, "https:") + "!wh500"
+          src: imgList[idx].replace(/http:/i, "https:") + "!wh500"
         }),
         wxGetImageInfo({
           src: `https://www.lovewujiang.com/woju/getPartnerQR?pid=${

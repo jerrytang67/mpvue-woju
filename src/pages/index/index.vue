@@ -73,7 +73,7 @@
     </view>
     <view style="width:100vw;background-color:#fff;">
       <view class="top-list" style="margin-top:15rpx;margin-left:2.5vw;width:95vw;">
-        <topItem  :data="x"  v-for="x in topList" :key="x"></topItem>
+        <topItem :data="x"  v-for="x in topList" :key="x"></topItem>
       </view>
       <view class="card-list" style="margin-top:15rpx;margin-left:2.5vw;width:95vw;display:flex;flex-wrap:wrap;justify-content:space-between;" >
           <shopItem :data="x"  v-for="x in buyItems" :key="x"></shopItem>

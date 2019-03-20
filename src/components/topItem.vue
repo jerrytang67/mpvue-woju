@@ -1,5 +1,5 @@
 <template>
-<view class="box">
+<view class="box" @click.stop="go(data)">
   <image :src="img" class="bd" />
   <view class="main">
     <text class="title">{{title}}</text>
@@ -23,7 +23,7 @@
     </view>
     <text class="location">{{pickUpType}}</text>
     <view class="tag-wrap">
-      <text class="tag"  @click.stop="go(data)">立即购买</text>
+      <text class="tag"  >立即购买</text>
     </view>
   </view>
 </view>
