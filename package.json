@@ -28,7 +28,7 @@
     "mpvue": "^2.0.5",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
-    "vant-weapp": "^0.5.7",
+    "vant-weapp": "^0.5.10",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
