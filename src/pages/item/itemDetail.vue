@@ -1,27 +1,10 @@
 <template>
-  <div
-    class="container"
-    style="background:#fff;"
-  >
+  <div class="container" style="background:#fff;">
     <div style="position:relative;">
-      <swiper
-        indicator-dots="true"
-        autoplay="true"
-        interval="5000"
-        duration="500"
-        class="swiper"
-      >
-        <block
-          v-for="(x,$index) in currentItem.LogoList"
-          :key="x"
-        >
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="swiper">
+        <block v-for="(x,$index) in currentItem.LogoList" :key="x">
           <swiper-item>
-            <image
-              :src="x+'!w500'"
-              class="slide-image"
-              mode="aspectFill"
-              @click.stop="previewImage($index)"
-            />
+            <img :src="x+'!w500'" @click.stop="previewImage($index)">
           </swiper-item>
         </block>
       </swiper>
@@ -31,12 +14,8 @@
           :src="my_partner.headimgurl"
           style="margin-right:5px;border:2px solid #fff;"
           @click.stop="copyWeixin"
-        />
-        <van-tag
-          round
-          type="danger"
-          class="locationLabel-tag"
         >
+        <van-tag round type="danger" class="locationLabel-tag">
           <span style="font-size:28rpx;padding:5rpx 10rpx;">{{my_partner.LocationLabel}} 社区</span>
         </van-tag>
       </div>
@@ -49,60 +28,31 @@
         <text class="price">￥{{currentItem.VipPrice}}</text>
         <!-- <view class="order_time {{purchasetype==2||special==1?'hidden':''}}">
           <timer :startTime.sync="startTime" :endTime.sync="endTime"></timer>
-        </view> -->
+        </view>-->
       </view>
       <view class="baoyou">
-        <van-tag
-          round
-          type="primary"
-        >{{currentItem.PickUpType}}</van-tag>
-        <van-tag
-          round
-          type="primary"
-          v-if="currentItem.LimitBuyCount==0"
-        >不限购</van-tag>
-        <van-tag
-          round
-          type="primary"
-          v-else
-        >每人限购{{currentItem.LimitBuyCount}}件</van-tag>
+        <van-tag round type="primary">{{currentItem.PickUpType}}</van-tag>
+        <van-tag round type="primary" v-if="currentItem.LimitBuyCount==0">不限购</van-tag>
+        <van-tag round type="primary" v-else>每人限购{{currentItem.LimitBuyCount}}件</van-tag>
         <div style="float:right;">
-          <button
-            type="default"
-            size="mini"
-            round
-            @click="openModal"
-          >海报
-          </button>
+          <button type="default" size="mini" round @click="openModal">海报</button>
         </div>
       </view>
     </view>
 
     <view class="order_num">
-      <view class="doc">库存:
+      <view class="doc">
+        库存:
         <text class="num">{{currentItem.Count}}件</text>
       </view>
-      <view
-        class="doc"
-        v-if="currentItem.SoldCount>5"
-      >订单中:
+      <view class="doc" v-if="currentItem.SoldCount>5">
+        订单中:
         <text class="num">已拼{{currentItem.SoldCount}}件</text>
       </view>
     </view>
-    <view
-      v-if="currentItem.CountItems && currentItem.CountItems.length>0"
-      style="width:90vw"
-    >
-      <view
-        v-for="x in currentItem.CountItems"
-        :key="x"
-        style="margin:20rpx 0;"
-      >
-        <van-tag
-          plain
-          size="large"
-          type="primary"
-        >{{x.Name}} ￥{{x.Price}}元</van-tag>
+    <view v-if="currentItem.CountItems && currentItem.CountItems.length>0" style="width:90vw">
+      <view v-for="x in currentItem.CountItems" :key="x" style="margin:20rpx 0;">
+        <van-tag plain size="large" type="primary">{{x.Name}} ￥{{x.Price}}元</van-tag>
       </view>
     </view>
     <!-- endblock -->
@@ -110,9 +60,7 @@
     <view class="block">
       <view class="block_title">购前需知</view>
       <view class="block_content">
-        <view class="doc">
-          {{currentItem.NoticeText}}
-        </view>
+        <view class="doc">{{currentItem.NoticeText}}</view>
       </view>
     </view>
     <!-- endblock -->
@@ -136,33 +84,23 @@
       <view class="block_title">商品信息</view>
       <view class="block_content">
       </view>
-    </view> -->
+    </view>-->
     <!-- endblock -->
 
-    <view
-      class="block"
-      v-if="currentItem.Shop"
-    >
+    <view class="block" v-if="currentItem.Shop">
       <view class="block_title">供货商家</view>
       <!-- <view class="block_content" @click.stop="$navigate.To('/pages/shop/shop?shopId='+currentItem.Shop.Id)"> -->
       <view class="block_content">
         <view class="doc flex-r-ac">
           <div>
-            <img
-              class="img-circle thumb64"
-              :src="currentItem.Shop.LogoImageUrl+'!w100h100'"
-            />
+            <img class="img-circle thumb64" :src="currentItem.Shop.LogoImageUrl+'!w100h100'">
           </div>
           <div class="flex-c px-lg">
             <p class="title">{{currentItem.Shop.ShopName}}</p>
             <p>地址:{{currentItem.Shop.ShopAddress}}</p>
             <p>电话:{{currentItem.Shop.ShopKeFuTel}}</p>
             <p>
-              <van-button
-                size="small"
-                type="primary"
-                @click.stop="joinShop"
-              >申请成为Ta的团长</van-button>
+              <van-button size="small" type="primary" @click.stop="joinShop">申请成为Ta的团长</van-button>
             </p>
           </div>
         </view>
@@ -172,61 +110,29 @@
     <view class="spacing"></view>
     <view class="block">
       <view class="block_title">商品详情</view>
-      <view class="block_content">
-      </view>
+      <view class="block_content"></view>
     </view>
     <view class="htmlContent">
-      <wxparser :rich-text="currentItem.Desc" />
+      <wxparser :rich-text="currentItem.Desc"/>
     </view>
-    <div style="height:5vh;"> </div>
+    <div style="height:5vh;"></div>
     <view class="spacing"></view>
 
     <van-goods-action>
-      <van-goods-action-icon
-        icon="home-o"
-        text="返回"
-        @click="back"
-      />
-      <van-goods-action-icon
-        icon="chat-o"
-        text="客服"
-        open-type="contact"
-      />
+      <van-goods-action-icon icon="home-o" text="返回" @click="back"/>
+      <van-goods-action-icon icon="chat-o" text="客服" open-type="contact"/>
       <!-- <van-goods-action-icon  @click="onClickIcon" icon="cart" text="购物车" :info="total>0?total:''"  /> -->
       <!-- <van-goods-action-button @click="addCart" text="加入购物车" type="warning" /> -->
-      <van-goods-action-button
-        type="primary"
-        text="立即购买"
-        @click="getpay()"
-      />
+      <van-goods-action-button type="primary" text="立即购买" @click="getpay()"/>
     </van-goods-action>
-    <van-dialog id="van-dialog" />
-    <van-toast id="van-toast" />
-    <van-popup
-      :show="modalShow"
-      @click-overlay="openModal"
-    >
-      <canvas
-        v-show="modalShow"
-        canvas-id="shareCanvas"
-        style="width:700rpx;height:1000rpx;"
-      ></canvas>
-      <div
-        v-show="modalShow"
-        style="margin:10px auto;text-align:center;"
-      >
-        <van-button
-          type="primary"
-          @click.stop="save"
-          style="margin:5px;"
-        >保存到相册</van-button>
-        <van-button
-          type="primary"
-          style="margin:5px;"
-          @click.stop="openModal"
-        >关　　闭</van-button>
+    <van-dialog id="van-dialog"/>
+    <van-toast id="van-toast"/>
+    <van-popup :show="modalShow" @click-overlay="openModal">
+      <canvas v-show="modalShow" canvas-id="shareCanvas" style="width:700rpx;height:1000rpx;"></canvas>
+      <div v-show="modalShow" style="margin:10px auto;text-align:center;">
+        <van-button type="primary" @click.stop="save" style="margin:5px;">保存到相册</van-button>
+        <van-button type="primary" style="margin:5px;" @click.stop="openModal">关 闭</van-button>
       </div>
-
     </van-popup>
   </div>
 </template>
