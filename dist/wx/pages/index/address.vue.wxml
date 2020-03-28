@@ -1,0 +1,16 @@
+<template name="02613960">
+  <view class="_div data-v-3b148fba container" style="background:#fff;">
+    <view style="width:100vw;" class="_view data-v-3b148fba">
+      <van-search placeholder="请输入搜索关键词" bindsearch="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-search data-v-3b148fba"></van-search>
+    </view>
+    <view class="_view data-v-3b148fba history" wx:if="{{searchHistory && searchHistory.length >0}}">搜索历史: <van-button size="small" wx:key="s" key="{{s}}" bindtap="handleProxy" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" wx:for="{{searchHistory}}" wx:for-index="index" wx:for-item="s" class="_van-button data-v-3b148fba">{{s}}</van-button>
+    </view>
+    <van-cell-group style="width:100vw;" class="_van-cell-group data-v-3b148fba">
+      <van-cell icon="location" wx:key="l" key="{{l}}" is-link border="true" url="{{'/pages/index/choosePartner?lng='+l.location.lng+'&lat='+l.location.lat+'&address='+ l.city + l.district + l.name}}" wx:for="{{location}}" wx:for-index="index" wx:for-item="l" class="_van-cell data-v-3b148fba">
+        <view slot="title" class="_view data-v-3b148fba"><label class="_span data-v-3b148fba van-cell-text">{{l.city}}{{l.district}} {{l.name}}</label></view>
+      </van-cell>
+    </van-cell-group>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-3b148fba"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-3b148fba"></van-toast>
+  </view>
+</template>

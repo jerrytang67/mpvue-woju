@@ -1,0 +1,25 @@
+<template name="24528574">
+  <view class="_div data-v-7e699981 container">
+    <view class="_div data-v-7e699981 contentBody">
+      <van-cell-group class="_van-cell-group data-v-7e699981">
+        <van-cell title="{{my_partner.nickname}}" class="_van-cell data-v-7e699981">
+          <image slot="right-icon" src="{{my_partner.headimgurl}}" style="border-radius:50%;width:80rpx;height:80rpx;" class="_img data-v-7e699981"></image>
+        </van-cell>
+        <van-cell title="{{'取货地址:'+my_partner.LocationAddress}}" icon="location" is-link class="_van-cell data-v-7e699981">
+          <van-icon slot="right-icon" name="search" class="_van-icon data-v-7e699981 van-cell__right-icon"></van-icon>
+        </van-cell>
+      </van-cell-group>
+      <van-card lazy-load="true" wx:key="x" key="{{x}}" tag="{{x.BuyItem.Type}}" desc="{{x.BuyItem.ShareDesc}}" title="{{x.BuyItem.Name}}" thumb="{{x.BuyItem.LogoList[0]+'!w100h100'}}" num="{{x.Count}}" origin-price="{{x.BuyItem.Price}}" price="{{x.BuyItem.VipPrice}}" wx:for="{{cartItems}}" wx:for-index="index" wx:for-item="x" class="_van-card data-v-7e699981">
+        <view slot="footer" class="_view data-v-7e699981">
+          <van-stepper value="{{x.Count}}" min="0" bindplus="handleProxy" bindminus="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" class="_van-stepper data-v-7e699981"></van-stepper>
+        </view>
+        <view slot="tags" class="_view data-v-7e699981"></view>
+      </van-card>
+      <van-submit-bar disabled="{{totalVipPrice<=0}}" price="{{totalVipPrice*100}}" button-text="提交订单" bind:submit="onSubmit" class="_van-submit-bar data-v-7e699981">
+        <van-tag type="danger" wx:if="{{youhuan>0}}" class="_van-tag data-v-7e699981">省 {{youhuan}}元</van-tag>
+      </van-submit-bar>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-7e699981"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-7e699981"></van-toast>
+  </view>
+</template>

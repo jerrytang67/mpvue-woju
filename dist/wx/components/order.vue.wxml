@@ -1,0 +1,58 @@
+<template name="7e13ca7a">
+  <view style="margin:15rpx" class="_div data-v-7a49a6a4">
+    <van-card tag="{{data.PickUpType}}" num="{{data.count}}" price="{{data.price/100}}" class="_van-card data-v-7a49a6a4 card" thumb="{{data.LogoImgUrl?data.LogoImgUrl+'!w100h100':'/static/images/no-image.png'}}" catchtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}">
+      <view slot="title" class="_view data-v-7a49a6a4 title">#{{data.Id}} {{data.body}}</view>
+      <view slot="tags" class="_view data-v-7a49a6a4 tags">
+        <view class="_div data-v-7a49a6a4"> 合计: <label class="_span data-v-7a49a6a4 price">￥{{data.totalprice/100}}</label></view>
+      </view>
+      <view slot="footer" class="_view data-v-7a49a6a4 footer">
+        <block wx:if="{{type==='user'}}"></block>
+        <block wx:if="{{type==='partner'}}">
+          <van-button size="small" type="primary" wx:if="{{data.IsSuccessPay && !data.IsCheckOut && data.PickUpType === '团长处自提' && data.ProductState !== '可取货'}}" catchtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-button data-v-7a49a6a4">通知取货</van-button>
+        </block>
+        <block wx:if="{{type==='shop'}}">
+          <van-button size="small" type="primary" wx:if="{{data.IsSuccessPay && !data.IsCheckOut && data.PickUpType === '到店自提'}}" class="_van-button data-v-7a49a6a4">通知取货</van-button>
+        </block>
+      </view>
+    </van-card>
+    <van-popup show="{{isShow}}" overlay="true" bindclose="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-popup data-v-7a49a6a4">
+      <demo-block class="_demo-block data-v-7a49a6a4 order_info" title="订单信息">
+        <view style="width:90vw;padding:15px;" class="_view data-v-7a49a6a4">
+          <view wx:if="{{data.CountItem}}" class="_div data-v-7a49a6a4">
+            <view wx:key="index" key="{{index}}" wx:for="{{items}}" wx:for-index="index" wx:for-item="x" class="_view data-v-7a49a6a4">
+              <van-tag size="large" plain type="danger" class="_van-tag data-v-7a49a6a4">数量 {{x.Count}}</van-tag> × {{x.Name}}
+              <van-tag color="#7232dd" plain size="large" class="_van-tag data-v-7a49a6a4">单价 ￥{{x.Price}}</van-tag>
+            </view>
+          </view>
+          <view wx:if="{{data.RealName}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">收货人 姓名</van-tag>
+            {{data.RealName}}
+          </view>
+          <view wx:if="{{data.Address}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">收货人 地址</van-tag>
+            {{data.Address}}
+          </view>
+          <view wx:if="{{data.TelPhone}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">收货人 电话</van-tag>
+            {{data.TelPhone}}
+          </view>
+          <view class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">提货方式</van-tag>
+            {{data.PickUpType}}
+          </view>
+          <view wx:if="{{data.KeFuTel}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">商家客服电话</van-tag>: {{data.KeFuTel}}
+            <van-button size="small" type="primary" bindtap="handleProxy" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-button data-v-7a49a6a4">拨打</van-button>
+          </view>
+          <view wx:if="{{weixinName}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">商家微信号</van-tag> {{weixinName}}
+            <van-button size="small" type="primary" bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-button data-v-7a49a6a4">复制</van-button>
+          </view>
+          <view wx:if="{{data.Comment}}" class="_div data-v-7a49a6a4">
+            <van-tag mark type="primary" class="_van-tag data-v-7a49a6a4">备注</van-tag> {{data.Comment}}
+          </view>
+        </view>
+      </demo-block>
+    </van-popup>
+  </view>
+</template>

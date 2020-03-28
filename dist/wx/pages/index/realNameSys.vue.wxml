@@ -1,0 +1,31 @@
+<import src="/components/picUpload.vue.wxml" /><template name="6ccf6a20">
+  <view class="_div data-v-8e6dc51a container">
+    <view class="_div data-v-8e6dc51a contentBody">
+      <view style="padding:24rpx 32rpx;" class="_div data-v-8e6dc51a">
+        <van-steps steps="{{steps}}" active="0" class="_van-steps data-v-8e6dc51a"></van-steps>
+        <demo-block title="实名认证基本信息" class="_demo-block data-v-8e6dc51a">
+          <van-cell-group class="_van-cell-group data-v-8e6dc51a">
+            <van-field label="姓名" value="{{item.RealName}}" required bindchange="handleProxy" data-name="RealName" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-field data-v-8e6dc51a"></van-field>
+            <van-field label="手机号" disabled value="{{item.Telphone}}" type="number" required bindchange="handleProxy" data-name="Telphone" use-button-slot data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-field data-v-8e6dc51a">
+              <van-button slot="button" size="small" type="primary" bindgetphonenumber="handleProxy" open-type="getPhoneNumber" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-button data-v-8e6dc51a">微信授权获取</van-button>
+            </van-field>
+            <van-field type="number" label="联系电话" value="{{item.TelphoneBackup}}" required bindchange="handleProxy" data-name="TelphoneBackup" use-button-slot data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-field data-v-8e6dc51a">
+              <van-button slot="button" size="small" plain type="primary" bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-button data-v-8e6dc51a">同上</van-button>
+            </van-field>
+          </van-cell-group>
+        </demo-block>
+        <demo-block title="营业执照" wx:if="{{type==1}}" class="_demo-block data-v-8e6dc51a"><template bindonUpdate="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'8'], $root}}" is="c58b0252"></template></demo-block>
+        <demo-block title="身份证-正面" class="_demo-block data-v-8e6dc51a"><template bindonUpdate="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'10'], $root}}" is="c58b0252"></template></demo-block>
+        <demo-block title="身份证-背面" class="_demo-block data-v-8e6dc51a"><template bindonUpdate="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'12'], $root}}" is="c58b0252"></template></demo-block>
+        <demo-block title="手持身份证-正面 照片" class="_demo-block data-v-8e6dc51a"><template bindonUpdate="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'14'], $root}}" is="c58b0252"></template></demo-block>
+        <view style="height:10vh" class="_view data-v-8e6dc51a"></view>
+      </view>
+    </view>
+    <van-goods-action style="z-index:9999;" class="_van-goods-action data-v-8e6dc51a">
+      <van-goods-action-icon icon="chat-o" text="客服" open-type="contact" class="_van-goods-action-icon data-v-8e6dc51a"></van-goods-action-icon>
+      <van-goods-action-button text="下一步" type="primary" bindtap="handleProxy" data-eventid="{{'9'}}" data-comkey="{{$k}}" class="_van-goods-action-button data-v-8e6dc51a"></van-goods-action-button>
+    </van-goods-action>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-8e6dc51a"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-8e6dc51a"></van-toast>
+  </view>
+</template>

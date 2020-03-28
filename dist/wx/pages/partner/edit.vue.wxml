@@ -1,0 +1,26 @@
+<template name="721e1fa8">
+  <view class="_div data-v-82276596 container">
+    <view class="_div data-v-82276596 contentBody">
+      <view style="padding:24rpx 32rpx;" class="_div data-v-82276596">
+        <van-steps steps="{{steps}}" active="{{step}}" class="_van-steps data-v-82276596"></van-steps>
+        <demo-block title="实名认证基本信息" class="_demo-block data-v-82276596">
+          <van-cell-group class="_van-cell-group data-v-82276596">
+            <van-field label="微信号" value="{{item.weixin}}" bindchange="handleProxy" data-name="weixin" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-field data-v-82276596"></van-field>
+            <van-field label="社区名" value="{{item.LocationLabel}}" required bindchange="handleProxy" data-name="LocationLabel" use-button-slot data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-field data-v-82276596">
+              <van-button slot="button" size="small" type="primary" bindtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-button data-v-82276596">搜索</van-button>
+            </van-field>
+            <van-field label="地址" value="{{item.LocationAddress}}" required bindchange="handleProxy" data-name="LocationAddress" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-field data-v-82276596"></van-field>
+          </van-cell-group>
+        </demo-block>
+        <demo-block title="地图" class="_demo-block data-v-82276596"><map wx:if="{{position}}" id="map" subkey="JQDBZ-M7CR6-LAYS5-MCG7D-DCXHK-GJBIV" longitude="{{position.longitude}}" latitude="{{position.latitude}}" scale="16" markers="{{markers}}" bindregionchange="handleProxy" bindend="handleProxy" show-location style="height: 40vh;width:100%;" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_map data-v-82276596"></map></demo-block>
+      </view>
+    </view>
+    <van-goods-action style="z-index:9999;" class="_van-goods-action data-v-82276596">
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact" class="_van-goods-action-icon data-v-82276596"></van-goods-action-icon>
+      <van-goods-action-button text="提交" wx:if="{{!isFinish}}" type="primary" bindtap="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-goods-action-button data-v-82276596"></van-goods-action-button>
+      <van-goods-action-button text="返回首页" wx:if="{{isFinish}}" type="primary" bindtap="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-goods-action-button data-v-82276596"></van-goods-action-button>
+    </van-goods-action>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-82276596"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-82276596"></van-toast>
+  </view>
+</template>

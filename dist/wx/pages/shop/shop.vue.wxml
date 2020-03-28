@@ -1,0 +1,10 @@
+<template name="48b00afc">
+  <view class="_div data-v-1fd5de4a container" style="background:#fff;">
+    <view wx:if="{{shop}}" style="width:100%;" class="_div data-v-1fd5de4a">
+      <image src="{{shop.LogoImageUrl+'!w500'}}" class="_image data-v-1fd5de4a slide-image" mode="aspectFill" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}"></image>
+      <demo-block title="{{shop.ShopName}}" class="_demo-block data-v-1fd5de4a">
+        {{shop.ShopAddress}}
+      </demo-block>
+    </view>
+  </view>
+</template>

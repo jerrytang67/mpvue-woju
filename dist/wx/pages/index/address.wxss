@@ -1,0 +1,9 @@
+@import "../../common/vendor.wxss";
+
+.history.data-v-3b148fba {
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+}
+.history ._van-button.data-v-3b148fba {
+  margin-right: 20rpx;
+}

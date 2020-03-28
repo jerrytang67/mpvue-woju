@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/cart",
+    "pages/index/pay",
+    "pages/index/my",
+    "pages/index/choosePartner",
+    "pages/item/itemDetail",
+    "pages/index/address",
+    "pages/shop/addItem",
+    "pages/logs/logs",
+    "pages/shop/buyItems",
+    "pages/shop/orders",
+    "pages/partner/map",
+    "pages/partner/myBuyItems",
+    "pages/order/orders",
+    "pages/partner/orders",
+    "pages/shop/shop",
+    "pages/index/realNameSys",
+    "pages/index/login",
+    "pages/partner/edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#09BB07",
+    "navigationBarTitleText": "莴聚",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/images/home2.png",
+        "selectedIconPath": "/static/images/home.png"
+      },
+      {
+        "pagePath": "pages/order/orders",
+        "text": "订单",
+        "iconPath": "/static/images/order2.png",
+        "selectedIconPath": "/static/images/order.png"
+      },
+      {
+        "pagePath": "pages/index/my",
+        "text": "我的",
+        "iconPath": "/static/images/my2.png",
+        "selectedIconPath": "/static/images/my.png"
+      }
+    ],
+    "selectedColor": "#FE3112",
+    "color": "#BFBFBF"
+  },
+  "plugins": {
+    "wxparserPlugin": {
+      "version": "0.2.1",
+      "provider": "wx9d4d4ffa781ff3ac"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于莴聚查找你周边的团长"
+    }
+  },
+  "subPackages": []
+}

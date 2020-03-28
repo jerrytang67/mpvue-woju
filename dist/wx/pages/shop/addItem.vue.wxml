@@ -1,0 +1,75 @@
+<import src="/components/picUpload.vue.wxml" /><template name="7ec9cb78">
+  <view class="_div data-v-fd352b02 container">
+    <view class="_div data-v-fd352b02 contentBody">
+      <view style="padding:20rpx 5vw;" class="_div data-v-fd352b02">
+        <demo-block title="滚动图片" class="_demo-block data-v-fd352b02"><template limit="4" bindonUpdate="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" data="{{...$root[$kk+'0'], $root}}" is="c58b0252"></template></demo-block>
+        <demo-block title="商品详情" class="_demo-block data-v-fd352b02">
+          <van-cell-group class="_van-cell-group data-v-fd352b02">
+            <van-field label="商品名称" value="{{item.Name}}" required clearable bindchange="handleProxy" data-name="Name" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+            <van-field label="原价" value="{{item.Price}}" type="digit" required clearable bindchange="handleProxy" data-name="Price" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+            <van-field label="成交价" value="{{item.VipPrice}}" type="digit" required bindchange="handleProxy" data-name="VipPrice" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+            <van-field label="库存" value="{{item.Count}}" type="number" required bindchange="handleProxy" data-name="Count" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+            <van-switch-cell title="是否限购" checked="{{item.LimitBuyCount>0}}" bindchange="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-switch-cell data-v-fd352b02"></van-switch-cell>
+            <van-field label="限购数量" disabled="{{item.LimitBuyCount==0}}" value="{{item.LimitBuyCount}}" type="number" bindchange="handleProxy" data-name="LimitBuyCount" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+          </van-cell-group>
+        </demo-block>
+        <demo-block title="开始时间" class="_demo-block data-v-fd352b02">
+          <van-cell class="_van-cell data-v-fd352b02">
+            <view slot="title" class="_view data-v-fd352b02">
+              <picker mode="date" value="{{item.DateTimeStart}}" start="{{dateStart}}" end="{{dateEnd}}" bindchange="handleProxy" data-name="DateTimeStart" data-eventid="{{'7'}}" data-comkey="{{$k}}" class="_picker data-v-fd352b02">
+                <view class="_view data-v-fd352b02 picker flex-between"><label class="_span data-v-fd352b02">开始时间</label> <label class="_span data-v-fd352b02">{{item.DateTimeStart}}</label></view>
+              </picker>
+            </view>
+          </van-cell>
+        </demo-block>
+        <demo-block title="结束时间" class="_demo-block data-v-fd352b02">
+          <van-cell class="_van-cell data-v-fd352b02">
+            <view slot="title" class="_view data-v-fd352b02">
+              <picker mode="date" value="{{item.DateTimeEnd}}" start="{{dateStart}}" end="{{dateEnd}}" bindchange="handleProxy" data-name="DateTimeEnd" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_picker data-v-fd352b02">
+                <view class="_view data-v-fd352b02 picker flex-between"><label class="_span data-v-fd352b02">结束时间</label> <label class="_span data-v-fd352b02">{{item.DateTimeEnd}}</label></view>
+              </picker>
+            </view>
+          </van-cell>
+        </demo-block>
+        <demo-block title="购前需知" class="_demo-block data-v-fd352b02">
+          <van-cell-group class="_van-cell-group data-v-fd352b02">
+            <van-field value="{{item.NoticeText}}" label="购前需知" type="textarea" required autosize bindchange="handleProxy" data-name="NoticeText" data-eventid="{{'9'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+          </van-cell-group>
+        </demo-block>
+        <demo-block title="状态" class="_demo-block data-v-fd352b02">
+          <van-switch-cell title="是否启用" checked="{{item.State>0}}" bindchange="handleProxy" data-eventid="{{'10'}}" data-comkey="{{$k}}" class="_van-switch-cell data-v-fd352b02"></van-switch-cell>
+        </demo-block>
+        <demo-block title="取货方式" class="_demo-block data-v-fd352b02">
+          <van-radio-group value="{{item.PickUpType}}" bind:change="onRadioChange" class="_van-radio-group data-v-fd352b02">
+            <van-cell-group class="_van-cell-group data-v-fd352b02">
+              <van-cell title="到店自提" clickable data-name="到店自提" bindtap="handleProxy" data-eventid="{{'11'}}" data-comkey="{{$k}}" class="_van-cell data-v-fd352b02">
+                <van-radio name="到店自提" class="_van-radio data-v-fd352b02"></van-radio>
+              </van-cell>
+              <van-cell title="团长处自提" clickable data-name="团长处自提" bindtap="handleProxy" data-eventid="{{'12'}}" data-comkey="{{$k}}" class="_van-cell data-v-fd352b02">
+                <van-radio name="团长处自提" class="_van-radio data-v-fd352b02"></van-radio>
+              </van-cell>
+              <van-cell title="商家送货" clickable data-name="商家送货" bindtap="handleProxy" data-eventid="{{'13'}}" data-comkey="{{$k}}" class="_van-cell data-v-fd352b02">
+                <van-radio name="商家送货" class="_van-radio data-v-fd352b02"></van-radio>
+              </van-cell>
+              <van-cell title="团长提货送货" clickable data-name="团长提货送货" bindtap="handleProxy" data-eventid="{{'14'}}" data-comkey="{{$k}}" class="_van-cell data-v-fd352b02">
+                <van-radio name="团长提货送货" class="_van-radio data-v-fd352b02"></van-radio>
+              </van-cell>
+            </van-cell-group>
+          </van-radio-group>
+        </demo-block>
+        <demo-block title="商品介绍" class="_demo-block data-v-fd352b02">
+          <van-cell-group class="_van-cell-group data-v-fd352b02">
+            <van-field value="{{item.Desc}}" label="商品介绍" type="textarea" required autosize bindchange="handleProxy" data-name="Desc" data-eventid="{{'15'}}" data-comkey="{{$k}}" class="_van-field data-v-fd352b02"></van-field>
+          </van-cell-group>
+        </demo-block>
+      </view>
+      <view style="height:15vh;" class="_div data-v-fd352b02"></view>
+    </view>
+    <van-goods-action style="z-index:9999;" class="_van-goods-action data-v-fd352b02">
+      <van-goods-action-icon icon="chat" text="客服" open-type="contact" class="_van-goods-action-icon data-v-fd352b02"></van-goods-action-icon>
+      <van-goods-action-button text="发布" bindtap="handleProxy" data-eventid="{{'16'}}" data-comkey="{{$k}}" class="_van-goods-action-button data-v-fd352b02"></van-goods-action-button>
+    </van-goods-action>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-fd352b02"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-fd352b02"></van-toast>
+  </view>
+</template>

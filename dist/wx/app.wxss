@@ -1,0 +1,125 @@
+@import "./common/vendor.wxss";
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: #09bb07;
+  margin-bottom: 100rpx;
+}
+.contentBody {
+  background: #fafafa;
+  border-radius: 30rpx 30rpx 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+view.center {
+  display: flex;
+  justify-content: center;
+}
+.headBar {
+  height: 150rpx;
+  width: 100%;
+  color: #fff;
+}
+.headBar ._p {
+  padding-bottom: 10rpx;
+}
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.flex-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.flex-c {
+  display: flex;
+  flex-direction: column;
+}
+.flex-r-ac {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.flex-r {
+  display: flex;
+  flex-direction: row;
+}
+.card .footer van-button {
+  margin-left: 25rpx;
+}
+.px-lg {
+  padding-left: 32rpx;
+  padding-right: 32rpx;
+}
+.py-lg {
+  padding-top: 32rpx;
+  padding-bottom: 32rpx;
+}
+.thumb32 {
+  width: 64rpx !important;
+  height: 64rpx !important;
+}
+.thumb48 {
+  width: 96rpx !important;
+  height: 96rpx !important;
+}
+.thumb64 {
+  width: 128rpx !important;
+  height: 128rpx !important;
+}
+.thumb80 {
+  width: 160rpx !important;
+  height: 160rpx !important;
+}
+.thumb96 {
+  width: 192rpx !important;
+  height: 192rpx !important;
+}
+.thumb128 {
+  width: 256rpx !important;
+  height: 256rpx !important;
+}
+.img-circle {
+  border-radius: 50%;
+}
+.show2line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.van-card {
+  width: 100% !important;
+}
+van-card view.title {
+  font-size: 28rpx;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+van-card view.desc {
+  color: gray;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+ml {
+  margin-left: 20rpx;
+}
+mr {
+  margin-right: 20rpx;
+}

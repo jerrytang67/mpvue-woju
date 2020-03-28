@@ -1,0 +1,57 @@
+<template name="5e6b09c4">
+  <view class="_div data-v-181bccde container">
+    <view style="background:#fff;width:100vw;" class="_div data-v-181bccde">
+      <van-tabs active="0" bindchange="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_van-tabs data-v-181bccde">
+        <van-tab title="我的商品" class="_van-tab data-v-181bccde">
+          <van-card index="{{index}}" lazy-load="true" wx:key="x" key="{{x}}" desc="{{x.BuyItem.ShareDesc}}" title="{{x.BuyItem.Name}}" origin-price="{{x.BuyItem.Price}}" price="{{x.BuyItem.VipPrice}}" wx:for="{{myBuyItems}}" wx:for-index="index" wx:for-item="x" class="_van-card data-v-181bccde">
+            <view slot="thumb" class="_view data-v-181bccde">
+              <image style="width:90px;height:90px;" mode="aspectFill" src="{{x.BuyItem.LogoList[0]+'!w100h100'}}" lazy-load="true" catchtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" class="_image data-v-181bccde"></image>
+            </view>
+            <view slot="title" class="_view data-v-181bccde title">{{x.BuyItem.Name}}</view>
+            <view slot="desc" class="_view data-v-181bccde desc" wx:if="{{x.BuyItem.ShareDesc}}">{{x.BuyItem.ShareDesc}}</view>
+            <view slot="footer" class="_view data-v-181bccde">
+              <view class="_view data-v-181bccde">
+                <van-button size="small" type="primary" catchtap="handleProxy" wx:if="{{x.State!==2}}" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-181bccde">置顶</van-button>
+                <van-button size="small" type="primary" catchtap="handleProxy" wx:if="{{x.State===2}}" data-eventid="{{'2_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-181bccde">取消置顶</van-button>
+                <van-button size="small" type="danger" catchtap="handleProxy" style="margin-left:10px;" data-eventid="{{'3_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-181bccde">删除</van-button>
+              </view>
+            </view>
+            <view slot="tags" class="_view data-v-181bccde">
+              <van-switch size="45rpx" checked="{{x.State?true:false}}" bindchange="handleProxy" data-eventid="{{'4_'+index}}" data-comkey="{{$k}}" class="_van-switch data-v-181bccde"></van-switch>
+            </view>
+          </van-card>
+        </van-tab>
+        <van-tab title="店铺" class="_van-tab data-v-181bccde">
+          <view style="display:flex;flex-direction:row;justify-content:start;" class="_div data-v-181bccde">
+            <scroll-view scroll-y style="height: calc(100vh - 44px); width:25vw;" class="_scroll-view data-v-181bccde">
+              <van-badge-group active="{{selectShopIndex}}" bindchange="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-badge-group data-v-181bccde">
+                <van-badge title="莴聚公告" class="_van-badge data-v-181bccde"></van-badge>
+                <van-badge wx:key="x" key="{{x}}" title="{{x.ShopName}}" wx:for="{{partnerShops}}" wx:for-index="index" wx:for-item="x" class="_van-badge data-v-181bccde"></van-badge>
+              </van-badge-group>
+            </scroll-view>
+            <view style="width:75vw;" class="_view data-v-181bccde">
+              <view class="_div data-v-181bccde">
+                <view style="padding:25rpx;font-size:32rpx" wx:if="{{selectShopIndex>0}}" class="_div data-v-181bccde">
+                  <image style="width:50px;height:50px;border-radius:50%;" src="{{currentShop.LogoImageUrl+'!w100h100'}}" class="_image data-v-181bccde"></image>
+                  <view class="_p data-v-181bccde">{{currentShop.ShopName}}</view>
+                  <view class="_p data-v-181bccde">地址:{{currentShop.ShopAddress}}</view>
+                  <view class="_p data-v-181bccde">电话:{{currentShop.ShopKeFuTel}}</view>
+                </view>
+                <van-card catchtap="handleProxy" lazy-load="true" wx:key="x" key="{{x}}" thumb="{{x.LogoList[0]+'!w100h100'}}" origin-price="{{x.Price}}" price="{{x.VipPrice}}" data-eventid="{{'7_'+index}}" data-comkey="{{$k}}" wx:for="{{items}}" wx:for-index="index" wx:for-item="x" class="_van-card data-v-181bccde">
+                  <view slot="footer" class="_view data-v-181bccde">
+                    <van-button size="small" type="danger" catchtap="handleProxy" data-eventid="{{'6_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-181bccde">上架</van-button>
+                  </view>
+                  <view slot="title" class="_view data-v-181bccde title">{{x.Name}}</view>
+                  <view slot="desc" class="_view data-v-181bccde desc" wx:if="{{x.ShareDesc}}">{{x.ShareDesc}}</view>
+                  <view slot="tags" class="_view data-v-181bccde"></view>
+                </van-card>
+              </view>
+            </view>
+          </view>
+        </van-tab>
+      </van-tabs>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-181bccde"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-181bccde"></van-toast>
+  </view>
+</template>

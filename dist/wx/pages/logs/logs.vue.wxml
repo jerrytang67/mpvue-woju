@@ -1,0 +1,6 @@
+<template name="4f4bf622">
+  <view class="_div data-v-63b90c7b">
+    <van-dialog id="van-dialog" class="_van-dialog data-v-63b90c7b"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-63b90c7b"></van-toast>
+  </view>
+</template>

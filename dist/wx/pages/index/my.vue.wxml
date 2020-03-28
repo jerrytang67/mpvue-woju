@@ -1,0 +1,71 @@
+<template name="24629e00">
+  <view class="_div data-v-aa753766 container">
+    <image wx:if="{{userInfo.userInfo}}" src="{{userInfo.userInfo.avatarUrl}}" style="width:30vw;height:30vw;border-radius:50%;margin-bottom:5rpx;" class="_image data-v-aa753766"></image>
+    <view class="_view data-v-aa753766 contentBody">
+      <view style="padding:20rpx 5vw;" class="_div data-v-aa753766">
+        <demo-block title="我的信息" class="_demo-block data-v-aa753766">
+          <van-panel class="_van-panel data-v-aa753766">
+            <view slot="header" style="padding:1rem 2rem;text-align:center" class="_view data-v-aa753766">
+              <view wx:if="{{userInfo.userInfo}}" class="_view data-v-aa753766">{{userInfo.userInfo.nickName}}</view>
+              <image style="width:30vw;height:30vw;margin:10rpx auto;" src="{{qr}}" wx:if="{{qr}}" class="_image data-v-aa753766"></image>
+              <view class="_view data-v-aa753766">
+                <van-button bindtap="handleProxy" type="primary" size="small" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-button data-v-aa753766">显示取货码</van-button>
+              </view>
+            </view>
+            <view class="_view data-v-aa753766">
+              <van-tabbar active="{{active}}" bindchange="handleProxy" fixed="{{false}}" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-tabbar data-v-aa753766">
+                <van-tabbar-item icon="gold-coin" bindtap="handleProxy" info="{{waitForPayCount?waitForPayCount:''}}" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">待付款</van-tabbar-item>
+                <van-tabbar-item icon="chat" bindtap="handleProxy" info="{{paidOrderCount? paidOrderCount:''}}" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">已付款</van-tabbar-item>
+                <van-tabbar-item icon="records" bindtap="handleProxy" info="{{canTakeOrderCount?canTakeOrderCount:''}}" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">可取货</van-tabbar-item>
+                <van-tabbar-item icon="shop" bindtap="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">已完成</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
+        <demo-block title="其它设置" class="_demo-block data-v-aa753766">
+          <van-switch-cell title="接收通知" checked="{{noticeChk}}" bindchange="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-switch-cell data-v-aa753766"></van-switch-cell>
+          <van-switch-cell wx:if="{{partner && partner.State ==='成功'}}" title="隐藏金额" checked="{{showMoneyChk}}" bindchange="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}" class="_van-switch-cell data-v-aa753766"></van-switch-cell>
+        </demo-block>
+        <demo-block title="我的团长信息" wx:if="{{partner && partner.State ==='成功' }}" class="_demo-block data-v-aa753766">
+          <van-panel use-footer-slot class="_van-panel data-v-aa753766 partner">
+            <view slot="header" class="_view data-v-aa753766 header">
+              <view class="_div data-v-aa753766">团长姓名:{{partner.Realname}}</view>
+              <view class="_div data-v-aa753766">团长电话:{{partner.Phone}}</view>
+              <view class="_div data-v-aa753766 flex-between" wx:if="{{showMoneyChk}}">
+                <view class="_div data-v-aa753766">可提现: <label class="_span data-v-aa753766 price">￥{{partner.AvblBalance}}</label></view>
+                <view class="_div data-v-aa753766">不可提:<label class="_span data-v-aa753766 price">￥{{partner.UnavblBalance}}</label></view>
+                <view class="_div data-v-aa753766">已提:<label class="_span data-v-aa753766 price">￥{{partner.TotalWithdrawals}}</label></view>
+              </view>
+            </view>
+            <view style="padding:0 20rpx;" slot="footer" class="_view data-v-aa753766">
+              <van-tabbar active="{{active}}" bindchange="handleProxy" fixed="{{false}}" data-eventid="{{'12'}}" data-comkey="{{$k}}" class="_van-tabbar data-v-aa753766">
+                <van-tabbar-item icon="location-o" bindtap="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">打开地图</van-tabbar-item>
+                <van-tabbar-item icon="info-o" bindtap="handleProxy" data-eventid="{{'9'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">编辑信息</van-tabbar-item>
+                <van-tabbar-item icon="upgrade" bindtap="handleProxy" data-eventid="{{'10'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">上架商品</van-tabbar-item>
+                <van-tabbar-item icon="cart-o" bindtap="handleProxy" data-eventid="{{'11'}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">团长的订单</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
+        <demo-block title="我的店铺管理" wx:if="{{myShops && myShops.length > 0}}" class="_demo-block data-v-aa753766">
+          <van-panel wx:key="shop" key="{{shop}}" use-footer-slot wx:for="{{myShops}}" wx:for-index="index" wx:for-item="shop" class="_van-panel data-v-aa753766">
+            <view slot="header" style="display:flex; align-items:center;padding:20rpx; flex-direction:row;" class="_view data-v-aa753766">
+              <image src="{{shop.LogoImageUrl+'!w100h100'}}" style="width:80rpx;height:80rpx;border-radius:8rpx;" class="_image data-v-aa753766"></image> <label style="margin-left:1rem;" class="_span data-v-aa753766">
+                {{shop.ShopName}}
+              </label>
+            </view>
+            <view slot="footer" class="_view data-v-aa753766">
+              <van-tabbar active="{{active}}" bindchange="handleProxy" fixed="{{false}}" data-eventid="{{'16_'+index}}" data-comkey="{{$k}}" class="_van-tabbar data-v-aa753766">
+                <van-tabbar-item icon="goods-collect-o" bindtap="handleProxy" data-eventid="{{'13_'+index}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">商品列表</van-tabbar-item>
+                <van-tabbar-item icon="orders-o" bindtap="handleProxy" data-eventid="{{'14_'+index}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">查看订单</van-tabbar-item>
+                <van-tabbar-item icon="add-o" bindtap="handleProxy" data-eventid="{{'15_'+index}}" data-comkey="{{$k}}" class="_van-tabbar-item data-v-aa753766">新建商品</van-tabbar-item>
+              </van-tabbar>
+            </view>
+          </van-panel>
+        </demo-block>
+      </view>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-aa753766"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-aa753766"></van-toast>
+  </view>
+</template>

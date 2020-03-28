@@ -1,0 +1,18 @@
+<template name="c58b0252">
+  <view class="_view data-v-e344b1ea pic-upload">
+    <block wx:if="{{limit===1}}">
+      <view class="_div data-v-e344b1ea upload-btn" wx:if="{{!data}}" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" style=" {{('width:' + (width || '120rpx') + ';' + 'height:' + (height || '120rpx') + ';')}}"><label class="_span data-v-e344b1ea upload-add">+</label></view>
+      <view class="_div data-v-e344b1ea box" wx:if="{{data}}">
+        <image catchtap="handleProxy" src="{{data+'!w100h100'}}" class="_img data-v-e344b1ea img" data-eventid="{{'1'}}" data-comkey="{{$k}}" style=" {{('width:' + (width || '120rpx') + ';' + 'height:' + (height || '120rpx') + ';')}}"></image>
+        <image src="/static/images/close.png" background-size="cover" class="_image data-v-e344b1ea box__close" catchtap="handleProxy" data-eventid="{{'2'}}" data-comkey="{{$k}}"></image>
+      </view>
+    </block>
+    <block wx:if="{{limit>1}}">
+      <view wx:if="{{data && data.length<limit}}" class="_div data-v-e344b1ea upload-btn" bindtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" style=" {{('width:' + (width || '120rpx') + ';' + 'height:' + (height || '120rpx') + ';')}}"><label class="_span data-v-e344b1ea upload-add">+</label></view>
+      <view wx:key="src" key="{{src}}" class="_div data-v-e344b1ea box" wx:for="{{data}}" wx:for-index="index" wx:for-item="src">
+        <image bindtap="handleProxy" src="{{src+'!w100h100'}}" class="_img data-v-e344b1ea img" data-eventid="{{'4_'+index}}" data-comkey="{{$k}}" style=" {{('width:' + (width || '120rpx') + ';' + 'height:' + (height || '120rpx') + ';')}}"></image>
+        <image src="/static/images/close.png" background-size="cover" class="_image data-v-e344b1ea box__close" catchtap="handleProxy" data-eventid="{{'5_'+index}}" data-comkey="{{$k}}"></image>
+      </view>
+    </block>
+  </view>
+</template>

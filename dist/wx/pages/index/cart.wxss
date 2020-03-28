@@ -1,0 +1,5 @@
+@import "../../common/vendor.wxss";
+
+.van-submit-bar__bar--safe.data-v-7e699981 {
+  padding-bottom: 0 !important;
+}

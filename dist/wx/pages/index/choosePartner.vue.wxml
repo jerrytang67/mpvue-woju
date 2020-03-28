@@ -1,0 +1,28 @@
+<template name="1b87448d">
+  <view class="_div data-v-4fe16f20 container">
+    <view class="_view data-v-4fe16f20 headBar">
+      <view style="padding:0 20rpx" class="_div data-v-4fe16f20">
+        <view class="_p data-v-4fe16f20">您所在的当位置</view>
+        <view class="_p data-v-4fe16f20">
+          {{position.address}}
+          <van-button type="default" bindtap="handleProxy" size="small" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-button data-v-4fe16f20">修改位置</van-button>
+        </view>
+      </view>
+    </view>
+    <view class="_view data-v-4fe16f20 contentBody">
+      <view class="_div data-v-4fe16f20 card-list" style="padding:20rpx 30rpx" wx:if="{{partner_list.length>0}}">
+        <van-card wx:key="p" key="{{p}}" thumb="{{p.headimgurl}}" bindtap="handleProxy" tag="团长" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" wx:for="{{partner_list}}" wx:for-index="index" wx:for-item="p" class="_van-card data-v-4fe16f20">
+          <view slot="title" class="_view data-v-4fe16f20 title">{{p.nickname}}</view>
+          <view slot="desc" class="_view data-v-4fe16f20 desc" style="font-size:34rpx;color:red;">社群:{{p.LocationLabel}}</view>
+          <view slot="tags" class="_view data-v-4fe16f20">取货地址{{p.LocationAddress}}</view>
+          <view slot="footer" class="_view data-v-4fe16f20">
+            <van-tag type="primary" class="_van-tag data-v-4fe16f20">距您 {{ p.Distance/1000 >1?p.Distance/1000+'公里':p.Distance+'米' }}</van-tag>
+          </view>
+        </van-card>
+        <view wx:if="{{partner_list.length==0}}" class="_view data-v-4fe16f20">您当前位置三公里内没有团长,可以手动更换位置</view>
+      </view>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-4fe16f20"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-4fe16f20"></van-toast>
+  </view>
+</template>

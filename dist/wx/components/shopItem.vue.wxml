@@ -1,0 +1,13 @@
+<template name="b93d55a6">
+  <view class="_view data-v-fc43530e item-wrap" catchtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}">
+    <image src="{{img}}" class="_image data-v-fc43530e item"></image> <text class="_text data-v-fc43530e info">{{pickUpType}}</text> <text class="_text data-v-fc43530e title">{{title}}</text>
+    <view class="_view data-v-fc43530e origin-price-wrap"><text class="_text data-v-fc43530e counter-price">专柜价：</text> <text class="_text data-v-fc43530e origin-price">¥{{price}}</text></view>
+    <view class="_view data-v-fc43530e block">
+      <view class="_view data-v-fc43530e money-wrap"><text class="_text data-v-fc43530e rmb">¥</text> <text class="_text data-v-fc43530e money">{{vipPrice}}</text></view>
+    </view>
+    <view class="_view data-v-fc43530e grid">
+      <view class="_view data-v-fc43530e col-1"></view>
+      <view class="_view data-v-fc43530e col-2"><text class="_text data-v-fc43530e tag">立即购买</text></view>
+    </view>
+  </view>
+</template>

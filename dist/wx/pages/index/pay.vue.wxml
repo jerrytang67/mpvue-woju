@@ -1,0 +1,68 @@
+<template name="45c60004">
+  <view class="_div data-v-27a5b657 container">
+    <view class="_div data-v-27a5b657 contentBody">
+      <van-cell-group class="_van-cell-group data-v-27a5b657">
+        <van-cell center="true" title="{{'团长:'+my_partner.nickname}}" class="_van-cell data-v-27a5b657">
+          <image slot="right-icon" src="{{my_partner.headimgurl}}" style="border-radius:50%;width:80rpx;height:80rpx;" class="_img data-v-27a5b657"></image>
+        </van-cell>
+        <van-cell title="{{'团长地址:'+my_partner.LocationAddress}}" icon="location" is-link class="_van-cell data-v-27a5b657">
+          <van-icon slot="right-icon" name="search" class="_van-icon data-v-27a5b657 van-cell__right-icon"></van-icon>
+        </van-cell>
+      </van-cell-group>
+      <view wx:key="index" key="{{index}}" wx:for="{{cartItems}}" wx:for-index="index" wx:for-item="x" class="_div data-v-27a5b657">
+        <van-card lazy-load="true" thumb="{{x.BuyItem.LogoList[0]+'!w100h100'}}" num="{{x.Count}}" origin-price="{{x.BuyItem.Price}}" price="{{x.BuyItem.VipPrice}}" class="_van-card data-v-27a5b657">
+          <view slot="title" class="_view data-v-27a5b657 title">{{x.BuyItem.Name}}</view>
+          <view slot="desc" class="_view data-v-27a5b657 desc" wx:if="{{x.BuyItem.ShareDesc}}">{{x.BuyItem.ShareDesc}}</view>
+          <view slot="footer" class="_view data-v-27a5b657">
+            <view wx:if="{{x.BuyItem.CountItems && x.BuyItem.CountItems.length>0}}" class="_view data-v-27a5b657">
+              <view style="margin:20rpx 0;" class="_div data-v-27a5b657 flex-between" wx:key="index2" key="{{index2}}" wx:for="{{x.BuyItem.CountItems}}" wx:for-index="index2" wx:for-item="y">
+                <van-tag plain size="large" type="primary" class="_van-tag data-v-27a5b657">{{y.Name}} ￥{{y.Price}}元</van-tag>
+                <van-stepper min="{{0}}" value="{{y.Count}}" bindplus="handleProxy" bindminus="handleProxy" data-eventid="{{'0_'+index+'-'+index2}}" data-comkey="{{$k}}" class="_van-stepper data-v-27a5b657"></van-stepper>
+              </view>
+            </view>
+            <view wx:else class="_view data-v-27a5b657">
+              <van-stepper wx:if="{{x.BuyItem.LimitBuyCount>0}}" min="{{1}}" max="{{x.BuyItem.LimitBuyCount}}" value="{{x.Count}}" bindplus="handleProxy" bindminus="handleProxy" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" class="_van-stepper data-v-27a5b657"></van-stepper>
+              <van-stepper wx:if="{{x.BuyItem.LimitBuyCount===0}}" min="{{1}}" value="{{x.Count}}" bindplus="handleProxy" bindminus="handleProxy" data-eventid="{{'2_'+index}}" data-comkey="{{$k}}" class="_van-stepper data-v-27a5b657"></van-stepper>
+            </view>
+          </view>
+          <view slot="tags" class="_view data-v-27a5b657">
+            <van-tag round type="primary" wx:if="{{x.BuyItem.LimitBuyCount==0}}" class="_van-tag data-v-27a5b657">不限购</van-tag>
+            <van-tag round type="primary" wx:else class="_van-tag data-v-27a5b657">每人限购{{x.BuyItem.LimitBuyCount}}件</van-tag>
+          </view>
+        </van-card>
+        <van-notice-bar text="{{x.BuyItem.NoticeText}}" wx:if="{{x.BuyItem.NoticeText}}" class="_van-notice-bar data-v-27a5b657"></van-notice-bar>
+      </view>
+      <van-submit-bar disabled="{{totalVipPrice<=0}}" price="{{totalVipPrice*100}}" button-type="primary" button-text="微信支付" bindsubmit="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-submit-bar data-v-27a5b657">
+        <van-tag type="danger" wx:if="{{youhuan>0}}" class="_van-tag data-v-27a5b657">省 {{youhuan}}元</van-tag>
+      </van-submit-bar>
+      <demo-block title="收货方式" class="_demo-block data-v-27a5b657">
+        <van-cell title="{{cartItems[0].BuyItem.PickUpType}}" class="_van-cell data-v-27a5b657"></van-cell>
+      </demo-block>
+      <demo-block title="收货地址" wx:if="{{cartItems[0].BuyItem.PickUpType=='团长提货送货'||cartItems[0].BuyItem.PickUpType=='商家送货'}}" class="_demo-block data-v-27a5b657">
+        <van-cell-group class="_van-cell-group data-v-27a5b657">
+          <van-cell title="{{address||'选择收货地址'}}" clickable icon="location" bindtap="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657">
+            <van-icon slot="right-icon" name="search" class="_van-icon data-v-27a5b657 van-cell__right-icon"></van-icon>
+          </van-cell>
+          <van-cell title="{{'联系电话: '+telphone}}" clickable icon="phone" wx:if="{{telphone}}" bindtap="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657"></van-cell>
+          <van-cell title="{{'收货人: '+userName}}" clickable icon="user" wx:if="{{userName}}" bindtap="handleProxy" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657"></van-cell>
+        </van-cell-group>
+      </demo-block>
+      <demo-block title="联系方式" wx:if="{{cartItems[0].BuyItem.PickUpType=='到店自提'||cartItems[0].BuyItem.PickUpType=='团长处自提'}}" class="_demo-block data-v-27a5b657">
+        <van-cell-group class="_van-cell-group data-v-27a5b657">
+          <van-cell title="{{address||'选择联系方式'}}" clickable icon="location" bindtap="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657">
+            <van-icon slot="right-icon" name="search" class="_van-icon data-v-27a5b657 van-cell__right-icon"></van-icon>
+          </van-cell>
+          <van-cell title="{{'联系电话: '+telphone}}" clickable icon="phone" wx:if="{{telphone}}" bindtap="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657"></van-cell>
+          <van-cell title="{{'联系人: '+userName}}" clickable icon="user" wx:if="{{userName}}" bindtap="handleProxy" data-eventid="{{'9'}}" data-comkey="{{$k}}" class="_van-cell data-v-27a5b657"></van-cell>
+        </van-cell-group>
+      </demo-block>
+      <demo-block title="备注" style="margin-bottom:20vh" class="_demo-block data-v-27a5b657">
+        <van-cell-group class="_van-cell-group data-v-27a5b657">
+          <van-field value="{{comment}}" label="备注" type="textarea" required autosize bindchange="handleProxy" data-name="comment" data-eventid="{{'10'}}" data-comkey="{{$k}}" class="_van-field data-v-27a5b657"></van-field>
+        </van-cell-group>
+      </demo-block>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-27a5b657"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-27a5b657"></van-toast>
+  </view>
+</template>

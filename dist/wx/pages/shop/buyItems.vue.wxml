@@ -1,0 +1,23 @@
+<template name="53031066">
+  <view class="_div data-v-b8495b82 container">
+    <view class="_div data-v-b8495b82 contentBody">
+      <view style="padding:20rpx;" class="_div data-v-b8495b82">
+        <van-card class="_van-card data-v-b8495b82 card" catchtap="handleProxy" lazy-load="true" wx:key="x" key="{{x}}" tag="{{x.Type}}" thumb="{{x.LogoList[0]+'!w100h100'}}" origin-price="{{x.Price}}" price="{{x.VipPrice}}" data-eventid="{{'2_'+index}}" data-comkey="{{$k}}" wx:for="{{shopBuyItems}}" wx:for-index="index" wx:for-item="x">
+          <view slot="footer" class="_view data-v-b8495b82 footer">
+            <van-button size="small" type="primary" catchtap="handleProxy" data-eventid="{{'0_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-b8495b82">编辑</van-button>
+            <van-button size="small" type="danger" catchtap="handleProxy" data-eventid="{{'1_'+index}}" data-comkey="{{$k}}" class="_van-button data-v-b8495b82">删除</van-button>
+          </view>
+          <view slot="title" class="_view data-v-b8495b82 title">{{x.Name}}</view>
+          <view slot="desc" class="_view data-v-b8495b82 desc" wx:if="{{x.ShareDesc}}">{{x.ShareDesc}}</view>
+          <view slot="tags" style="margin-top:24rpx;" class="_view data-v-b8495b82">
+            <van-tag round type="primary" class="_van-tag data-v-b8495b82">{{x.PickUpType}}</van-tag>
+            <van-tag round type="primary" wx:if="{{x.LimitBuyCount==0}}" class="_van-tag data-v-b8495b82">不限购</van-tag>
+            <van-tag round type="primary" wx:else class="_van-tag data-v-b8495b82">限购{{x.LimitBuyCount}}件</van-tag>
+          </view>
+        </van-card>
+      </view>
+    </view>
+    <van-toast id="van-toast" class="_van-toast data-v-b8495b82"></van-toast>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-b8495b82"></van-dialog>
+  </view>
+</template>

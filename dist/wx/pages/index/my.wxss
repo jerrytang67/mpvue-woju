@@ -1,0 +1,14 @@
+@import "../../common/vendor.wxss";
+
+.van-tabbar-item--active.data-v-aa753766 {
+  color: #09bb07 !important;
+}
+.partner .header.data-v-aa753766 {
+  font-size: 24rpx;
+  padding: 32rpx 40rpx;
+  line-height: 48rpx;
+}
+.partner .header .price.data-v-aa753766 {
+  color: #ff4136;
+  font-size: 32rpx;
+}

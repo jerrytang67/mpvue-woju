@@ -1,0 +1,40 @@
+<import src="/components/topItem.vue.wxml" />
+<import src="/components/shopItem.vue.wxml" /><template name="2bca322e">
+  <view class="_div data-v-14959fc1 container">
+    <view class="_view data-v-14959fc1 headBar">
+      <van-row wx:if="{{my_partner.Id}}" class="_van-row data-v-14959fc1">
+        <van-col span="{{6}}" class="_van-col data-v-14959fc1">
+          <image class="_img data-v-14959fc1 userinfo-avatar" wx:if="{{my_partner.headimgurl}}" src="{{my_partner.headimgurl}}" background-size="cover"></image>
+        </van-col>
+        <van-col span="{{14}}" class="_van-col data-v-14959fc1">
+          <view style="font-size:.7rem;" class="_p data-v-14959fc1"><text class="_text data-v-14959fc1">团长:{{my_partner.nickname}}</text></view>
+          <view style="font-weight:500;" class="_p data-v-14959fc1"><text class="_text data-v-14959fc1">{{my_partner.LocationLabel}}</text></view>
+          <view style="font-size:.7rem;" class="_p data-v-14959fc1"><text class="_text data-v-14959fc1">{{my_partner.LocationAddress}}</text></view>
+        </van-col>
+        <van-col span="{{4}}" class="_van-col data-v-14959fc1">
+          <view style="padding-top:20rpx;" class="_view data-v-14959fc1">
+            <van-button square type="primary" open-type="getUserInfo" bindgetuserinfo="handleProxy" bindtap="handleProxy" style="border: none;background:none;margin-top: 20rpx" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_van-button data-v-14959fc1">
+              <van-icon name="arrow" class="_van-icon data-v-14959fc1"></van-icon>
+            </van-button>
+          </view>
+        </van-col>
+      </van-row>
+      <view class="_view data-v-14959fc1 center" wx:if="{{!my_partner.Id}}">
+        <van-button style="margin:0 auto;" type="danger" open-type="getUserInfo" bindgetuserinfo="handleProxy" bindtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}" class="_van-button data-v-14959fc1">请先选择团长</van-button>
+      </view>
+    </view>
+    <view class="_view data-v-14959fc1 contentBody" style="background-color:#fff">
+      <view class="_view data-v-14959fc1 flex-between">
+        <image src="/static/images/top1.png" mode="aspectFit" catchtap="handleProxy" style="height:25vw;border-radius:15px 0 0 0;" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_image data-v-14959fc1"></image>
+        <image src="/static/images/top2.png" mode="aspectFit" catchtap="handleProxy" style="height:25vw;border-radius:0 15px 0 0;" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_image data-v-14959fc1"></image>
+      </view>
+      <van-notice-bar scrollable="{{true}}" text="{{my_partner.NoticeContent}}" wx:if="{{my_partner.NoticeContent}}" class="_van-notice-bar data-v-14959fc1"></van-notice-bar>
+    </view>
+    <view style="width:100vw;background-color:#fff;" class="_view data-v-14959fc1">
+      <view class="_view data-v-14959fc1 top-list" style="margin-top:15rpx;margin-left:2.5vw;width:95vw;"><template wx:key="x" data="{{...$root[$kk+'8_'+index], $root}}" is="9cfa8198" wx:for="{{topList}}" wx:for-index="index" wx:for-item="x"></template></view>
+      <view class="_view data-v-14959fc1 card-list" style="margin-top:15rpx;margin-left:2.5vw;width:95vw;display:flex;flex-wrap:wrap;justify-content:space-between;"><template wx:key="x" data="{{...$root[$kk+'9_'+index], $root}}" is="b93d55a6" wx:for="{{buyItems}}" wx:for-index="index" wx:for-item="x"></template></view>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-14959fc1"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-14959fc1"></van-toast>
+  </view>
+</template>

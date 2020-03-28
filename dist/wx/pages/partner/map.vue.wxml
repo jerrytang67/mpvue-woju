@@ -1,0 +1,6 @@
+<template name="2a269d2e">
+  <view class="_div data-v-7d73ebfe container" style="background:#fff;"><map wx:if="{{position}}" id="map" subkey="JQDBZ-M7CR6-LAYS5-MCG7D-DCXHK-GJBIV" longitude="{{position.longitude}}" latitude="{{position.latitude}}" scale="18" controls="{{controls}}" markers="{{markers}}" polyline="{{polyline}}" bindcontroltap="handleProxy" bindmarkertap="handleProxy" bindtap="handleProxy" bindregionchange="handleProxy" show-location style="width: 100vw; height: 100vh;" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_map data-v-7d73ebfe"></map>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-7d73ebfe"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-7d73ebfe"></van-toast>
+  </view>
+</template>

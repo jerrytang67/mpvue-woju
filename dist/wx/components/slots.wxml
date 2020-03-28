@@ -1,0 +1,4 @@
+<import src="/components/topItem.vue.wxml" />
+<import src="/components/shopItem.vue.wxml" />
+<import src="/components/picUpload.vue.wxml" />
+<import src="/components/order.vue.wxml" />

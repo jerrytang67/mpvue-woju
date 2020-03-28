@@ -1,0 +1,14 @@
+<import src="/components/order.vue.wxml" /><template name="5c8d4583">
+  <view class="_div data-v-a2f37860 container">
+    <view style="width:100%;background:#fff;" class="_div data-v-a2f37860">
+      <van-tabs active="{{selectIndex}}" class="_van-tabs data-v-a2f37860">
+        <van-tab title="{{'未付款 '+orderNotPayCount}}" class="_van-tab data-v-a2f37860"><template wx:key="x" type="partner" data="{{...$root[$kk+'0_'+index], $root}}" is="7e13ca7a" wx:for="{{orderNotPay}}" wx:for-index="index" wx:for-item="x"></template></van-tab>
+        <van-tab title="{{'已付款 '+orderIsPayCount}}" class="_van-tab data-v-a2f37860"><template wx:key="x" type="partner" data="{{...$root[$kk+'2_'+index], $root}}" is="7e13ca7a" wx:for="{{orderIsPay}}" wx:for-index="index" wx:for-item="x"></template></van-tab>
+        <van-tab title="{{'待取货 '+orderCanTakeCount}}" class="_van-tab data-v-a2f37860"><template wx:key="x" type="partner" data="{{...$root[$kk+'4_'+index], $root}}" is="7e13ca7a" wx:for="{{orderCanTake}}" wx:for-index="index" wx:for-item="x"></template></van-tab>
+        <van-tab title="{{'已完成 ' +orderFinishCount}}" class="_van-tab data-v-a2f37860"><template wx:key="x" type="partner" data="{{...$root[$kk+'6_'+index], $root}}" is="7e13ca7a" wx:for="{{orderFinish}}" wx:for-index="index" wx:for-item="x"></template></van-tab>
+      </van-tabs>
+    </view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-a2f37860"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-a2f37860"></van-toast>
+  </view>
+</template>

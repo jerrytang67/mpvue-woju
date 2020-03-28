@@ -1,0 +1,91 @@
+<template name="4b60a913">
+  <view class="_div data-v-71a04ea8 container" style="background:#fff;">
+    <view style="position:relative;" class="_div data-v-71a04ea8">
+      <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="_swiper data-v-71a04ea8 swiper">
+        <block wx:key="x" key="{{x}}" wx:for="{{currentItem.LogoList}}" wx:for-index="$index" wx:for-item="x">
+          <swiper-item class="_swiper-item data-v-71a04ea8">
+            <image src="{{x+'!w500'}}" catchtap="handleProxy" data-eventid="{{'0_'+$index}}" data-comkey="{{$k}}" class="_img data-v-71a04ea8"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="_div data-v-71a04ea8 locationLabel flex-r-ac">
+        <image class="_img data-v-71a04ea8 img-circle thumb48" src="{{my_partner.headimgurl}}" style="margin-right:5px;border:2px solid #fff;" catchtap="handleProxy" data-eventid="{{'1'}}" data-comkey="{{$k}}"></image>
+        <van-tag round type="danger" class="_van-tag data-v-71a04ea8 locationLabel-tag"><label style="font-size:28rpx;padding:5rpx 10rpx;" class="_span data-v-71a04ea8">{{my_partner.LocationLabel}} 社区</label></van-tag>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 details-msg">
+      <view class="_view data-v-71a04ea8 details-title">{{currentItem.Name}}</view>
+      <view class="_view data-v-71a04ea8 details_pinfo"><text class="_text data-v-71a04ea8 price">￥{{currentItem.VipPrice}}</text></view>
+      <view class="_view data-v-71a04ea8 baoyou">
+        <van-tag round type="primary" class="_van-tag data-v-71a04ea8">{{currentItem.PickUpType}}</van-tag>
+        <van-tag round type="primary" wx:if="{{currentItem.LimitBuyCount==0}}" class="_van-tag data-v-71a04ea8">不限购</van-tag>
+        <van-tag round type="primary" wx:else class="_van-tag data-v-71a04ea8">每人限购{{currentItem.LimitBuyCount}}件</van-tag>
+        <view style="float:right;" class="_div data-v-71a04ea8"><button type="default" size="mini" round bindtap="handleProxy" data-eventid="{{'2'}}" data-comkey="{{$k}}" class="_button data-v-71a04ea8">海报</button></view>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 order_num">
+      <view class="_view data-v-71a04ea8 doc"> 库存: <text class="_text data-v-71a04ea8 num">{{currentItem.Count}}件</text></view>
+      <view class="_view data-v-71a04ea8 doc" wx:if="{{currentItem.SoldCount>5}}"> 订单中: <text class="_text data-v-71a04ea8 num">已拼{{currentItem.SoldCount}}件</text></view>
+    </view>
+    <view wx:if="{{currentItem.CountItems && currentItem.CountItems.length>0}}" style="width:90vw" class="_view data-v-71a04ea8">
+      <view wx:key="x" key="{{x}}" style="margin:20rpx 0;" wx:for="{{currentItem.CountItems}}" wx:for-index="index" wx:for-item="x" class="_view data-v-71a04ea8">
+        <van-tag plain size="large" type="primary" class="_van-tag data-v-71a04ea8">{{x.Name}} ￥{{x.Price}}元</van-tag>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 block">
+      <view class="_view data-v-71a04ea8 block_title">购前需知</view>
+      <view class="_view data-v-71a04ea8 block_content">
+        <view class="_view data-v-71a04ea8 doc">{{currentItem.NoticeText}}</view>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 block">
+      <view class="_view data-v-71a04ea8 block_title">跟团说明</view>
+      <view class="_view data-v-71a04ea8 block_content">
+        <view class="_view data-v-71a04ea8 doc">
+          <view wx:if="{{my_partner.weixin}}" style="color:red;font-weight:700;margin:5px;" class="_strong data-v-71a04ea8">点击团长头像可以复制团长微信号</view> 此商品在拼团期间可接收订单，如若超过拼团时间则不能下单；未付款订单系统一小时内将自动取消，所以，亲下单以后请尽快付款。 我们会以实际订单为准为您发货。请您放心购买!
+        </view>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 block" wx:if="{{currentItem.Shop}}">
+      <view class="_view data-v-71a04ea8 block_title">供货商家</view>
+      <view class="_view data-v-71a04ea8 block_content">
+        <view class="_view data-v-71a04ea8 doc flex-r-ac">
+          <view class="_div data-v-71a04ea8">
+            <image class="_img data-v-71a04ea8 img-circle thumb64" src="{{currentItem.Shop.LogoImageUrl+'!w100h100'}}"></image>
+          </view>
+          <view class="_div data-v-71a04ea8 flex-c px-lg">
+            <view class="_p data-v-71a04ea8 title">{{currentItem.Shop.ShopName}}</view>
+            <view class="_p data-v-71a04ea8">地址:{{currentItem.Shop.ShopAddress}}</view>
+            <view class="_p data-v-71a04ea8">电话:{{currentItem.Shop.ShopKeFuTel}}</view>
+            <view class="_p data-v-71a04ea8">
+              <van-button size="small" type="primary" catchtap="handleProxy" data-eventid="{{'3'}}" data-comkey="{{$k}}" class="_van-button data-v-71a04ea8">申请成为Ta的团长</van-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="_view data-v-71a04ea8 spacing"></view>
+    <view class="_view data-v-71a04ea8 block">
+      <view class="_view data-v-71a04ea8 block_title">商品详情</view>
+      <view class="_view data-v-71a04ea8 block_content"></view>
+    </view>
+    <view class="_view data-v-71a04ea8 htmlContent">
+      <wxparser rich-text="{{currentItem.Desc}}" class="_wxparser data-v-71a04ea8"></wxparser>
+    </view>
+    <view style="height:5vh;" class="_div data-v-71a04ea8"></view>
+    <view class="_view data-v-71a04ea8 spacing"></view>
+    <van-goods-action class="_van-goods-action data-v-71a04ea8">
+      <van-goods-action-icon icon="home-o" text="返回" bindtap="handleProxy" data-eventid="{{'4'}}" data-comkey="{{$k}}" class="_van-goods-action-icon data-v-71a04ea8"></van-goods-action-icon>
+      <van-goods-action-icon icon="chat-o" text="客服" open-type="contact" class="_van-goods-action-icon data-v-71a04ea8"></van-goods-action-icon>
+      <van-goods-action-button type="primary" text="立即购买" bindtap="handleProxy" data-eventid="{{'5'}}" data-comkey="{{$k}}" class="_van-goods-action-button data-v-71a04ea8"></van-goods-action-button>
+    </van-goods-action>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-71a04ea8"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-71a04ea8"></van-toast>
+    <van-popup show="{{modalShow}}" bindclick-overlay="handleProxy" data-eventid="{{'8'}}" data-comkey="{{$k}}" class="_van-popup data-v-71a04ea8"><canvas hidden="{{!(modalShow)}}" canvas-id="shareCanvas" style="width:700rpx;height:1000rpx;" class="_canvas data-v-71a04ea8"></canvas>
+      <view hidden="{{!(modalShow)}}" style="margin:10px auto;text-align:center;" class="_div data-v-71a04ea8">
+        <van-button type="primary" catchtap="handleProxy" style="margin:5px;" data-eventid="{{'6'}}" data-comkey="{{$k}}" class="_van-button data-v-71a04ea8">保存到相册</van-button>
+        <van-button type="primary" style="margin:5px;" catchtap="handleProxy" data-eventid="{{'7'}}" data-comkey="{{$k}}" class="_van-button data-v-71a04ea8">关 闭</van-button>
+      </view>
+    </van-popup>
+  </view>
+</template>

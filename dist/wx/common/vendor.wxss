@@ -1,0 +1,49 @@
+
+.pic-upload {
+  padding: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pic-upload .upload-btn {
+  border: 2rpx dashed #ddd;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20rpx;
+}
+.pic-upload .upload-add {
+  font-size: 80rpx;
+  font-weight: 500;
+  color: #c9c9c9;
+}
+.box {
+  position: relative;
+}
+.box .box__close {
+  position: absolute;
+  left: -16rpx;
+  top: -16rpx;
+  width: 45rpx;
+  height: 45rpx;
+  border-radius: 50%;
+}
+.img {
+  margin: 10rpx 30rpx 10rpx 0;
+}
+.tags {
+  display: flex;
+  flex-direction: column;
+}
+.tags .price {
+  color: #ff4136;
+  font-size: 32rpx;
+}
+.van-card__title {
+  font-size: 32rpx;
+}
+.order_info ._div {
+  margin-bottom: 30rpx;
+}

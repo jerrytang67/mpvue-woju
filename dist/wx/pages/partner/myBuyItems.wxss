@@ -1,0 +1,8 @@
+@import "../../common/vendor.wxss";
+
+van-badge .van-badge {
+  width: 25vw;
+}
+.btn {
+  margin-top: 10rpx;
+}

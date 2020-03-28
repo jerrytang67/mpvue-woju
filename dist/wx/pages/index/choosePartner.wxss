@@ -1,0 +1,17 @@
+@import "../../common/vendor.wxss";
+
+.card-list.data-v-4fe16f20 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  margin: 15rpx 20rpx;
+}
+view.van-card__desc.data-v-4fe16f20,
+view.van-card__desc.data-v-4fe16f20 {
+  font-weight: bold;
+  font-size: 20rpx;
+}
+.van-card__img.data-v-4fe16f20 {
+  border-radius: 50%;
+}

@@ -1,0 +1,7 @@
+<template name="151c5576">
+  <view class="_div data-v-43857a50">
+    <view style="margin-top:40vh;" class="_view data-v-43857a50"><button type="primary" open-type="getUserInfo" bindgetuserinfo="handleProxy" bindtap="handleProxy" data-eventid="{{'0'}}" data-comkey="{{$k}}" class="_button data-v-43857a50">授权登录</button></view>
+    <van-dialog id="van-dialog" class="_van-dialog data-v-43857a50"></van-dialog>
+    <van-toast id="van-toast" class="_van-toast data-v-43857a50"></van-toast>
+  </view>
+</template>
