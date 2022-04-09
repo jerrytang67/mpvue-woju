@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.5",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "mpvue": "^2.0.5",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
